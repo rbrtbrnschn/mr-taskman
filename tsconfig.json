@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "es6",                          
     "module": "commonjs",                     
-    "lib": ["es6"],    
+    "lib": ["es6"],
+    "strictNullChecks": false,
     "allowJs": true,                       
     "checkJs": true,                       
     "outDir": "build",                        
