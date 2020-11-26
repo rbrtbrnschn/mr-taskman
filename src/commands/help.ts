@@ -32,8 +32,9 @@ export = {
             });
 
             const start = page * perPage - perPage;
-            const end = page * perPage;
-            embed.fields.splice(start - 1, -end);
+            const end = (page * perPage);
+            console.log(start, end);
+            embed.fields.splice(start, end);
         }
         // Command Specific Information
         else {
