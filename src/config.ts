@@ -39,7 +39,19 @@ const channelMessages = [
     "This town ain't big enough for the both of us.",
     "Need I repeat my self? Lose it.",
     "I wont ask you again, leave now.",
-    "If you want you can always browser the web for cute kittens.",
+    "If you want you can always browse the web for cute kittens.",
+    "Damn it man! This does not work here."
+];
+const argsMessages = [
+    "Turns out someone did not read the docs. Read the docs.",
+    "You know I proved *usage* sytax. May want to check that out.",
+    "No.",
+    "Come on, why make my life harder.",
+    "Happy bot, happy life. Angry bot, well happy life.",
+    "Your given arguments could be more precise, you know.",
+    "I mean I don't see if you provided arguments, but I really wish they were correct.",
+    "You know, your arguments aren't what I wished they'd be.",
+    "How about you ask reddit for help.",
 ];
 
 const config = {
@@ -57,10 +69,11 @@ const config = {
         cooldown: (): string => cooldownMessages[Math.floor(Math.random() * cooldownMessages.length)],
         permission: (): string => permissionMessages[Math.floor(Math.random() * permissionMessages.length)],
         channel: (): string => channelMessages[Math.floor(Math.random() * channelMessages.length)],
+        args: (): string => argsMessages[Math.floor(Math.random() * argsMessages.length)],
     },
     colors: {
         primary: 0xFBDB48,
-        seconday: 0x296d98
+        secondary: 0x296d98
     }
 };
 

@@ -9,11 +9,9 @@ export = {
     cooldown: 5,
     aliases: ["welp"],
     execute: function (message: Discord.Message, args: Array<string>): void {
+        const isSpecific = args.length ? true : false;
         const perPage = 5;
         const page = !isNaN(parseInt(args[0], 10)) ? parseInt(args[0]) : 1;
-        // Get SubMethod
-        const isSpecific = args.length ? true : false;
-        const isPage = args.length === 1 && !isNaN(page);
 
         // List General Information
         const embed = new Discord.MessageEmbed();
@@ -25,11 +23,17 @@ export = {
             embed.setTitle("List of available commands");
             embed.setAuthor(`${prefix}${this.name}`);
 
+
             // Add Commands
             manager.commands.forEach((cmd) => {
                 const { name, description } = cmd;
+                if (cmd.category && cmd.category.length) return;
                 embed.addField(`> ${name}`, description);
             });
+
+            const start = page * perPage - perPage;
+            const end = page * perPage;
+            embed.fields.splice(start - 1, -end);
         }
         // Command Specific Information
         else {
@@ -39,13 +43,16 @@ export = {
 
             embed.setTitle(`${cmd.name}-specific information`);
             embed.setAuthor(`${prefix}${cmd.name}`);
+            embed.setColor(colors.secondary);
+
 
             if (cmd.subcommand && cmd.subcommand.length) {
+                embed.setColor(colors.primary);
                 const subcmds = manager.commands.filter((subcmd) => subcmd.category === cmd.subcommand);
                 embed.addField("> Subcommands:", "\u200b");
                 subcmds.forEach((subcmd): void => {
                     const { name, description, usage } = subcmd;
-                    embed.addField(`> ${name}`, `Description: ${description}\nUsage: ${prefix}${subcmd.name} ${usage}`);
+                    embed.addField(`> ${prefix}${cmd.subcommand} ${name}`, `**Description**: ${description}\n**Usage**: ${prefix}${cmd.subcommand} ${subcmd.name} ${usage}`);
                 });
             }
             else {

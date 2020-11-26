@@ -20,7 +20,7 @@ function validate(message: Discord.Message, command: Command, argsArray: Array<s
 
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
-            message.reply(`${messages.cooldown()}\nPlease wait ${timeLeft.toFixed(2)} more second(s)`);
+            message.reply(`${messages.cooldown()}\nI need ${timeLeft.toFixed(2)} more second(s) to prepare.`);
             return;
         }
     }
