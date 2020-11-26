@@ -12,7 +12,7 @@ const cooldownMessages = [
     "Let me get my hearing aid, I can't read without anymore.",
     "Let's play a game, okay? You wait and I'll just take a quick break.",
     "Do you smell that? That is my cpu melting...",
-    "Go easy on me, would ya."
+    "Go easy on me, would ya.",
 ];
 const permissionMessages = [
     "Are you even old enough to do this?",
@@ -21,7 +21,12 @@ const permissionMessages = [
     "How about this. No.",
     "Cherry pies have always been my favourite. Life ain't fair.",
     "In the famous words of Simon Cowell ~ 'It's a no from me'",
-    // TODO expand
+    "I can't let you do that.",
+    "I say this from the bottom of my heart. No.",
+    "I will get arrested if I let you go through with this.",
+    "If you don't want to go to prison, you better stop now.",
+    "I am calling the cops. *Beep Beep* *Beep* *Boop*",
+    "Do you mind waiting here, the cops will be here in 5.",
 ];
 const channelMessages = [
     "You know you're not supposed to be in here.",
@@ -31,7 +36,10 @@ const channelMessages = [
     "Do you ever wonder, 'What am I doing here?'. Well I am.",
     "Get outta here.",
     "Don't let the door hit you on your way out.",
-    "This town ain't big enough for the both of us."
+    "This town ain't big enough for the both of us.",
+    "Need I repeat my self? Lose it.",
+    "I wont ask you again, leave now.",
+    "If you want you can always browser the web for cute kittens.",
 ];
 
 const config = {
@@ -46,9 +54,9 @@ const config = {
         version: "2.0.0"
     },
     messages: {
-        cooldown: () => cooldownMessages[Math.floor(Math.random() * cooldownMessages.length)],
-        permission: () => permissionMessages[Math.floor(Math.random() * permissionMessages.length)],
-        channel: () => channelMessages[Math.floor(Math.random() * channelMessages.length)],
+        cooldown: (): string => cooldownMessages[Math.floor(Math.random() * cooldownMessages.length)],
+        permission: (): string => permissionMessages[Math.floor(Math.random() * permissionMessages.length)],
+        channel: (): string => channelMessages[Math.floor(Math.random() * channelMessages.length)],
     }
 };
 
