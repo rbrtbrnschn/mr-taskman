@@ -1,15 +1,20 @@
-import Discord from "discord.js";
 import dotenv from "dotenv";
-import { onReady, onMessage, onGuildCreate, onGuildDelete } from "./events/index";
 dotenv.config();
+import { onReady, onMessage, onGuildCreate, onGuildDelete } from "./events/index";
+import propegate from "./common/propegate";
+import DiscordManager from "./interfaces/manager";
 
-const client = new Discord.Client();
-export { client };
+const manager = new DiscordManager();
+propegate();
 
+
+const { client } = manager;
 client.on("ready", onReady);
 client.on("message", onMessage);
 client.on("guildCreate", onGuildCreate);
 client.on("guildDelete", onGuildDelete);
 
 client.login(process.env.DISCORD_BOT_TOKEN);
+export { manager };
+
 
