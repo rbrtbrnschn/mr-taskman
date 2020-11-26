@@ -10,6 +10,8 @@ interface Command {
     permissions?: string,
     args?: boolean,
     cooldown?: number,
+    subcommand?: string,
+    category?: string,
 }
 
 export default Command;

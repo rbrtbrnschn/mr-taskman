@@ -57,6 +57,10 @@ const config = {
         cooldown: (): string => cooldownMessages[Math.floor(Math.random() * cooldownMessages.length)],
         permission: (): string => permissionMessages[Math.floor(Math.random() * permissionMessages.length)],
         channel: (): string => channelMessages[Math.floor(Math.random() * channelMessages.length)],
+    },
+    colors: {
+        primary: 0xFBDB48,
+        seconday: 0x296d98
     }
 };
 

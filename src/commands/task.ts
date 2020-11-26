@@ -7,6 +7,7 @@ export = {
     usage: "<commands name>",
     guildOnly: true,
     permissions: "admin",
+    subcommand: "task",
     aliases: ["t"],
     execute: function (message: Discord.Message): void {
         message.react(reactions.good);
