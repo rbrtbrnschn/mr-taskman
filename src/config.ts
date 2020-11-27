@@ -75,7 +75,8 @@ const errorMessages = [
     "It seams, I am dieing. Not to scare you but the binary cancer has spread into my index.js.",
     "You may not like this, but I simply can't help you right now.",
     "I $@€¼³€$ wor$@³] Call $/)= MEOW, for $!+ __ god.",
-    "We here at one of digitalocean's remote sites, are experiecing some technical difficulties."
+    "We here at one of digitalocean's remote sites, are experiecing some technical difficulties.",
+    "This is not how the fish eats it's food."
 ];
 const todoMessages = [
     "Turns out my parent's did not come this far in regards to my education.",
