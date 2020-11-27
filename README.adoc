@@ -1,9 +1,6 @@
-
 == Mr. Taskman
 
 Discord bot aiming at superseeding project management functionality of high end project managers like *Trello*.
-
-=== Open Source Project
 
 image:https://img.shields.io/github/license/rbrtbrnschn/mr-taskman[liscense, link=https://github.com/rbrtbrnshcn/mr-taskman/blob/slave/LICENSE]
 image:https://img.shields.io/github/release/rbrtbrnshcn/mr-taskman[release, link=https://GitHub.com/rbrtbrnschn/mr-taskman/releases/]
@@ -12,6 +9,8 @@ image:https://img.shields.io/github/issues/rbrtbrnschn/mr-taskman.svg[issues ope
 image:https://img.shields.io/github/issues-closed/rbrtbrnschn/mr-taskman[issues closed, link=https://GitHub.com/Naereen/StrapDown.js/issues?q=is%3Aissue+is%3Aclosed]
 image:https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square[PRs Welcome, link=http://makeapullrequest.com]
 image:https://img.shields.io/discord/781046343476576258.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2[Discord, link=https://discord.gg/qhHjuqgJ6Y]
+
+=== Open Source Project
 
 *Feel free* to to make pull request *for everything you see fit*. You can always look which issues are open and work on that. If you have any ideas, feel free to open a new issue, and/or code it yourself and send the pull request.
 
@@ -33,7 +32,7 @@ And voila, your code may just be implemented into the production build.
 5. rename .env.sample to `.env`
 6. propegate .env file with your tokens, secrets and keys.footnote:env[Tokens can be aquired on creating your own application & bot at https://discord.com/developers[discord.com/developers]]
 
-===== .env structure
+=== .env structure
 DISCORD_CLIENT_ID=>footnote:env[]
 
 DISCORD_CLIENT_SECRET=>footnote:env[]
@@ -42,4 +41,14 @@ DISCORD_BOT_TOKEN=>footnote:env[]
 
 PATH2COMMANDS=<absolute path to thisProject/src/commands>
 
+=== FAQ
+
+- *Q*: Why do I need my own discord application and bot? +
+*A*: Solely for developer purposes, once you send the pull request and it gets merged, it will be using the .env at my production server. 
+- *Q*: Do you accept all pull request? +
+*A*: If you think your added feature is useful, we are most likely to merge it, yes.
+- *Q*: I run into problems on installing, what went wrong? +
+*A*: Feel free to checkout our https://discord.gg/qhHjuqgJ6Y[*Javascript Discord*], if you need any help.
+- *Q*: Can I give input on what frameworks are being used? +
+*A*: Sure, we appreciate any valuable input, be that framework suggestions, help with datastructures and the like.
 
