@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { onReady, onMessage, onGuildCreate, onGuildDelete } from "./events/index";
 import propegate from "./common/propegate";
-import DiscordManager from "./interfaces/manager";
+import DiscordManager from "./interfaces/Manager";
 
 const manager = new DiscordManager();
 propegate();

@@ -9,6 +9,7 @@ export = {
     guildOnly: false,
     aliases: ["g"],
     execute: function (message: Discord.Message): void {
+        // TODO Do not reroute through onMessage due to cooldowns
         // Get Arguments
         const args = message.content.slice(prefix.length).trim().split(/ +/);
         message.content = `${prefix}${args.join(" ")}`;
