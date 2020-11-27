@@ -81,8 +81,9 @@ const todoMessages = [
     "Turns out my parent's did not come this far in regards to my education.",
     "Who knew. I did not. Can't help you out yet.",
     "Come back some time in the near future.",
-    "It turns out, I am not yet experienced  to do this.",
-    "Well, this is awkward. I do not know how to handle this situation."
+    "It turns out, I am not yet experienced enough to do this.",
+    "Well, this is awkward. I do not know how to handle this situation.",
+    "I will tell my neural net to get right on it."
 ];
 
 const config = {
