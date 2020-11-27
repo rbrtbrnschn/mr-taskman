@@ -1,5 +1,6 @@
 import Discord from "discord.js";
-import { reactions } from "../config";
+import { prefix } from "../config";
+import onMessage from "../events/onMessage";
 
 export = {
     name: "guild",
@@ -8,6 +9,9 @@ export = {
     guildOnly: false,
     aliases: ["g"],
     execute: function (message: Discord.Message): void {
-        message.react(reactions.good);
+        // Get Arguments
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
+        message.content = `${prefix}${args.join(" ")}`;
+        onMessage(message);
     },
 };
