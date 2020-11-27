@@ -31,6 +31,15 @@ And voila, your code may just be implemented into the production build.
 3. open terminal and navigate to the cloned project
 4. npm install
 5. rename .env.sample to `.env`
-6. propegate .env file with your tokens, secrets and keys
+6. propegate .env file with your tokens, secrets and keys.footnote:env[Tokens can be aquired on creating your own application & bot at https://discord.com/developers[discord.com/developers]]
+
+===== .env structure
+DISCORD_CLIENT_ID=>footnote:env[]
+
+DISCORD_CLIENT_SECRET=>footnote:env[]
+
+DISCORD_BOT_TOKEN=>footnote:env[]
+
+PATH2COMMANDS=<absolute path to thisProject/src/commands>
 
 
