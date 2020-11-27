@@ -3,28 +3,30 @@ import Command from "../interfaces/command";
 import { manager } from "../index";
 import { messages } from "../config";
 
-function validate(message: Discord.Message, command: Command, argsArray: Array<string>): boolean {
+function validate(message: Discord.Message, command: Command, argsArray: Array<string>, { blacklist = [] }: Record<string, any> = {}): boolean {
     const { args, guildOnly, permissions } = command;
 
     // Cooldowns
-    const { cooldowns } = manager;
-    if (!cooldowns.has(command.name)) {
-        cooldowns.set(command.name, new Discord.Collection());
-    }
-    const now = Date.now();
-    const timestamps = cooldowns.get(command.name);
-    const cooldownAmount = (command.cooldown || 3) * 1000;
-
-    if (timestamps.has(message.author.id)) {
-        const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-        if (now < expirationTime) {
-            const timeLeft = (expirationTime - now) / 1000;
-            message.reply(`${messages.cooldown()}\nI need ${timeLeft.toFixed(2)} more second(s) to prepare.`);
-            return;
+    if (!blacklist.includes("cooldown")) {
+        const { cooldowns } = manager;
+        if (!cooldowns.has(command.name)) {
+            cooldowns.set(command.name, new Discord.Collection());
         }
+        const now = Date.now();
+        const timestamps = cooldowns.get(command.name);
+        const cooldownAmount = (command.cooldown || 3) * 1000;
+
+        if (timestamps.has(message.author.id)) {
+            const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+            if (now < expirationTime) {
+                const timeLeft = (expirationTime - now) / 1000;
+                message.reply(`${messages.cooldown()}\nI need ${timeLeft.toFixed(2)} more second(s) to prepare.`);
+                return;
+            }
+        }
+        timestamps.set(message.author.id, now);
     }
-    timestamps.set(message.author.id, now);
 
     // Validate Given Args, Channel Type & Permission
     let replyMessage = "";

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { Message } from "discord.js";
 import { manager } from "../index";
 import { prefix, messages } from "../config";
@@ -15,9 +16,20 @@ export = function (message: Message): void {
     const command = commands.get(first) || commands.find((cmd: Command) => cmd.aliases?.includes(first));
     if (!command) { message.reply(messages.command()); return; }
 
+    const blacklist = [];
+    switch (first) {
+        case "task":
+            blacklist.push("cooldown");
+            break;
+        case "guild":
+            blacklist.push("cooldown");
+            break;
+        default:
+            break;
+    }
     // Execute
     try {
-        const isAllowed = validate(message, command, args);
+        const isAllowed = validate(message, command, args, { blacklist });
         if (isAllowed) command.execute(message, args);
     }
     catch (err) {
