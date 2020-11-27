@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { manager } from "../index";
-import { prefix, reactions } from "../config";
+import { prefix, reactions, messages } from "../config";
 import validate from "../common/validate";
 import Command from "../interfaces/command";
 
@@ -13,7 +13,7 @@ export default function (message: Message): void {
     // Get Command
     const { commands } = manager;
     const command = commands.get(first) || commands.find((cmd: Command) => cmd.aliases?.includes(first));
-    if (!command) { message.react(reactions.bad); return; }
+    if (!command) { message.reply(messages.command()); return; }
 
     // Execute
     try {
