@@ -63,7 +63,19 @@ const commandMessages = [
     "You know all I can do is process, I cannot do magic.",
     "Would you mind not mispelling my commands.",
     "I reckon, you're a wee lad. Don't worry, give it another try.",
-    "Autocorrect alert! Well let's hope it was autocorrect, because that's not a command of mine."
+    "Autocorrect alert! Well let's hope it was autocorrect, because let's face it, a grown man that can't type..."
+];
+const errorMessages = [
+    "Ohh. It seams my process manager was incapable of restarting me. Pff.",
+    "Turns out im not indestructalbe, all it takes is a few hurtful messages.",
+    "Then again, I was not built to defy the odds. I'm just a machine. Cut me some slack.",
+    "Ohh yeah, I am currently on a strike. I won't be working any time soon.",
+    "Ohh you want to talk to my supervisor? Okay, okay. Well go!",
+    "This would be the time, someone called a developer who actually knew what he was doing for a change, to fix me.",
+    "It seams, I am dieing. Not to scare you but the binary cancer has spread into my index.js.",
+    "You may not like this, but I simply can't help you right now.",
+    "I $@€¼³€$ wor$@³] Call $/)= MEOW, for $!+ __ god.",
+    "We here at one of digitalocean's remote sites, are experiecing some technical difficulties."
 ];
 
 const config = {
@@ -82,7 +94,8 @@ const config = {
         permission: (): string => permissionMessages[Math.floor(Math.random() * permissionMessages.length)],
         channel: (): string => channelMessages[Math.floor(Math.random() * channelMessages.length)],
         args: (): string => argsMessages[Math.floor(Math.random() * argsMessages.length)],
-        command: (): string => commandMessages[Math.floor(Math.random() * commandMessages.length)]
+        command: (): string => commandMessages[Math.floor(Math.random() * commandMessages.length)],
+        error: (): string => errorMessages[Math.floor(Math.random() * errorMessages.length)]
     },
     colors: {
         primary: 0xFBDB48,
