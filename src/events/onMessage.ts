@@ -22,6 +22,6 @@ export default function (message: Message): void {
     }
     catch (err) {
         console.log(err);
-        message.react(reactions.bad); //TODO
+        message.reply(messages.error());
     }
 }

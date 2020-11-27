@@ -67,7 +67,7 @@ const commandMessages = [
 ];
 const errorMessages = [
     "Ohh. It seams my process manager was incapable of restarting me. Pff.",
-    "Turns out im not indestructalbe, all it takes is a few hurtful messages.",
+    "Turns out im not indestructable, all it takes is a few hurtful messages.",
     "Then again, I was not built to defy the odds. I'm just a machine. Cut me some slack.",
     "Ohh yeah, I am currently on a strike. I won't be working any time soon.",
     "Ohh you want to talk to my supervisor? Okay, okay. Well go!",
