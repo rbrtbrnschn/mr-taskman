@@ -1,5 +1,5 @@
-import Discord = require("discord.js");
-
+import Discord from "discord.js";
+import { messages } from "../../config";
 export = {
     name: "create",
     description: "creates task",
@@ -8,6 +8,6 @@ export = {
     guildOnly: true,
     category: "task",
     execute: function (message: Discord.Message, args: Array<string>): void {
-        console.log("hi");
+        message.reply(messages.todo());
     }
 };

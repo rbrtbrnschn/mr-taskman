@@ -77,6 +77,13 @@ const errorMessages = [
     "I $@€¼³€$ wor$@³] Call $/)= MEOW, for $!+ __ god.",
     "We here at one of digitalocean's remote sites, are experiecing some technical difficulties."
 ];
+const todoMessages = [
+    "Turns out my parent's did not come this far in regards to my education.",
+    "Who knew. I did not. Can't help you out yet.",
+    "Come back some time in the near future.",
+    "It turns out, I am not yet experienced  to do this.",
+    "Well, this is awkward. I do not know how to handle this situation."
+];
 
 const config = {
     prefix: "/",
@@ -95,7 +102,8 @@ const config = {
         channel: (): string => channelMessages[Math.floor(Math.random() * channelMessages.length)],
         args: (): string => argsMessages[Math.floor(Math.random() * argsMessages.length)],
         command: (): string => commandMessages[Math.floor(Math.random() * commandMessages.length)],
-        error: (): string => errorMessages[Math.floor(Math.random() * errorMessages.length)]
+        error: (): string => errorMessages[Math.floor(Math.random() * errorMessages.length)],
+        todo: (): string => todoMessages[Math.floor(Math.random() * todoMessages.length)],
     },
     colors: {
         primary: 0xFBDB48,
