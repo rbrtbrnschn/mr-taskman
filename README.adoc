@@ -1,0 +1,36 @@
+
+== Mr. Taskman
+
+Discord bot aiming at superseeding project management functionality of high end project managers like *Trello*.
+
+=== Open Source Project
+
+image:https://img.shields.io/github/license/rbrtbrnschn/mr-taskman[liscense, link=https://github.com/rbrtbrnshcn/mr-taskman/blob/slave/LICENSE]
+image:https://img.shields.io/github/release/rbrtbrnshcn/mr-taskman[release, link=https://GitHub.com/rbrtbrnschn/mr-taskman/releases/]
+image:https://img.shields.io/github/commits-since/rbrtbrnschn/mr-taskman/v1.0.0.svg[commits, link=https://GitHub.com/rbrtbrnschn/mr-taskman/commit/]
+image:https://img.shields.io/github/issues/rbrtbrnschn/mr-taskman.svg[issues open, link=https://GitHub.com/Naereen/StrapDown.js/issues/]
+image:https://img.shields.io/github/issues-closed/rbrtbrnschn/mr-taskman[issues closed, link=https://GitHub.com/Naereen/StrapDown.js/issues?q=is%3Aissue+is%3Aclosed]
+image:https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square[PRs Welcome, link=http://makeapullrequest.com]
+image:https://img.shields.io/discord/781046343476576258.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2[Discord, link=https://discord.gg/qhHjuqgJ6Y]
+
+*Feel free* to to make pull request *for everything you see fit*. You can always look which issues are open and work on that. If you have any ideas, feel free to open a new issue, and/or code it yourself and send the pull request.
+
+It's simple. If you feel, the bot needs more awesome error messages, feel free to
+
+1. fork the project and clone it to your harddrive
+2. open and edit (ie. src/config.ts and add more error messages)
+3. add, commit and push
+4. send a pull request
+
+And voila, your code may just be implemented into the production build.
+
+=== Install
+
+1. fork the project
+2. clone the project
+3. open terminal and navigate to the cloned project
+4. npm install
+5. rename .env.sample to `.env`
+6. propegate .env file with your tokens, secrets and keys
+
+
