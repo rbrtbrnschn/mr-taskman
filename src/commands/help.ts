@@ -9,13 +9,13 @@ export = {
     cooldown: 5,
     aliases: ["welp"],
     execute: function (message: Discord.Message, args: Array<string>): void {
-        const isSpecific = args.length ? true : false;
+        const isSpecific = args.length && isNaN(parseInt(args.join(""))) ? true : false;
         const perPage = 5;
         const page = !isNaN(parseInt(args[0], 10)) ? parseInt(args[0]) : 1;
 
         // List General Information
         const embed = new Discord.MessageEmbed();
-        embed.setFooter(`${bot.name} ~ V${bot.version} ~ Page ${page}`);
+        embed.setFooter(`${bot.name} ~ V${bot.version}`);
         embed.setColor(colors.primary);
 
         // General Help
@@ -32,9 +32,12 @@ export = {
             });
 
             const start = page * perPage - perPage;
-            const end = (page * perPage);
-            console.log(start, end);
-            embed.fields.splice(start, end);
+            const end = (page * perPage) <= embed.fields.length ? (page * perPage) : embed.fields.length;
+            const totalPages = Math.floor(embed.fields.length / perPage) + 1;
+
+            embed.fields = [...embed.fields.slice(start, end)];
+            embed.setFooter(`${bot.name} ~ V${bot.version} ~ Page ${page}/${totalPages}`);
+
         }
         // Command Specific Information
         else {

@@ -1,4 +1,4 @@
-import Discord from "discord.js";
+import Discord = require("discord.js");
 
 export = {
     name: "create",
