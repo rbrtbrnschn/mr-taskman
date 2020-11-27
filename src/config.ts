@@ -83,7 +83,8 @@ const todoMessages = [
     "Come back some time in the near future.",
     "It turns out, I am not yet experienced enough to do this.",
     "Well, this is awkward. I do not know how to handle this situation.",
-    "I will tell my neural net to get right on it."
+    "I will tell my neural net to get right on it.",
+    "It seams my folks forgot to work on that.",
 ];
 
 const config = {
