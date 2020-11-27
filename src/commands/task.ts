@@ -1,5 +1,6 @@
 import Discord from "discord.js";
-import { reactions } from "../config";
+import { reactions, prefix } from "../config";
+import onMessage from "../events/onMessage";
 
 export = {
     name: "task",
@@ -9,6 +10,9 @@ export = {
     subcommand: "task",
     aliases: ["t"],
     execute: function (message: Discord.Message): void {
-        message.react(reactions.good);
+        // Get Arguments
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
+        message.content = `${prefix}${args.join(" ")}`;
+        onMessage(message);
     },
 };

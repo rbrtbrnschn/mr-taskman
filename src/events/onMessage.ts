@@ -1,10 +1,10 @@
 import { Message } from "discord.js";
 import { manager } from "../index";
-import { prefix, reactions, messages } from "../config";
+import { prefix, messages } from "../config";
 import validate from "../common/validate";
 import Command from "../interfaces/command";
 
-export default function (message: Message): void {
+export = function (message: Message): void {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
     // Get Arguments
     const args = message.content.slice(prefix.length).trim().split(/ +/);
