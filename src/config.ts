@@ -53,6 +53,18 @@ const argsMessages = [
     "You know, your arguments aren't what I wished they'd be.",
     "How about you ask reddit for help.",
 ];
+const commandMessages = [
+    "Need I remind you, that's not the right way to go about this.",
+    "So, that's not my command name. I really don't like it when you do that.",
+    "Are you alright? It seams you have not tried my `help`.",
+    "You know that's not quite right. May want to try again.",
+    "In all my days as a non-biological lifeform, I have never seen that before.",
+    "Am I supposed to know what you mean by this?",
+    "You know all I can do is process, I cannot do magic.",
+    "Would you mind not mispelling my commands.",
+    "I reckon, you're a wee lad. Don't worry, give it another try.",
+    "Autocorrect alert! Well let's hope it was autocorrect, because that's not a command of mine."
+];
 
 const config = {
     prefix: "/",
@@ -70,6 +82,7 @@ const config = {
         permission: (): string => permissionMessages[Math.floor(Math.random() * permissionMessages.length)],
         channel: (): string => channelMessages[Math.floor(Math.random() * channelMessages.length)],
         args: (): string => argsMessages[Math.floor(Math.random() * argsMessages.length)],
+        command: (): string => commandMessages[Math.floor(Math.random() * commandMessages.length)]
     },
     colors: {
         primary: 0xFBDB48,

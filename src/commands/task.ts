@@ -6,7 +6,6 @@ export = {
     description: "Command Handler For Tasks On A Server",
     usage: "<commands name>",
     guildOnly: true,
-    permissions: "admin",
     subcommand: "task",
     aliases: ["t"],
     execute: function (message: Discord.Message): void {
