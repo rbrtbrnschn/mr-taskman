@@ -1,61 +1,11 @@
 // import Config from "./interfaces/Config";
 
 import messagesData from "./data/messages";
+import Config from "./interfaces/Config";
+import { ErrorKey } from "./interfaces/ErrorCodes";
 
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV == "production";
-
-export enum ErrorKey {
-    cooldown = "cooldown",
-    permission = "permission",
-    channel = "channel",
-    args = "args",
-    command = "command",
-    error = "error",
-    todo = "todo"
-}
-
-interface Bot {
-    name: string;
-    version: string;
-    isProd: boolean;
-    path2Commands: string;
-}
-
-type Color = number;
-
-interface Colors {
-    primary: Color;
-    secondary: Color;
-}
-
-interface Reactions {
-    good: string;
-    bad: string;
-    great: string;
-}
-
-interface ErrorCode {
-    code: string;
-    msg: string;
-}
-
-type ErrorCodes = {
-    [index in ErrorKey]: ErrorCode;
-}
-
-type MessageGenerator = () => string;
-
-interface Config {
-    prefix: string;
-    bot: Bot;
-    colors: Colors;
-    reactions: Reactions;
-    messages: Record<ErrorKey, MessageGenerator>;
-    errorCodes: ErrorCodes;
-    getErrorCode(key: ErrorKey): ErrorCode;
-    getErrorMessage(key: string): ErrorCode;
-}
 
 const createMessageGenerator = (key: ErrorKey): () => string => {
     const messageArray: string[] = messagesData[key];
