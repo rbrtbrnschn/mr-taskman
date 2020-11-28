@@ -69,7 +69,7 @@ const createMessageGenerator = (key: ErrorKey): () => string => {
 };
 
 const config: Config = {
-    prefix: "!",
+    prefix: isProd ? "/" : "!",
     bot: {
         name: "Mr.Taskman",
         version: "2.0.0",
