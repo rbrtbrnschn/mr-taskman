@@ -4,7 +4,7 @@ import messagesData from "./data/messages";
 
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV == "production";
-
+console.log(isProd, NODE_ENV);
 export enum ErrorKey {
     cooldown = "cooldown",
     permission = "permission",
@@ -74,7 +74,7 @@ const config: Config = {
         name: "Mr.Taskman",
         version: "2.0.0",
         isProd: isProd,
-        path2Commands: isProd ? process.env.PATH2COMMANDS_PROD : process.env.PATH2COMMANDS_PROD
+        path2Commands: isProd ? process.env.PATH2COMMANDS_PROD : process.env.PATH2COMMANDS_DEV
     },
     colors: {
         primary: 0xFBDB48,
