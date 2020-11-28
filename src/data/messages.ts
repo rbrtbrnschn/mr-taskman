@@ -1,4 +1,4 @@
-import { ErrorKey } from "../config";
+import { ErrorKey } from "../interfaces/ErrorCodes";
 
 const messages: { [index in ErrorKey]: string[] } = {
     cooldown: [

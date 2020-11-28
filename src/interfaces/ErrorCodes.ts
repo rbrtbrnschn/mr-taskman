@@ -1,7 +1,19 @@
-import CustomError from "./customError";
-
-interface ErrorCodes {
-    [index: string]: CustomError;
+enum ErrorKey {
+    cooldown = "cooldown",
+    permission = "permission",
+    channel = "channel",
+    args = "args",
+    command = "command",
+    error = "error",
+    todo = "todo"
+}
+interface ErrorCode {
+    code: string;
+    msg: string;
 }
 
-export = ErrorCodes
+type ErrorCodes = {
+    [index in ErrorKey]: ErrorCode;
+}
+
+export { ErrorCodes, ErrorKey, ErrorCode };
