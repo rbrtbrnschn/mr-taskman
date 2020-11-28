@@ -5,6 +5,7 @@ import messagesData from "./data/messages";
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV == "production";
 console.log(isProd, NODE_ENV);
+
 export enum ErrorKey {
     cooldown = "cooldown",
     permission = "permission",
@@ -104,7 +105,7 @@ const config: Config = {
         return this.errorCodes[key].msg;
     },
 };
-
+console.log("path2commands", config.bot.path2Commands);
 export default config;
 
 export const { prefix, bot, colors, reactions, messages, errorCodes } = config;
