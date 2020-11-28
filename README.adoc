@@ -4,7 +4,7 @@ Discord bot aiming at superseeding project management functionality of high end 
 
 image:https://img.shields.io/github/license/rbrtbrnschn/mr-taskman[liscense, link=https://github.com/rbrtbrnshcn/mr-taskman/blob/slave/LICENSE]
 image:https://img.shields.io/github/release/rbrtbrnshcn/mr-taskman[release, link=https://GitHub.com/rbrtbrnschn/mr-taskman/releases/]
-image:https://img.shields.io/github/commits-since/rbrtbrnschn/mr-taskman/v1.0.0.svg[commits, link=https://GitHub.com/rbrtbrnschn/mr-taskman/commit/]
+image:https://img.shields.io/github/commits-since/rbrtbrnschn/mr-taskman/v0.0.1.svg[commits, link=https://GitHub.com/rbrtbrnschn/mr-taskman/commit/]
 image:https://img.shields.io/github/issues/rbrtbrnschn/mr-taskman.svg[issues open, link=https://GitHub.com/Naereen/StrapDown.js/issues/]
 image:https://img.shields.io/github/issues-closed/rbrtbrnschn/mr-taskman[issues closed, link=https://GitHub.com/Naereen/StrapDown.js/issues?q=is%3Aissue+is%3Aclosed]
 image:https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square[PRs Welcome, link=http://makeapullrequest.com]
