@@ -4,9 +4,6 @@ import { onReady, onMessage, onGuildCreate, onGuildDelete } from "./events/index
 import propegate from "./common/propegate";
 import DiscordManager from "./interfaces/Manager";
 
-// TODO REMOVE
-console.log(process.env.NODE_ENV);
-
 const manager = new DiscordManager();
 propegate();
 
