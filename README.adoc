@@ -33,13 +33,17 @@ And voila, your code may just be implemented into the production build.
 6. propegate .env file with your tokens, secrets and keys.footnote:env[Tokens can be aquired on creating your own application & bot at https://discord.com/developers[discord.com/developers]]
 
 === .env structure
-DISCORD_CLIENT_ID=>footnote:env[]
+NODE_ENV=<devlopment || production>
 
-DISCORD_CLIENT_SECRET=>footnote:env[]
+DISCORD_CLIENT_ID=footnote:env[]
 
-DISCORD_BOT_TOKEN=>footnote:env[]
+DISCORD_CLIENT_SECRET=footnote:env[]
 
-PATH2COMMANDS=<absolute path to thisProject/src/commands>
+DISCORD_BOT_TOKEN=footnote:env[]
+
+PATH2COMMANDS_DEV=<absolute path to thisProject/src/commands>
+
+PATH2COMMANDS_PROD=<absolute path to thisProject/build/commands>
 
 === FAQ
 

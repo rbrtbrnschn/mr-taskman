@@ -2,8 +2,8 @@
 
 import messagesData from "./data/messages";
 
-const { NODE_ENV = "development" } = process.env;
-const isProd = NODE_ENV === "production" ? true : false;
+const { NODE_ENV } = process.env;
+const isProd = NODE_ENV == "production";
 
 export enum ErrorKey {
     cooldown = "cooldown",
@@ -74,7 +74,7 @@ const config: Config = {
         name: "Mr.Taskman",
         version: "2.0.0",
         isProd: isProd,
-        path2Commands: isProd ? "/home/norlin/dev/discord-bots/mr-taskman/current/build/commands" : "/home/norlin/dev/discord-bots/mr-taskman/src/commands"
+        path2Commands: isProd ? process.env.PATH2COMMANDS_PROD : process.env.PATH2COMMANDS_PROD
     },
     colors: {
         primary: 0xFBDB48,
