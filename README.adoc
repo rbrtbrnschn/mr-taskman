@@ -26,7 +26,7 @@ cd mr-taskman
 npm install
 mv .env.sample .env
 ```
-Don't forget to also propegate your .env file with everything it needs.ootnote:env[Tokens can be aquired on creating your own application & bot at https://discord.com/developers[discord.com/developers]]
+Don't forget to also propegate your .env file with everything it needs.footnote:env[Tokens can be aquired on creating your own application & bot at https://discord.com/developers[discord.com/developers]]
 
 === Usage
 
