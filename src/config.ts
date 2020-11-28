@@ -1,13 +1,16 @@
+import Config from "./interfaces/Config";
+
 // const { NODE_ENV = "development" } = process.env;
 // const isProd = NODE_ENV === "production" ? true : false;
+
 const errorCodes = {
-    cooldown: { code: "E00100", msg: "Cooldown is still active. Just wait a few" },
-    permission: { code: "E00200", msg: "You are not allowed to do this." },
-    channel: { code: "E00300", msg: "You are performing this in the wrong channel. Some commands I cannot perform in direct messages." },
-    args: { code: "E00400", msg: "You were missing the needed arguments for a command." },
-    command: { code: "E00500", msg: "You misspelled a command. It does not exist." },
-    error: { code: "E00600", msg: "The bot errored. The developer team has been notified." },
-    todo: { code: "E00700", msg: "This command is still a WIP." }
+    "cooldown": { code: "E00100", msg: "Cooldown is still active. Just wait a few minutes." },
+    "permission": { code: "E00200", msg: "You are not allowed to do this." },
+    "channel": { code: "E00300", msg: "You are performing this in the wrong channel. Some commands I cannot perform in direct messages." },
+    "args": { code: "E00400", msg: "You were missing the needed arguments for a command." },
+    "command": { code: "E00500", msg: "You misspelled a command. It does not exist." },
+    "error": { code: "E00600", msg: "The bot errored. The developer team has been notified." },
+    "todo": { code: "E00700", msg: "This command is still a WIP." }
 };
 const cooldownMessages = [
     "Well aren't you just a quick little fellow.",
@@ -105,16 +108,16 @@ const config = {
     },
     bot: {
         name: "Mr.Taskman",
-        version: "2.0.0"
+        version: "2.0.0",
     },
     messages: {
-        cooldown: (): string => `${cooldownMessages[Math.floor(Math.random() * cooldownMessages.length)]}\n \`${errorCodes.cooldown.code}\``,
-        permission: (): string => `${permissionMessages[Math.floor(Math.random() * permissionMessages.length)]}\n \`${errorCodes.permission.code}\``,
-        channel: (): string => `${channelMessages[Math.floor(Math.random() * channelMessages.length)]}\n \`${errorCodes.channel.code}\``,
-        args: (): string => `${argsMessages[Math.floor(Math.random() * argsMessages.length)]}\n \`${errorCodes.args.code}\``,
-        command: (): string => `${commandMessages[Math.floor(Math.random() * commandMessages.length)]}\n \`${errorCodes.command.code}\``,
-        error: (): string => `${errorMessages[Math.floor(Math.random() * errorMessages.length)]}\n \`${errorCodes.error.code}\``,
-        todo: (): string => `${todoMessages[Math.floor(Math.random() * todoMessages.length)]}\n \`${errorCodes.todo.code}\``,
+        cooldown: function (): string { return `${cooldownMessages[Math.floor(Math.random() * cooldownMessages.length)]}\n \`${errorCodes["cooldown"].code}\``; },
+        permission: function (): string { return `${permissionMessages[Math.floor(Math.random() * permissionMessages.length)]}\n \`${errorCodes["permission"].code}\``; },
+        channel: function (): string { return `${channelMessages[Math.floor(Math.random() * channelMessages.length)]}\n \`${errorCodes["channel"].code}\``; },
+        args: function (): string { return `${argsMessages[Math.floor(Math.random() * argsMessages.length)]}\n \`${errorCodes["args"].code}\``; },
+        command: function (): string { return `${commandMessages[Math.floor(Math.random() * commandMessages.length)]}\n \`${errorCodes["command"].code}\``; },
+        error: function (): string { return `${errorMessages[Math.floor(Math.random() * errorMessages.length)]}\n \`${errorCodes["error"].code}\``; },
+        todo: function (): string { return `${todoMessages[Math.floor(Math.random() * todoMessages.length)]}\n \`${errorCodes["todo"].code}\``; },
     },
     colors: {
         primary: 0xFBDB48,
