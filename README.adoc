@@ -1,6 +1,8 @@
 == Mr. Taskman
 
-Discord bot aiming at superseeding project management functionality of high end project managers like *Trello*.
+Mr-Taskman aims at rendering other *third-party* project management tools like **Trello** unnecessary.
+You have a **#board** channel, where all tasks are displayed.
+It will includes most basic functionallity like: *creating*, *editing*, *adding people*, *removing people*, *adding a deadline* and the like.
 
 image:https://img.shields.io/github/license/rbrtbrnschn/mr-taskman[liscense, link=https://github.com/rbrtbrnshcn/mr-taskman/blob/slave/LICENSE]
 image:https://img.shields.io/github/v/release/rbrtbrnschn/mr-taskman[release, link=https://GitHub.com/rbrtbrnschn/mr-taskman/releases/]
@@ -12,38 +14,61 @@ image:https://img.shields.io/discord/781046343476576258.svg?label=&logo=discord&
 
 === Open Source Project
 
-*Feel free* to to make pull request *for everything you see fit*. You can always look which issues are open and work on that. If you have any ideas, feel free to open a new issue, and/or code it yourself and send the pull request.
+*Feel free* to to make **pull request** *for everything you see fit*. You can always look which issues are open and work on that. If you have **any ideas**, feel free to open a new issue, and/or code it yourself and send the **pull request**.
 
-It's simple. If you feel, the bot needs more awesome error messages, feel free to
+It's simple. If you feel, the bot needs more awesome error messages, feel free to add some.
 
-1. fork the project and clone it to your harddrive
-2. open and edit (ie. src/config.ts and add more error messages)
-3. add, commit and push
-4. send a pull request
+=== Installation
 
-And voila, your code may just be implemented into the production build.
+```bash
+git clone https://github.com/rbrtbrnschn/mr-taskman
+cd mr-taskman
+npm install
+mv .env.sample .env
+```
+Don't forget to also propegate your .env file with everything it needs.ootnote:env[Tokens can be aquired on creating your own application & bot at https://discord.com/developers[discord.com/developers]]
 
-=== Install
+=== Usage
 
-1. fork the project
-2. clone the project
-3. open terminal and navigate to the cloned project
-4. npm install
-5. rename .env.sample to `.env`
-6. propegate .env file with your tokens, secrets and keys.footnote:env[Tokens can be aquired on creating your own application & bot at https://discord.com/developers[discord.com/developers]]
+```bash
+npm run start:dev
+```
+All other available scripts can be found at [](#scripts)
+
+=== Contributing
+
+**Pull requests are very welcome**. For *major changes*, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+1. **Fork** the project
+2. **Create a new branch** for the new-feature
+3. **Push** your new added and commited changes to the new-branch branch.
+4. **Send pull request**.
+
 
 === .env structure
-NODE_ENV=<devlopment || production>
 
-DISCORD_CLIENT_ID=footnote:env[]
+|===
+| KEY | VALUE
+| NODE_ENV | development \|\| production
+| DISCORD_CLIENT_ID | footnote:env[]
+| DISCORD_CLIENT_SECRET | footnote:env[]
+| DISCORD_BOT_TOKEN | footnote:env[]
+| PATH2COMMANDS_DEV | <absolute path to thisProject/src/commands>
+| PATH2COMMANDS_PROD | <absolute path to thisProject/src/commands>
+|===
 
-DISCORD_CLIENT_SECRET=footnote:env[]
-
-DISCORD_BOT_TOKEN=footnote:env[]
-
-PATH2COMMANDS_DEV=<absolute path to thisProject/src/commands>
-
-PATH2COMMANDS_PROD=<absolute path to thisProject/build/commands>
+=== Scripts
+```json
+{
+  "build": "transpiles typescript and outputs to ./build",
+  "start:dev": "runs ts-node via nodemon on ./src",
+  "start": "serves ./build files",
+  "lint": "runs eslint and watches .ts files",
+  "lint:fix": "fixes all fixable linter problems"
+}
+```
 
 === FAQ
 
@@ -55,4 +80,7 @@ PATH2COMMANDS_PROD=<absolute path to thisProject/build/commands>
 *A*: Feel free to checkout our https://discord.gg/qhHjuqgJ6Y[*Javascript Discord*], if you need any help.
 - *Q*: Can I give input on what frameworks are being used? +
 *A*: Sure, we appreciate any valuable input, be that framework suggestions, help with datastructures and the like.
+
+=== License
+https://choosealicense.com/licenses/mit/[MIT]
 
