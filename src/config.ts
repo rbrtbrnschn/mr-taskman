@@ -1,23 +1,25 @@
 // import Config from "./interfaces/Config";
 
-import messagesData from './data/messages';
+import messagesData from "./data/messages";
 
-// const { NODE_ENV = "development" } = process.env;
-// const isProd = NODE_ENV === "production" ? true : false;
+const { NODE_ENV = "development" } = process.env;
+const isProd = NODE_ENV === "production" ? true : false;
 
 export enum ErrorKey {
-    cooldown = 'cooldown',
-    permission = 'permission',
-    channel = 'channel',
-    args = 'args',
-    command = 'command',
-    error = 'error',
-    todo = 'todo'
+    cooldown = "cooldown",
+    permission = "permission",
+    channel = "channel",
+    args = "args",
+    command = "command",
+    error = "error",
+    todo = "todo"
 }
 
 interface Bot {
     name: string;
     version: string;
+    isProd: boolean;
+    path2Commands: string;
 }
 
 type Color = number;
@@ -31,7 +33,7 @@ interface Reactions {
     good: string;
     bad: string;
     great: string;
-};
+}
 
 interface ErrorCode {
     code: string;
@@ -59,11 +61,11 @@ const createMessageGenerator = (key: ErrorKey): () => string => {
     const messageArray: string[] = messagesData[key];
     const randomIndex: number = Math.floor(Math.random() * messageArray.length);
     return () => {
-    // Following ignore is due to optional chaining failing override this undefined check
-    // Also this is horrifying.
-    //@ts-ignore
-    return `${messageArray[randomIndex]}\n \`${this.default.getErrorCode(key)}\``;
-    }
+        // Following ignore is due to optional chaining failing override this undefined check
+        // Also this is horrifying.
+        //@ts-ignore
+        return `${messageArray[randomIndex]}\n \`${this.default.getErrorCode(key)}\``;
+    };
 };
 
 const config: Config = {
@@ -71,6 +73,8 @@ const config: Config = {
     bot: {
         name: "Mr.Taskman",
         version: "2.0.0",
+        isProd: isProd,
+        path2Commands: isProd ? "/home/norlin/dev/discord-bots/mr-taskman/build/commands" : "/home/norlin/dev/discord-bots/mr-taskman/src/commands"
     },
     colors: {
         primary: 0xFBDB48,
@@ -83,7 +87,7 @@ const config: Config = {
     },
     // There are problems with typescript and Object.fromEntries. Recommend manually doing it, but this is a patch for now
     //@ts-ignore
-    messages: Object.fromEntries(Object.values(ErrorKey).map(key => [key,createMessageGenerator.call(this, key)])) as Record<ErrorKey, MessageGenerator>,
+    messages: Object.fromEntries(Object.values(ErrorKey).map(key => [key, createMessageGenerator.call(this, key)])) as Record<ErrorKey, MessageGenerator>,
     errorCodes: {
         "cooldown": { code: "E00100", msg: "Cooldown is still active. Just wait a few" },
         "permission": { code: "E00200", msg: "You are not allowed to do this." },
@@ -93,15 +97,15 @@ const config: Config = {
         "error": { code: "E00600", msg: "The bot errored. The developer team has been notified." },
         "todo": { code: "E00700", msg: "This command is still a WIP." }
     },
-    getErrorCode (key) {
+    getErrorCode(key) {
         return this.errorCodes[key].code;
     },
-    getErrorMessage (key) {
+    getErrorMessage(key) {
         return this.errorCodes[key].msg;
     },
 };
 
 export default config;
 
-export const {prefix, bot, colors, reactions, messages, errorCodes} = config;
+export const { prefix, bot, colors, reactions, messages, errorCodes } = config;
 

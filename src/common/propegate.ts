@@ -1,11 +1,13 @@
 import fs from "fs";
 import { manager } from "../index";
 import Command from "../interfaces/command";
+import { bot } from "../config";
 
-function propegate({ path = process.env.PATH2COMMANDS, collection = manager.commands } = {}): void {
+function propegate({ path = bot.path2Commands, collection = manager.commands } = {}): void {
     const readDir = fs.readdirSync(path);
-    const files = readDir.filter((val) => val.endsWith(".js"));
-    const dirs = readDir.filter((val) => !val.endsWith(".js"));
+    const extension = bot.isProd ? ".js" : ".ts";
+    const files = readDir.filter((val) => val.endsWith(extension));
+    const dirs = readDir.filter((val) => !val.endsWith(extension));
 
     // Propegate Root Files
     files.forEach(async function (f): Promise<void> {
