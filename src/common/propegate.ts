@@ -4,8 +4,8 @@ import Command from "../interfaces/command";
 
 function propegate({ path = process.env.PATH2COMMANDS, collection = manager.commands } = {}): void {
     const readDir = fs.readdirSync(path);
-    const files = readDir.filter((val) => val.endsWith(".ts"));
-    const dirs = readDir.filter((val) => !val.endsWith(".ts"));
+    const files = readDir.filter((val) => val.endsWith(".js"));
+    const dirs = readDir.filter((val) => !val.endsWith(".js"));
 
     // Propegate Root Files
     files.forEach(async function (f): Promise<void> {
