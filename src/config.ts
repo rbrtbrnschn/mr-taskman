@@ -100,7 +100,7 @@ const todoMessages = [
 ];
 
 const config = {
-    prefix: "!",
+    prefix: "/",
     reactions: {
         good: "👌",
         bad: "😭",

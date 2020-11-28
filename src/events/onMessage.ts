@@ -3,10 +3,13 @@ import { Message } from "discord.js";
 import { manager } from "../index";
 import { prefix, messages } from "../config";
 import validate from "../common/validate";
+import setPresence from "../common/setPresence";
 import Command from "../interfaces/command";
 
 export = function (message: Message): void {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
+    setPresence(message);
+
     // Get Arguments
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const first = args.shift().toLowerCase();
