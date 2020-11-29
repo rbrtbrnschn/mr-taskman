@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.3] - 2020-11-29
+### Added
+- node package mongoose (**mongodbd library**)
+- setup mongoose to connect to mongodb atlas cluster with readonly access for developers // may change
+- setup boilerplate schemas for task, guild
+
+
 ## [0.0.2] - 2020-11-28
 ### Added
 - error command to view error message of correlating code
@@ -21,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Setup a Ci /Cd pipeline.
 - Non priority commands like: ping, utpime
 
-[Unreleased]: https://github.com/rbrtbrnschn/mr-taskman/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/rbrtbrnschn/mr-taskman/compare/v0.0.3...HEAD
 [1.0.0]: https://github.com/rbrtbrnschn/mr-taskman/compare/v0.3.0...v1.0.0
 [0.3.0]: https://github.com/rbrtbrnschn/mr-taskman/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/rbrtbrnschn/mr-taskman/compare/v0.1.0...v0.2.0
