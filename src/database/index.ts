@@ -8,14 +8,13 @@ const db = bot.isProd ? "main" : "dev";
 const uri = `mongodb+srv://${username}:${password}@cluster0.eit8m.mongodb.net/${db}?retryWrites=true&w=majority`;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((res) => {
-        console.log(`${chalk.greenBright.bold("[MONGOOSE]")}${chalk.reset()}`);
-        console.log(`${chalk.green.bold("[DATABASE]: ")}${chalk.reset()} ${db}`);
+        console.log(`${chalk.greenBright.bold("[MONGOOSE]:")}${chalk.reset()} Selected database ~ ${db}.`);
     })
     .catch((err) => console.log(`${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} connection interrupted)}`, err));
 
 mongoose.connection.on("error", (err) => {
-    console.log(`${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} errored\n ${err}`);
+    console.log(`${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} Errored.\n ${err}`);
 });
 mongoose.connection.on("disconnected", () => {
-    console.log(`${chalk.magenta.bold("[MONGOOSE]:]")}${chalk.reset()} lost connection`);
+    console.log(`${chalk.magenta.bold("[MONGOOSE]:]")}${chalk.reset()} Lost connection.`);
 });
