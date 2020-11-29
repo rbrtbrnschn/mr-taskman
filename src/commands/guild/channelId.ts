@@ -9,9 +9,11 @@ export = {
     args: true,
     guildOnly: false,
     category: "guild",
-    execute: async function (message: Discord.Message, args: Array<string>): Promise<any> {
+    execute: async function (message: Discord.Message, args: Array<string>): Promise<Discord.Message> {
+        const isOwner = message.guild.ownerID === message.author.id;
         const mention = message.mentions.channels.first();
 
+        if (!isOwner) return message.reply(messages.permission());
         if (!mention) return message.reply(messages.args());
         else {
             const foundGuild = await getGuild(message);
@@ -22,6 +24,7 @@ export = {
                 foundGuild.channelId = mention.id;
                 foundGuild.markModified("channelId");
                 foundGuild.save();
+                return message.reply(`Set Channel Id To <#${mention.id}>`);
             }
         }
     }
