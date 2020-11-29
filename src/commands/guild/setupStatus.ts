@@ -1,5 +1,7 @@
 import Discord from "discord.js";
 import { getGuild } from "../../common/guild/get";
+import { validateChannelId } from "../../common/guild/validateChannelId";
+import { validateRoles } from "../../common/guild/validateRoles";
 import { messages, prefix } from "../../config";
 export = {
     name: "status",
@@ -20,8 +22,8 @@ export = {
                 // TODO Add proper validation test ie. testing if specified role is actually available on guild
                 // TODO same for channelId, validate if channel with said id exists on guild
                 let replyMessage = "";
-                const hasRoles = Object.values(foundGuild.roles).map((r) => r.toString().length > 0);
-                const hasChannelId = foundGuild.channelId.length > 0;
+                const hasRoles = validateRoles(message, foundGuild.roles);
+                const hasChannelId = validateChannelId(message, foundGuild.channelId);
 
                 if (!hasRoles) replyMessage += `Setup roles via \`${prefix}guild role\`.\n`;
                 else if (!hasChannelId) replyMessage += `Setup channel id for task messages to show in via \`${prefix}guild channel\`.\n`;
