@@ -1,62 +1,11 @@
 // import Config from "./interfaces/Config";
 
 import messagesData from "./data/messages";
+import Config from "./interfaces/Config";
+import { ErrorKey } from "./interfaces/ErrorCodes";
 
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV == "production";
-console.log(isProd, NODE_ENV);
-
-export enum ErrorKey {
-    cooldown = "cooldown",
-    permission = "permission",
-    channel = "channel",
-    args = "args",
-    command = "command",
-    error = "error",
-    todo = "todo"
-}
-
-interface Bot {
-    name: string;
-    version: string;
-    isProd: boolean;
-    path2Commands: string;
-}
-
-type Color = number;
-
-interface Colors {
-    primary: Color;
-    secondary: Color;
-}
-
-interface Reactions {
-    good: string;
-    bad: string;
-    great: string;
-}
-
-interface ErrorCode {
-    code: string;
-    msg: string;
-}
-
-type ErrorCodes = {
-    [index in ErrorKey]: ErrorCode;
-}
-
-type MessageGenerator = () => string;
-
-interface Config {
-    prefix: string;
-    bot: Bot;
-    colors: Colors;
-    reactions: Reactions;
-    messages: Record<ErrorKey, MessageGenerator>;
-    errorCodes: ErrorCodes;
-    getErrorCode(key: ErrorKey): string;
-    getErrorMessage(key: ErrorKey): string;
-}
 
 const createMessageGenerator = (key: ErrorKey): () => string => {
     const messageArray: string[] = messagesData[key];
@@ -65,7 +14,7 @@ const createMessageGenerator = (key: ErrorKey): () => string => {
         // Following ignore is due to optional chaining failing override this undefined check
         // Also this is horrifying.
         //@ts-ignore
-        return `${messageArray[randomIndex]}\n \`${this.default.getErrorCode(key)}\``;
+        return `${messageArray[randomIndex]}\n \`${this.default.getErrorCode(key).code}\``;
     };
 };
 
@@ -90,23 +39,22 @@ const config: Config = {
     //@ts-ignore
     messages: Object.fromEntries(Object.values(ErrorKey).map(key => [key, createMessageGenerator.call(this, key)])) as Record<ErrorKey, MessageGenerator>,
     errorCodes: {
-        "cooldown": { code: "E00100", msg: "Cooldown is still active. Just wait a few" },
-        "permission": { code: "E00200", msg: "You are not allowed to do this." },
-        "channel": { code: "E00300", msg: "You are performing this in the wrong channel. Some commands I cannot perform in direct messages." },
-        "args": { code: "E00400", msg: "You were missing the needed arguments for a command." },
-        "command": { code: "E00500", msg: "You misspelled a command. It does not exist." },
+        "cooldown": { code: "E00100", msg: "Cooldown is still active. Just wait a few seconds." },
+        "permission": { code: "E00200", msg: "Unauthorized Access. You are not allowed to do this." },
+        "channel": { code: "E00300", msg: "Wrong channel. Some commands cannot be performed in dms." },
+        "args": { code: "E00400", msg: "Missing arguments. Command requires arguments." },
+        "command": { code: "E00500", msg: "Command not found." },
         "error": { code: "E00600", msg: "The bot errored. The developer team has been notified." },
         "todo": { code: "E00700", msg: "This command is still a WIP." }
     },
     getErrorCode(key) {
-        return this.errorCodes[key].code;
+        return this.errorCodes[key];
     },
-    getErrorMessage(key) {
-        return this.errorCodes[key].msg;
+    getErrorMessage(code) {
+        return Object.values(this.errorCodes).find((e) => e.code.toLowerCase() === code.toLowerCase());
     },
 };
-console.log("path2commands", config.bot.path2Commands);
 export default config;
 
-export const { prefix, bot, colors, reactions, messages, errorCodes } = config;
+export const { prefix, bot, colors, reactions, messages, errorCodes, getErrorCode, getErrorMessage } = config;
 

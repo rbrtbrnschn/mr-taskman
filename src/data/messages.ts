@@ -1,6 +1,6 @@
-import {ErrorKey} from '../config';
+import { ErrorKey } from "../interfaces/ErrorCodes";
 
-const messages: {[index in ErrorKey]: string[] } = {
+const messages: { [index in ErrorKey]: string[] } = {
     cooldown: [
         "Well aren't you just a quick little fellow.",
         "Ohh, you got me. Guess I am just too old for this.",
@@ -44,7 +44,7 @@ const messages: {[index in ErrorKey]: string[] } = {
     ],
     args: [
         "Turns out someone did not read the docs. Read the docs.",
-        "You know I proved *usage* sytax. May want to check that out.",
+        "You know I provide *usage* sytax. May want to check that out.",
         "No.",
         "Come on, why make my life harder.",
         "Happy bot, happy life. Angry bot, well happy life.",
