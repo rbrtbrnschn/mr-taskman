@@ -4,13 +4,14 @@ Mr-Taskman aims at rendering other *third-party* project management tools like *
 You have a **#board** channel, where all tasks are displayed.
 It will includes most basic functionallity like: *creating*, *editing*, *adding people*, *removing people*, *adding a deadline* and the like.
 
-image:https://img.shields.io/github/license/rbrtbrnschn/mr-taskman[liscense, link=https://github.com/rbrtbrnshcn/mr-taskman/blob/slave/LICENSE]
-image:https://img.shields.io/github/v/release/rbrtbrnschn/mr-taskman[release, link=https://GitHub.com/rbrtbrnschn/mr-taskman/releases/]
-image:https://img.shields.io/github/commits-since/rbrtbrnschn/mr-taskman/v0.0.1.svg[commits, link=https://GitHub.com/rbrtbrnschn/mr-taskman/commit/]
-image:https://img.shields.io/github/issues/rbrtbrnschn/mr-taskman.svg[issues open, link=https://GitHub.com/Naereen/StrapDown.js/issues/]
-image:https://img.shields.io/github/issues-closed/rbrtbrnschn/mr-taskman[issues closed, link=https://GitHub.com/Naereen/StrapDown.js/issues?q=is%3Aissue+is%3Aclosed]
-image:https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square[PRs Welcome, link=http://makeapullrequest.com]
+image:https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge[PRs Welcome, link=http://makeapullrequest.com]
+image:https://img.shields.io/github/contributors/rbrtbrnschn/mr-taskman?style=for-the-badge[Contributors]
+image:https://img.shields.io/github/v/release/rbrtbrnschn/mr-taskman?style=for-the-badge[release, link=https://GitHub.com/rbrtbrnschn/mr-taskman/releases/]
+image:https://img.shields.io/github/commits-since/rbrtbrnschn/mr-taskman/v0.0.1.svg?style=for-the-badge[commits, link=https://GitHub.com/rbrtbrnschn/mr-taskman/commit/]
+image:https://img.shields.io/github/issues/rbrtbrnschn/mr-taskman.svg?style=for-the-badge[issues open, link=https://GitHub.com/Naereen/StrapDown.js/issues/]
+image:https://img.shields.io/github/issues-closed/rbrtbrnschn/mr-taskman?style=for-the-badge[issues closed, link=https://GitHub.com/Naereen/StrapDown.js/issues?q=is%3Aissue+is%3Aclosed]
 image:https://img.shields.io/discord/781046343476576258.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2[Discord, link=https://discord.gg/qhHjuqgJ6Y]
+image:https://img.shields.io/github/license/rbrtbrnschn/mr-taskman?style=for-the-badge[liscense, link=https://github.com/rbrtbrnshcn/mr-taskman/blob/slave/LICENSE]
 
 === Open Source Project
 
