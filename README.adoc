@@ -57,6 +57,8 @@ Please make sure to update tests as appropriate.
 | DISCORD_BOT_TOKEN | footnote:env[]
 | PATH2COMMANDS_DEV | <absolute path to thisProject/src/commands>
 | PATH2COMMANDS_PROD | <absolute path to thisProject/src/commands>
+| MONGODB_USER | <database user, defaults to read-only access if none is provided>
+| MONGODB_PASS | <database user, defaults to read-only access if none is provided>
 |===
 
 === Scripts
