@@ -1,10 +1,22 @@
 import mongoose, { Schema } from "mongoose";
 
+export interface TaskInterface extends mongoose.Document {
+    title: string;
+    description: string;
+    participants: Array<string>;
+    deadline: Date;
+    messageId: string;
+    guildId: string;
+    completed: boolean;
+    createdTimestamp: number;
+    completedTimestamp: number;
+    wip: boolean;
+}
 const taskSchema = new Schema({
     title: String,
     description: { type: String, default: "\u200b" },
     participants: [],
-    deadline: Date || String,
+    deadline: Date,
     taskId: String,
     messagedId: { type: String, default: "" },
     guildId: String, // technically not necessary
@@ -15,6 +27,6 @@ const taskSchema = new Schema({
 
 });
 
-const TaskModel = mongoose.model("tasks", taskSchema);
+const TaskModel = mongoose.model<TaskInterface>("tasks", taskSchema);
 
-export { TaskModel };
+export default TaskModel;

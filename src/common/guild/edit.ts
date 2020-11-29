@@ -6,4 +6,4 @@ function editGuild(message: Discord.Message, newGuild: Guild): void {
     // todo
 }
 
-export = { editGuild };
+export { editGuild };

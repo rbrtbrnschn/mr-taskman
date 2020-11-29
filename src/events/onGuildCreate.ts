@@ -21,5 +21,5 @@ function createNew(guild: Guild): void {
         tasks: []
     })
         .save()
-        .then((docs) => console.log(`${chalk.magenta.bold("[DISCORD]:")}${chalk.reset()} Server \`${guild.name}\` joined.`));
+        .then((docs: any) => console.log(`${chalk.magenta.bold("[DISCORD]:")}${chalk.reset()} Server \`${guild.name}\` joined.`));
 }

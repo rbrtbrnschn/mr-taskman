@@ -1,7 +1,10 @@
-import { GuildModel } from "./guild";
-import { TaskModel } from "./task";
+import GuildModel, { GuildInterface } from "./guild";
+import TaskModel, { TaskInterface } from "./task";
 
 export {
     GuildModel,
-    TaskModel
+    TaskModel,
+    GuildInterface,
+    TaskInterface
+
 };

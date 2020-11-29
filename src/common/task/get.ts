@@ -10,4 +10,4 @@ function getSelectedTask(message: Discord.Message): Task {
     //TODO
 }
 
-export = { getTaskById, getSelectedTask };
+export { getTaskById, getSelectedTask };

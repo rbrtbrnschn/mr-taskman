@@ -8,6 +8,7 @@ export = {
     name: "guild",
     description: "Command Handler For Servers",
     usage: "<commands name>",
+    subcommand: "guild",
     guildOnly: false,
     aliases: ["g"],
     execute: function (message: Discord.Message): void {

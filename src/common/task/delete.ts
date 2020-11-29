@@ -6,4 +6,4 @@ function deleteTask(message: Discord.Message, editedTask: Task): Task {
     // TODO
 }
 
-export = { deleteTask };
+export { deleteTask };

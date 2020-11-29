@@ -5,4 +5,4 @@ function createGuild(message: Discord.Message): void {
     // todo
 }
 
-export = { createGuild };
+export { createGuild };
