@@ -39,6 +39,11 @@ const config: Config = {
     bad: "😭",
     great: "💯",
   },
+  taskColors: {
+    created: "#ff0000",
+    wip: "ffff00",
+    completed: "00ff00",
+  },
   messages: null,
   errorCodes: {
     cooldown: {
@@ -102,4 +107,5 @@ export const {
   errorCodes,
   getErrorCode,
   getErrorMessage,
+  taskColors,
 } = config;

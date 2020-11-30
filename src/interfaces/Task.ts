@@ -14,7 +14,7 @@ class Task {
     this.description = "\u200b";
     this.createdTimestamp = Date.now();
     this.participants = [message.author.id];
-    this.deadline = new Date();
+    // this.deadline = new Date();
     this.messageId = "";
     this.taskId = ""; // Discord Like Tag (ie. #0303, simply without the "#")
   }
