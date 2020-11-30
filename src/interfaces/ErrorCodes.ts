@@ -6,6 +6,8 @@ enum ErrorKey {
   command = "command",
   error = "error",
   todo = "todo",
+  missingGuild = "missingGuild",
+  guildNotSetup = "guildNotSetup",
 }
 interface ErrorCode {
   code: string;

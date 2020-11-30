@@ -87,6 +87,17 @@ const messages: { [index in ErrorKey]: string[] } = {
     "I will tell my neural net to get right on it.",
     "It seams my folks forgot to work on that.",
   ],
+  missingGuild: [
+    "It seams I do not know where to look anymore.",
+    "I can't find your discord server here anywhere.",
+    "This is akward, I lost your discord server.",
+    "Do you mind simply kicking me and reinviting me to the server? Maybe then I know where I'm at...",
+  ],
+  guildNotSetup: [
+    "Someone forgot to tell me all about you guys.",
+    "Maybe you cann call an adminstrator and tell him he forgot to set something up.",
+    "It's unfortunate, but untill I am setup properly, I cannot help you.",
+  ],
 };
 
 export = messages;

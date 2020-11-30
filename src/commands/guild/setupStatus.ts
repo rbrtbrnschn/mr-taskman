@@ -25,8 +25,6 @@ export = {
           "For whatever reason, you're admin fucked up big time."
         );
       else {
-        // TODO Add proper validation test ie. testing if specified role is actually available on guild
-        // TODO same for channelId, validate if channel with said id exists on guild
         let replyMessage = "";
         const hasRoles = validateRoles(message, foundGuild.roles);
         const hasChannelId = validateChannelId(message, foundGuild.channelId);
@@ -34,7 +32,7 @@ export = {
         if (!hasRoles)
           replyMessage += `Setup roles via \`${prefix}guild role\`.\n`;
         else if (!hasChannelId)
-          replyMessage += `Setup channel id for task messages to show in via \`${prefix}guild channel\`.\n`;
+          replyMessage += `Setup channel id for task messages to show in via \`${prefix}guild channel <#channel mention>\`.\n`;
         else
           return message.reply(
             `All set. For more information on tasks, please refer to \`${prefix}help task\``
