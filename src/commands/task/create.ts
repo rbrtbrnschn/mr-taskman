@@ -40,7 +40,7 @@ export = {
           "Ye be trying to cast to a barrel that be lost at sea. Ye be a witch?"
         );
       }
-
+      console.log(channel);
       channel.send(`New task created by <@${message.author.id}>`);
       return message.reply(`Task created in <#${channel.id}>.Go check it out`);
     } catch (error) {
