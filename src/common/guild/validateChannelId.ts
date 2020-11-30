@@ -1,12 +1,13 @@
 import Discord from "discord.js";
 
-function validateChannelId(
+function validateChannelIds(
   message: Discord.Message,
-  channelId: string
+  channelIds: string[]
 ): boolean {
-  const channel = message.guild.channels.cache.get(channelId);
-  if (!channel) return false;
+  const channels = channelIds.map((id) => message.guild.channels.cache.get(id));
+
+  if (channels.length !== channelIds.length) return false;
   return true;
 }
 
-export { validateChannelId };
+export { validateChannelIds };

@@ -9,6 +9,7 @@ function validateRoles(
     const role = message.guild.roles.cache.get(r);
     return role ? true : false;
   });
+
   const hasRoles = mappedArray.every((expression) => expression);
   if (!hasRoles) return false;
   return true;

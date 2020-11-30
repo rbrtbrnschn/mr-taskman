@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 import { getGuild } from "../../common/guild/get";
-import { validateChannelId } from "../../common/guild/validateChannelId";
+import { validateChannelIds } from "../../common/guild/validateChannelId";
 import { validateRoles } from "../../common/guild/validateRoles";
 import { messages, prefix } from "../../config";
 export = {
@@ -27,11 +27,14 @@ export = {
       else {
         let replyMessage = "";
         const hasRoles = validateRoles(message, foundGuild.roles);
-        const hasChannelId = validateChannelId(message, foundGuild.channelId);
+        const hasChannelIds = validateChannelIds(
+          message,
+          foundGuild.channelIds
+        );
 
         if (!hasRoles)
           replyMessage += `Setup roles via \`${prefix}guild role\`.\n`;
-        else if (!hasChannelId)
+        else if (!hasChannelIds)
           replyMessage += `Setup channel id for task messages to show in via \`${prefix}guild channel <#channel mention>\`.\n`;
         else
           return message.reply(

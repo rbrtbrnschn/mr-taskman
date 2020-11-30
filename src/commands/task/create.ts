@@ -3,7 +3,7 @@ import Task from "../../interfaces/Task";
 import TaskModel from "../../database/schemas/task";
 import { getGuild } from "../../common/guild/get";
 import generateId from "../../common/task/generateId";
-import { messages } from "../../config";
+import { messages, prefix } from "../../config";
 import { formatTaskEmbed } from "../../common/task/formatTaskEmbed";
 
 export = {
@@ -19,6 +19,13 @@ export = {
   ): Promise<Discord.Message> {
     try {
       const foundGuild = await getGuild(message);
+
+      // bot NEEDS channels to post task in
+      if (foundGuild.channelIds.length < 1)
+        return message.reply(
+          `Set channel(s) to post notification in. \nTry \`${prefix}guild channel #mention(s)\``
+        );
+
       const task = new Task(message, args.join(" "));
       task.taskId = generateId();
 
@@ -33,14 +40,21 @@ export = {
       // TODO add selectedTasks to guild schema
       // TODO of type { userId: taskId || Mongoose.ObjectId referencing the task }
 
-      const channel = message.guild.channels.cache.get(foundGuild.channelId);
+      const channels = foundGuild.channelIds.map((id) =>
+        message.guild.channels.cache.get(id)
+      );
+
       // Using a type guard to narrow down the correct type
-      if (!isTextChannel(channel)) return;
+      if (!areTextChannels(channels)) return;
 
       const embed = formatTaskEmbed(message, dbTask);
-      channel.send(embed);
+      channels.forEach((channel) => {
+        channel.send(embed);
+      });
 
-      return message.reply(`Task created in <#${channel.id}>.Go check it out`);
+      return message.reply(
+        `Task posted in ${channels.map((c) => `<#${c.id}>`).join(", ")}`
+      );
     } catch (error) {
       if (error.code === 11000) {
         // likely a duplicate task title
@@ -53,8 +67,8 @@ export = {
   },
 };
 
-function isTextChannel(
-  channel: Discord.GuildChannel
-): channel is Discord.TextChannel {
-  return channel instanceof Discord.TextChannel;
+function areTextChannels(
+  channels: Discord.GuildChannel[]
+): channels is Discord.TextChannel[] {
+  return channels.every((channel) => channel instanceof Discord.TextChannel);
 }
