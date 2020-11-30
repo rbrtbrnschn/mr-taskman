@@ -15,7 +15,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint:fix",
+      "pre-commit": "lint-staged",
       "pre-push": "npm run verify"
     }
   },
@@ -36,10 +36,15 @@
     "eslint": "^7.14.0",
     "eslint-plugin-no-loops": "^0.3.0",
     "husky": "^4.3.0",
+    "lint-staged": "^10.5.2",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
+  },
+  "lint-staged": {
+    "*.{ts,js}": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
