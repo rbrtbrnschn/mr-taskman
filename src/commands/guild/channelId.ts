@@ -19,7 +19,7 @@ export = {
         else {
             const foundGuild = await getGuild(message);
 
-            if (!foundGuild) return message.reply("For whatever reason, you're admin fucked up big time.");
+            if (!foundGuild) return message.reply("For whatever reason, your admin fucked up big time.");
             else {
                 // Edit And Save Guild
                 foundGuild.channelId = mention.id;
