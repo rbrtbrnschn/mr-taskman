@@ -12,8 +12,8 @@ const createMessageGenerator = (
   config: Config
 ): (() => string) => {
   const messageArray: string[] = messagesData[key];
-  const randomIndex: number = Math.floor(Math.random() * messageArray.length);
   return () => {
+    const randomIndex: number = Math.floor(Math.random() * messageArray.length);
     return `${messageArray[randomIndex]}\n \`${
       config.getErrorCode(key).code
     }\``;
@@ -63,6 +63,16 @@ const config: Config = {
       msg: "The bot errored. The developer team has been notified.",
     },
     todo: { code: "E00700", msg: "This command is still a WIP." },
+    missingGuild: {
+      code: "E00800",
+      msg:
+        "Your discord server cannot be found in our database.\nKick me and reinviting me to the server usually works.",
+    },
+    guildNotSetup: {
+      code: "E00900",
+      msg:
+        "Your guild is not setup properly. You may want to talk to an adminstrator about this.\nIf you are the administrator, take look at the `guild status` or `help guild` command.",
+    },
   },
   getErrorCode(key) {
     return this.errorCodes[key];

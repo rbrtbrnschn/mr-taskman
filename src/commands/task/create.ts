@@ -1,5 +1,4 @@
 import Discord from "discord.js";
-import { prefix } from "../../config";
 import Task from "../../interfaces/Task";
 import TaskModel from "../../database/schemas/task";
 import { getGuild } from "../../common/guild/get";
@@ -18,35 +17,23 @@ export = {
   ): Promise<Discord.Message> {
     try {
       const foundGuild = await getGuild(message);
-      if (!foundGuild)
-        return message.reply(
-          "Guildo no existo. What manner of sorcery is this?"
-        );
-      if (foundGuild.channelId.length < 1)
-        return message.reply(
-          `You have got to set a channel to post the task in first...dumbass. Try \`${prefix}guild channel #channel-name\``
-        );
-
       const task = new Task(message, args.join(" "));
       task.taskId = generateId();
 
+      // Create Task And Save
       const dbTask = await new TaskModel({ ...task });
-      await dbTask.save();
-      //   work on selecting - TODO
+      dbTask.save();
+      foundGuild.tasks.push(dbTask.id);
+      foundGuild.markModified("tasks");
+      foundGuild.save();
+
+      // TODO Select Task
+      // TODO add selectedTasks to guild schema
+      // TODO of type { userId: taskId || Mongoose.ObjectId referencing the task }
+
       const channel = message.guild.channels.cache.get(foundGuild.channelId);
-      if (!channel) {
-        //   if for some reason the channel was nuked
-        return message.reply(
-          "Ye be trying to cast to a barrel that be lost at sea. Ye be a witch?"
-        );
-      }
       // Using a type guard to narrow down the correct type
-      if (
-        !((channel): channel is Discord.TextChannel => channel.type === "text")(
-          channel
-        )
-      )
-        return;
+      if (!isTextChannel(channel)) return;
 
       channel.send(`New task created by <@${message.author.id}>`);
       return message.reply(`Task created in <#${channel.id}>.Go check it out`);
@@ -63,3 +50,9 @@ export = {
     }
   },
 };
+
+function isTextChannel(
+  channel: Discord.GuildChannel
+): channel is Discord.TextChannel {
+  return channel instanceof Discord.TextChannel;
+}
