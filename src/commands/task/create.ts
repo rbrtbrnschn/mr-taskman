@@ -22,16 +22,17 @@ export = {
       const task = new Task(message, args.join(" "));
       task.taskId = generateId();
 
-      // Create Task And Save
+      // Create, Selec And Save Task
       const dbTask = await new TaskModel({ ...task });
-      dbTask.save();
-      foundGuild.tasks.push(dbTask.id);
-      foundGuild.markModified("tasks");
-      foundGuild.save();
-
-      // TODO Select Task
-      // TODO add selectedTasks to guild schema
-      // TODO of type { userId: taskId || Mongoose.ObjectId referencing the task }
+      const userId = message.author.id;
+      dbTask.save().then((saved) => {
+        foundGuild.tasks.push(saved._id);
+        foundGuild.markModified("tasks");
+        if (!foundGuild.selectedTasks) foundGuild.selectedTasks = {};
+        foundGuild.selectedTasks[userId] = saved._id;
+        foundGuild.markModified("selectedTasks");
+        foundGuild.save();
+      });
 
       const channel = message.guild.channels.cache.get(foundGuild.channelId);
       // Using a type guard to narrow down the correct type

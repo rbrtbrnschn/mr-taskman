@@ -6,6 +6,7 @@ export interface GuildInterface extends mongoose.Document {
   ownerId: string;
   roles: Record<string, string>; // name : id of a Discord.Role
   tasks: Types.Array<Schema.Types.ObjectId>;
+  selectedTasks: Record<string, Schema.Types.ObjectId>;
 }
 
 const guildSchema = new Schema({
@@ -18,6 +19,7 @@ const guildSchema = new Schema({
       type: Schema.Types.ObjectId,
     },
   ],
+  selectedTasks: { type: Object, default: {} },
 });
 
 const GuildModel = mongoose.model<GuildInterface>("guilds", guildSchema);
