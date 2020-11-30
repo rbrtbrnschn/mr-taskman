@@ -1,13 +1,14 @@
 import Task from "../../interfaces/Task";
 import Discord from "discord.js";
-//@ts-ignore
+
 function getTaskById(message: Discord.Message): Task {
     //TODO
+    return new Task(message, 'FAKETASK');
 }
 
-//@ts-ignore
 function getSelectedTask(message: Discord.Message): Task {
     //TODO
+    return new Task(message, 'FAKETASK');
 }
 
 export { getTaskById, getSelectedTask };

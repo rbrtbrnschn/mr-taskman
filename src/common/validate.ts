@@ -3,7 +3,7 @@ import Command from "../interfaces/command";
 import { manager } from "../index";
 import { messages } from "../config";
 
-function validate(message: Discord.Message, command: Command, argsArray: Array<string>, { blacklist = [] }: Record<string, any> = {}): boolean {
+function validate(message: Discord.Message, command: Command, argsArray: Array<string>, { blacklist = [] }: Record<string, string[]> = {}): boolean {
     const { args, guildOnly, permissions } = command;
 
     // Cooldowns

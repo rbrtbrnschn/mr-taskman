@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.4] - 2020-11-29
+### Added
+- properly configured eventhandlers onGuildCreate, onGuildDelete
+- properly setup Typing for Mongoose Schemas
+- setup basic commands for "mother command" guild: **guild status, guild role, guild channel**
+- setup mongoose to read and write to dev database for collaborators.
+- setup own production database, which the remote server will be posting to.
+- no task functionality yet!
+
 ## [0.0.3] - 2020-11-29
 ### Added
 - node package mongoose (**mongodbd library**)

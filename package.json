@@ -6,13 +6,14 @@
   "scripts": {
     "start:dev": "nodemon",
     "start": "npm run build && node ./build/index.js",
-    "build": "rimraf ./build && npx tsc",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "clean": "rimraf ./build",
+    "build": "npm run clean && tsc",
+    "lint": "eslint ./src --ext .ts,.js",
+    "lint:fix": "npm run lint -- --fix"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/mongoose": "^5.10.1",
     "chalk": "^4.1.0",

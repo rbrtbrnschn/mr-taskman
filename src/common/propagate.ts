@@ -3,7 +3,7 @@ import { manager } from "../index";
 import Command from "../interfaces/command";
 import { bot } from "../config";
 
-function propegate({ path = bot.path2Commands, collection = manager.commands } = {}): void {
+function propagate({ path = bot.path2Commands, collection = manager.commands } = {}): void {
     const readDir = fs.readdirSync(path);
     const extension = bot.isProd ? ".js" : ".ts";
     const files = readDir.filter((val) => val.endsWith(extension));
@@ -24,4 +24,4 @@ function propegate({ path = bot.path2Commands, collection = manager.commands } =
         });
     });
 }
-export = propegate;
+export = propagate;

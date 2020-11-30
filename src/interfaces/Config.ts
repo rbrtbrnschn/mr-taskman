@@ -32,4 +32,4 @@ interface Config {
     getErrorMessage(key: string): ErrorCode;
 }
 
-export = Config;
+export default Config;
