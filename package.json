@@ -8,6 +8,7 @@
     "start": "npm run build && node ./build/index.js",
     "clean": "rimraf ./build",
     "build": "npm run clean && tsc",
+    "test": "echo 'NO TESTING SETUP'",
     "lint": "eslint ./src --ext .ts,.js",
     "lint:fix": "npm run lint -- --fix"
   },
