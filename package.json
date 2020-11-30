@@ -8,8 +8,16 @@
     "start": "npm run build && node ./build/index.js",
     "clean": "rimraf ./build",
     "build": "npm run clean && tsc",
+    "test": "echo 'NO TESTS DEFINED'",
     "lint": "eslint ./src --ext .ts,.js",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "verify": "npm run lint:fix && npm test"
+  },
+  "husky": {
+    "hooks":{
+      "pre-commit": "npm run lint:fix",
+      "pre-push": "npm run verify"
+    }
   },
   "keywords": [],
   "author": "",
