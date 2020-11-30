@@ -16,7 +16,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch((err) => console.log(`${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} connection interrupted`, err));
 
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
