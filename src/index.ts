@@ -17,5 +17,3 @@ client.on("guildDelete", onGuildDelete);
 
 client.login(process.env.DISCORD_BOT_TOKEN);
 export { manager };
-
-
