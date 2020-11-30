@@ -3,6 +3,8 @@ import Task from "../../interfaces/Task";
 import TaskModel from "../../database/schemas/task";
 import { getGuild } from "../../common/guild/get";
 import generateId from "../../common/task/generateId";
+import { messages } from "../../config";
+import { formatTaskEmbed } from "../../common/task/formatTaskEmbed";
 
 export = {
   name: "create",
@@ -35,7 +37,9 @@ export = {
       // Using a type guard to narrow down the correct type
       if (!isTextChannel(channel)) return;
 
-      channel.send(`New task created by <@${message.author.id}>`);
+      const embed = formatTaskEmbed(message, dbTask);
+      channel.send(embed);
+
       return message.reply(`Task created in <#${channel.id}>.Go check it out`);
     } catch (error) {
       if (error.code === 11000) {
@@ -44,9 +48,7 @@ export = {
           "Were you dropped on your head as a child? That title has already been used"
         );
       }
-      return message.reply(
-        "Something went wrong creating the task. Please try again"
-      );
+      return message.reply(messages.error());
     }
   },
 };

@@ -30,6 +30,7 @@ interface Config {
   errorCodes: ErrorCodes;
   getErrorCode(key: ErrorKey): ErrorCode;
   getErrorMessage(key: string): ErrorCode;
+  taskColors: Record<string, string>;
 }
 
 export default Config;
