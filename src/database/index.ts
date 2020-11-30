@@ -8,44 +8,29 @@ const password = process.env.MONGODB_PASS || "C0p5FqNEA5nV8UG7"; // provides rea
 const mongoHost = process.env.MONGODB_HOST || "cluster0.eit8m.mongodb.net";
 console.log(username, password, mongoHost);
 const uri = `mongodb+srv://${username}:${password}@${mongoHost}/${db}?retryWrites=true&w=majority`;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((res) => {
-        console.log(`${chalk.greenBright.bold("[MONGOOSE]:")}${chalk.reset()} Selected database ~ ${db}.`);
-    })
-    .catch((err) => console.log(`${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} connection interrupted`, err));
-
 mongoose
-    .connect(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then((res) => {
-        console.log(
-            `${chalk.greenBright.bold(
-                "[MONGOOSE]:"
-            )}${chalk.reset()} Selected database ~ ${db}.`
-        );
-    })
-    .catch((err) =>
-        console.log(
-            `${chalk.red.bold(
-                "[MONGOOSE]:"
-            )}${chalk.reset()} connection interrupted)}`,
-            err
-        )
+  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((res) => {
+    console.log(
+      `${chalk.greenBright.bold(
+        "[MONGOOSE]:"
+      )}${chalk.reset()} Selected database ~ ${db}.`
     );
+  })
+  .catch((err) =>
+    console.log(
+      `${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} connection interrupted`,
+      err
+    )
+  );
 
 mongoose.connection.on("error", (err) => {
-    console.log(
-        `${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} Errored.\n ${err}`
-    );
+  console.log(
+    `${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} Errored.\n ${err}`
+  );
 });
 mongoose.connection.on("disconnected", () => {
-    console.log(
-        `${chalk.magenta.bold("[MONGOOSE]:]")}${chalk.reset()} Lost connection.`
-    );
-});
-
-mongoose.connection.on("disconnected", () => {
-    console.log(`${chalk.magenta.bold("[MONGOOSE]:")}${chalk.reset()} Lost connection.`);
+  console.log(
+    `${chalk.magenta.bold("[MONGOOSE]:]")}${chalk.reset()} Lost connection.`
+  );
 });
