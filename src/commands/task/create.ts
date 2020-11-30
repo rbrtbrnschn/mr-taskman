@@ -41,12 +41,9 @@ export = {
         );
       }
       // Using a type guard to narrow down the correct type
-      if (
-        !((channel): channel is Discord.TextChannel => channel.type === "text")(
-          channel
-        )
-      )
+      if (!(channel instanceof Discord.TextChannel)) {
         return;
+      }
 
       channel.send(`New task created by <@${message.author.id}>`);
       return message.reply(`Task created in <#${channel.id}>.Go check it out`);
