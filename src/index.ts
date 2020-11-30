@@ -15,5 +15,5 @@ client.on("message", onMessage);
 client.on("guildCreate", onGuildCreate);
 client.on("guildDelete", onGuildDelete);
 
-client.login(process.env.DISCORD_BOT_TOKEN);
+client.login();
 export { manager };
