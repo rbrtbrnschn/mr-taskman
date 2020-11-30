@@ -5,6 +5,7 @@ export interface TaskInterface extends mongoose.Document {
   description: string;
   participants: Array<string>;
   deadline: Date;
+  taskId: string;
   messageId: string;
   guildId: string;
   completed: boolean;
