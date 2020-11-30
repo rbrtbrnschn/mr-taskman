@@ -8,9 +8,16 @@
     "start": "npm run build && node ./build/index.js",
     "clean": "rimraf ./build",
     "build": "npm run clean && tsc",
-    "test": "echo 'NO TESTING SETUP'",
+    "test": "echo 'NO TESTS DEFINED'",
     "lint": "eslint ./src --ext .ts,.js",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "verify": "npm run lint:fix && npm test"
+  },
+  "husky": {
+    "hooks":{
+      "pre-commit": "npm run lint:fix",
+      "pre-push": "npm run verify"
+    }
   },
   "keywords": [],
   "author": "",
@@ -28,6 +35,7 @@
     "@typescript-eslint/parser": "^4.8.2",
     "eslint": "^7.14.0",
     "eslint-plugin-no-loops": "^0.3.0",
+    "husky": "^4.3.0",
     "nodemon": "^2.0.6",
     "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
