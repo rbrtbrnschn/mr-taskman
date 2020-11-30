@@ -14,8 +14,8 @@
     "verify": "npm run lint:fix && npm test"
   },
   "husky": {
-    "hooks":{
-      "pre-commit": "npm run lint:fix",
+    "hooks": {
+      "pre-commit": "lint-staged",
       "pre-push": "npm run verify"
     }
   },
@@ -34,11 +34,18 @@
     "@typescript-eslint/eslint-plugin": "^4.8.2",
     "@typescript-eslint/parser": "^4.8.2",
     "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.0",
+    "lint-staged": "^10.5.2",
     "nodemon": "^2.0.6",
+    "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
+  },
+  "lint-staged": {
+    "*.{ts,js}": ["prettier --write", "eslint --cache --fix"]
   }
 }

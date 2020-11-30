@@ -8,7 +8,7 @@
     "checkJs": true,
     "outDir": "build",
     "rootDir": "src",
-    "removeComments": true, 
+    "removeComments": true,
     "strict": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
