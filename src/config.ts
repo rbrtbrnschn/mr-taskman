@@ -5,16 +5,13 @@ import Config from "./interfaces/Config";
 import { ErrorKey } from "./interfaces/ErrorCodes";
 
 const { NODE_ENV } = process.env;
-const isProd = NODE_ENV == "production";
+const isProd = NODE_ENV === "production";
 
-const createMessageGenerator = (key: ErrorKey): () => string => {
+const createMessageGenerator = (key: ErrorKey, config: Config): () => string => {
     const messageArray: string[] = messagesData[key];
     const randomIndex: number = Math.floor(Math.random() * messageArray.length);
     return () => {
-        // Following ignore is due to optional chaining failing override this undefined check
-        // Also this is horrifying.
-        //@ts-ignore
-        return `${messageArray[randomIndex]}\n \`${this.default.getErrorCode(key).code}\``;
+        return `${messageArray[randomIndex]}\n \`${config.getErrorCode(key).code}\``;
     };
 };
 
@@ -35,9 +32,7 @@ const config: Config = {
         bad: "😭",
         great: "💯",
     },
-    // There are problems with typescript and Object.fromEntries. Recommend manually doing it, but this is a patch for now
-    //@ts-ignore
-    messages: Object.fromEntries(Object.values(ErrorKey).map(key => [key, createMessageGenerator.call(this, key)])) as Record<ErrorKey, MessageGenerator>,
+    messages: null,
     errorCodes: {
         "cooldown": { code: "E00100", msg: "Cooldown is still active. Just wait a few seconds." },
         "permission": { code: "E00200", msg: "Unauthorized Access. You are not allowed to do this." },
@@ -54,6 +49,9 @@ const config: Config = {
         return Object.values(this.errorCodes).find((e) => e.code.toLowerCase() === code.toLowerCase());
     },
 };
+
+config.messages = Object.fromEntries(Object.values(ErrorKey).map(key => [key, createMessageGenerator(key, config)])) as Record<ErrorKey, () => string>;
+
 export default config;
 
 export const { prefix, bot, colors, reactions, messages, errorCodes, getErrorCode, getErrorMessage } = config;

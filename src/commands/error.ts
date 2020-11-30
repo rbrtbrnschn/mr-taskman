@@ -17,7 +17,11 @@ export = {
             return;
         }
 
+        const embed = new Discord.MessageEmbed()
+            .setTitle(errorCode.code)
+            .setDescription(errorCode.msg);
+
         // Reply
-        message.reply(errorCode.msg);
+        message.reply(embed);
     }
 };

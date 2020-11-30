@@ -14,4 +14,4 @@ interface Command {
     category?: string,
 }
 
-export = Command;
+export default Command;
