@@ -17,3 +17,7 @@ client.on("guildDelete", onGuildDelete);
 
 client.login();
 export { manager };
+
+process.on('unhandledRejection', error => {
+    console.error('Unhandled promise rejection:', error);
+});
