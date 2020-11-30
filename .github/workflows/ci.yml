@@ -4,10 +4,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install modules
-      run: npm i
-    - name: Lint
-      run: npm run lint:fix
-    - name: Test
-      run: npm test
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm i
+      - name: Lint
+        run: npm run lint:fix
+      - name: Test
+        run: npm test
