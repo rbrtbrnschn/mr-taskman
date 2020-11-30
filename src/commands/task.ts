@@ -14,14 +14,13 @@ export = {
   subcommand: "task",
   aliases: ["t"],
   cooldown: 3,
-  execute: async function (message: Discord.Message): Promise<void> {
+  execute: async function (message: Discord.Message): Promise<Discord.Message> {
     // Validate Guild Is Setup Properly
     const foundGuild = await getGuild(message);
+    if (!foundGuild) return message.reply(messages.missingGuild());
+
     const isGuildSetupProperly = isGuildSetup(message, foundGuild);
-    if (!isGuildSetupProperly) {
-      message.reply(messages.guildNotSetup());
-      return;
-    }
+    if (!isGuildSetupProperly) return message.reply(messages.guildNotSetup());
 
     // Get Arguments
     const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -33,10 +32,7 @@ export = {
     const command =
       commands.get(first) ||
       commands.find((cmd: Command) => cmd.aliases?.includes(first));
-    if (!command) {
-      message.reply(messages.command());
-      return;
-    }
+    if (!command) return message.reply(messages.command());
 
     // Execute
     try {
