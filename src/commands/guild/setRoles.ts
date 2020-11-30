@@ -14,7 +14,7 @@ export = {
         const role = args[0];
         const isOwner = message.author.id === message.guild.ownerID;
         const mention = message.mentions.roles.first();
-
+        debugger
         // Validate Permissions, arguments
         if (!isOwner) return message.reply(messages.permission());
         if (!roles.includes(role)) return message.reply("Allowed Roles: `admin` and `moderator`");

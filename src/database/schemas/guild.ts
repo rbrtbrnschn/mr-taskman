@@ -12,9 +12,7 @@ const guildSchema = new Schema({
     guildId: String,
     channelId: { type: String, default: "" },
     ownerId: String,
-    roles: [{
-        type: String
-    }],
+    roles: Object,
     tasks: [{
         type: Schema.Types.ObjectId
     }]
