@@ -15,6 +15,7 @@ async function createGuild(message: Discord.Message): Promise<void> {
   } catch (error) {
     message.reply('Something went wrong creating a guild in db');
   }
+
 }
 
 export { createGuild };

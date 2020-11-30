@@ -6,13 +6,15 @@
   "scripts": {
     "start:dev": "nodemon",
     "start": "npm run build && node ./build/index.js",
-    "build": "rimraf ./build && npx tsc",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "clean": "rimraf ./build",
+    "build": "npm run clean && tsc",
+    "test": "echo 'NO TESTING SETUP'",
+    "lint": "eslint ./src --ext .ts,.js",
+    "lint:fix": "npm run lint -- --fix"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.0",
     "discord.js": "^12.5.0",

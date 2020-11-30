@@ -14,7 +14,6 @@ export = {
         const role = args[0];
         const isOwner = message.author.id === message.guild.ownerID;
         const mention = message.mentions.roles.first();
-
         // Validate Permissions, arguments
         if (!isOwner) return message.reply(messages.permission());
         if (!roles.includes(role)) return message.reply("Allowed Roles: `admin` and `moderator`");
@@ -25,7 +24,7 @@ export = {
             if (!foundGuild) return message.reply("For whatever reason, you're admin fucked up big time.");
             else {
                 // Edit And Save Guild
-                foundGuild.roles[role] = mention;
+                foundGuild.roles[role] = mention.id;
                 foundGuild.markModified("roles");
                 foundGuild.save();
                 return message.reply(`Set ${role} to ${mention}`);

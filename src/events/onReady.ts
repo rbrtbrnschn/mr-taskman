@@ -1,7 +1,7 @@
-import { manager } from "../index";
+// import { manager } from "../index";
 import chalk from "chalk";
 
-export = function () {
+export = function (): void {
     console.log(`${chalk.magenta.bold("[DISCORD]:")}${chalk.reset()} Connection established.`);
     // console.log(`Logged in as ${manager.client.user.tag}!`);
 }
