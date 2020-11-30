@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 
-class Guild {
+export default class Guild {
     ownerId: string;
     guildId: string;
     channelId: string;
@@ -17,5 +17,3 @@ class Guild {
         this.tasks = [];
     }
 }
-
-export = Guild;

@@ -25,7 +25,7 @@ export = {
             if (!foundGuild) return message.reply("For whatever reason, you're admin fucked up big time.");
             else {
                 // Edit And Save Guild
-                foundGuild.roles[role] = mention;
+                foundGuild.roles[role] = mention.id;
                 foundGuild.markModified("roles");
                 foundGuild.save();
                 return message.reply(`Set ${role} to ${mention}`);
