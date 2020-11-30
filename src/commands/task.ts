@@ -3,6 +3,8 @@ import Command from "../interfaces/command";
 import { manager } from "../index";
 import { messages, prefix } from "../config";
 import validate from "../common/validate";
+import { getGuild } from "../common/guild/get";
+import { isGuildSetup } from "../common/guild/validateSetup";
 
 export = {
   name: "task",
@@ -12,7 +14,15 @@ export = {
   subcommand: "task",
   aliases: ["t"],
   cooldown: 3,
-  execute: function (message: Discord.Message): void {
+  execute: async function (message: Discord.Message): Promise<void> {
+    // Validate Guild Is Setup Properly
+    const foundGuild = await getGuild(message);
+    const isGuildSetupProperly = isGuildSetup(message, foundGuild);
+    if (!isGuildSetupProperly) {
+      message.reply(messages.guildNotSetup());
+      return;
+    }
+
     // Get Arguments
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const first = args.shift().toLowerCase();

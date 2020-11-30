@@ -1,5 +1,5 @@
 import Discord from "discord.js";
-import { prefix } from "../../config";
+import { messages } from "../../config";
 import Task from "../../interfaces/Task";
 import TaskModel from "../../database/schemas/task";
 import { getGuild } from "../../common/guild/get";
@@ -18,14 +18,11 @@ export = {
   ): Promise<Discord.Message> {
     try {
       const foundGuild = await getGuild(message);
-      if (!foundGuild)
-        return message.reply(
-          "Guildo no existo. What manner of sorcery is this?"
-        );
-      if (foundGuild.channelId.length < 1)
-        return message.reply(
-          `You have got to set a channel to post the task in first...dumbass. Try \`${prefix}guild channel #channel-name\``
-        );
+      if (!foundGuild) return message.reply(messages.missingGuild());
+      // if (validateChannelId(message, foundGuild.channelId))
+      //   return message.reply(
+      //     `You have got to set a channel to post the task in first...dumbass. Try \`${prefix}guild channel #channel-name\``
+      //   );
 
       const task = new Task(message, args.join(" "));
       task.taskId = generateId();

@@ -25,8 +25,6 @@ export = {
           "For whatever reason, you're admin fucked up big time."
         );
       else {
-        // TODO Add proper validation test ie. testing if specified role is actually available on guild
-        // TODO same for channelId, validate if channel with said id exists on guild
         let replyMessage = "";
         const hasRoles = validateRoles(message, foundGuild.roles);
         const hasChannelId = validateChannelId(message, foundGuild.channelId);
