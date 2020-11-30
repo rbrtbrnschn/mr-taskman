@@ -11,7 +11,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((res) => {
         console.log(`${chalk.greenBright.bold("[MONGOOSE]:")}${chalk.reset()} Selected database ~ ${db}.`);
     })
-    .catch((err) => console.log(`${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} connection interrupted)}`, err));
+    .catch((err) => console.log(`${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} connection interrupted`, err));
 
 mongoose.connection.on("error", (err) => {
     console.log(`${chalk.red.bold("[MONGOOSE]:")}${chalk.reset()} Errored.\n ${err}`);
