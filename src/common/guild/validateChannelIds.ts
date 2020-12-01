@@ -5,8 +5,10 @@ function validateChannelIds(
   channelIds: string[]
 ): boolean {
   const channels = channelIds.map((id) => message.guild.channels.cache.get(id));
-  if (channels.length !== channelIds.length) return false;
-  return true;
+  const hasAllChannels = channels.every(
+    (c) => c instanceof Discord.GuildChannel
+  );
+  return hasAllChannels;
 }
 
 export { validateChannelIds };
