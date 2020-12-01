@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 import { getGuild } from "../../common/guild/get";
-import { validateChannelId } from "../../common/guild/validateChannelId";
+import { validateChannelIds } from "../../common/guild/validateChannelIds";
 import { validateRoles } from "../../common/guild/validateRoles";
 import { messages, prefix } from "../../config";
 export = {
@@ -27,7 +27,7 @@ export = {
       else {
         let replyMessage = "";
         const hasRoles = validateRoles(message, foundGuild.roles);
-        const hasChannelId = validateChannelId(message, foundGuild.channelId);
+        const hasChannelId = validateChannelIds(message, foundGuild.channelIds);
 
         if (!hasRoles)
           replyMessage += `Setup roles via \`${prefix}guild role\`.\n`;

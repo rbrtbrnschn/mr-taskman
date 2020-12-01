@@ -1,13 +1,21 @@
 import Discord from "discord.js";
-import Guild from "../../interfaces/Guild";
 import GuildModel from "../../database/schemas/guild";
 
 async function createGuild(message: Discord.Message): Promise<void> {
   // todo
-  const guild = new Guild(message);
-  guild.guildId = message.guild.id;
   try {
-    const guildModel = await new GuildModel({ ...guild });
+    const guildModel = await new GuildModel({
+      guildId: message.guild.id,
+      ownerId: message.guild.ownerID,
+      roles: Array.from(message.guild.roles.cache.values()).reduce(
+        (prev, curr) => {
+          return { ...prev, [curr.name]: curr.id };
+        },
+        {}
+      ),
+      tasks: [],
+      channelIds: [],
+    });
 
     await guildModel.save();
     message.reply("Created a guild in db");
