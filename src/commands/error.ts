@@ -1,5 +1,5 @@
 import Discord from "discord.js";
-import { getErrorMessage, messages } from "../config";
+import config, { getErrorMessage, messages } from "../config";
 export = {
   name: "error",
   description: "shows error message for given error code",
@@ -18,6 +18,7 @@ export = {
     }
 
     const embed = new Discord.MessageEmbed()
+      .setColor(config.colors.primary)
       .setTitle(errorCode.code)
       .setDescription(errorCode.msg);
 
