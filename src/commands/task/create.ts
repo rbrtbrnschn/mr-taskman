@@ -26,16 +26,9 @@ export = {
       const task = new Task(message, args.join(" "));
       task.taskId = generateId();
 
-      // Create Task And Save
+      // Create, Select And Save Task
       const dbTask = await new TaskModel({ ...task });
-      dbTask.save();
-      foundGuild.tasks.push(dbTask.id);
-      foundGuild.markModified("tasks");
-      foundGuild.save();
-
-      // TODO Select Task
-      // TODO add selectedTasks to guild schema
-      // TODO of type { userId: taskId || Mongoose.ObjectId referencing the task }
+      const userId = message.author.id;
 
       const channels = foundGuild.channelIds.map((id) =>
         message.guild.channels.cache.get(id)
@@ -45,7 +38,21 @@ export = {
 
       const embed = formatTaskEmbed(message, dbTask);
       channels.forEach((channel) => {
-        channel.send(embed);
+        channel.send(embed).then((sent) => {
+          // Add MessageId To Task
+          dbTask.messageId = `${sent.id.toString()}`;
+          dbTask.markModified("messageId");
+          dbTask.save().then((saved) => {
+            // Reference Task In Guild
+            foundGuild.tasks.push(saved._id);
+            foundGuild.markModified("tasks");
+            if (!foundGuild.selectedTasks) foundGuild.selectedTasks = {};
+            // Select Task
+            foundGuild.selectedTasks[userId] = saved._id;
+            foundGuild.markModified("selectedTasks");
+            foundGuild.save();
+          });
+        });
       });
 
       return message.reply(

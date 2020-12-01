@@ -1,12 +1,26 @@
 import Task from "../../interfaces/Task";
 import Discord from "discord.js";
+import { GuildInterface } from "../../database/schemas";
 
-function getTaskById(message: Discord.Message): Task {
+function getTaskById(message: Discord.Message, id: string): Task {
   //TODO
   return new Task(message, "FAKETASK");
 }
 
-function getSelectedTask(message: Discord.Message): Task {
+function getSelectedTask(
+  message: Discord.Message,
+  dbGuild: GuildInterface
+): Task {
+  dbGuild
+    .populate("selectedTasks")
+    .execPopulate()
+    .then((val) => console.log)
+    .catch((err) => console.error);
+  const userId = message.author.id;
+  const ObjectId = dbGuild.selectedTasks[userId];
+
+  if (!ObjectId) return;
+
   //TODO
   return new Task(message, "FAKETASK");
 }
