@@ -19,7 +19,7 @@ const taskSchema = new Schema({
   participants: [],
   deadline: Date,
   taskId: String,
-  messagedId: { type: String, default: "" },
+  messageId: String,
   guildId: String, // technically not necessary
   completed: { type: Boolean, default: false },
   createdTimestamp: { type: Number, default: Date.now() },

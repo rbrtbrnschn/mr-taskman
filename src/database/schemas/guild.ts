@@ -1,17 +1,26 @@
+import TaskInterface from "./task";
 import mongoose, { Schema, Types } from "mongoose";
 
-export interface GuildInterface extends mongoose.Document {
+interface GuildBaseInterface extends mongoose.Document {
   guildId: string;
-  channelId: string;
+  channelIds: Array<string>;
   ownerId: string;
   roles: Record<string, string>; // name : id of a Discord.Role
+  selectedTasks: Record<string, Types.ObjectId>;
+  tasks: any;
+}
+
+export interface GuildInterface extends GuildBaseInterface {
   tasks: Types.Array<Schema.Types.ObjectId>;
-  selectedTasks: Record<string, Schema.Types.ObjectId>;
+}
+
+export interface GuildPopulatedInterface extends GuildBaseInterface {
+  tasks: Types.Array<typeof TaskInterface>;
 }
 
 const guildSchema = new Schema({
   guildId: String,
-  channelId: { type: String, default: "" },
+  channelIds: { type: [String], default: [] },
   ownerId: String,
   roles: Object,
   tasks: [

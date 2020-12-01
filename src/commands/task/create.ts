@@ -19,29 +19,47 @@ export = {
   ): Promise<Discord.Message> {
     try {
       const foundGuild = await getGuild(message);
+
+      if (foundGuild.channelIds.length < 1) {
+        return message.reply("channels not set");
+      }
       const task = new Task(message, args.join(" "));
       task.taskId = generateId();
 
-      // Create, Selec And Save Task
+      // Create, Select And Save Task
       const dbTask = await new TaskModel({ ...task });
       const userId = message.author.id;
-      dbTask.save().then((saved) => {
-        foundGuild.tasks.push(saved._id);
-        foundGuild.markModified("tasks");
-        if (!foundGuild.selectedTasks) foundGuild.selectedTasks = {};
-        foundGuild.selectedTasks[userId] = saved._id;
-        foundGuild.markModified("selectedTasks");
-        foundGuild.save();
-      });
 
-      const channel = message.guild.channels.cache.get(foundGuild.channelId);
+      const channels = foundGuild.channelIds.map((id) =>
+        message.guild.channels.cache.get(id)
+      );
       // Using a type guard to narrow down the correct type
-      if (!isTextChannel(channel)) return;
+      if (!areTextChannels(channels)) return;
 
       const embed = formatTaskEmbed(message, dbTask);
-      channel.send(embed);
+      channels.forEach((channel) => {
+        channel.send(embed).then((sent) => {
+          // Add MessageId To Task
+          dbTask.messageId = `${sent.id.toString()}`;
+          dbTask.markModified("messageId");
+          dbTask.save().then((saved) => {
+            // Reference Task In Guild
+            foundGuild.tasks.push(saved._id);
+            foundGuild.markModified("tasks");
+            if (!foundGuild.selectedTasks) foundGuild.selectedTasks = {};
+            // Select Task
+            foundGuild.selectedTasks[userId] = saved._id;
+            foundGuild.markModified("selectedTasks");
+            foundGuild.save();
+          });
+        });
+      });
 
-      return message.reply(`Task created in <#${channel.id}>.Go check it out`);
+      return message.reply(
+        `Task created in ${channels
+          .map((channel) => `<#${channel.id}>`)
+          .join(", ")}`
+      );
     } catch (error) {
       if (error.code === 11000) {
         // likely a duplicate task title
@@ -54,8 +72,8 @@ export = {
   },
 };
 
-function isTextChannel(
-  channel: Discord.GuildChannel
-): channel is Discord.TextChannel {
-  return channel instanceof Discord.TextChannel;
+function areTextChannels(
+  channels: Discord.GuildChannel[]
+): channels is Discord.TextChannel[] {
+  return channels.every((channel) => channel instanceof Discord.TextChannel);
 }

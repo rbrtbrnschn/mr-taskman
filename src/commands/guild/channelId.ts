@@ -14,11 +14,12 @@ export = {
     args: Array<string>
   ): Promise<Discord.Message> {
     const isOwner = message.guild.ownerID === message.author.id;
-    const mention = message.mentions.channels.first();
+    // const mention = message.mentions.channels.first();
+    const mentions = Array.from(message.mentions.channels.values());
 
     // Validate Permissions, arguments
     if (!isOwner) return message.reply(messages.permission());
-    if (!mention) return message.reply(messages.args());
+    if (mentions.length < 1) return message.reply(messages.args());
     else {
       const foundGuild = await getGuild(message);
 
@@ -28,10 +29,14 @@ export = {
         );
       else {
         // Edit And Save Guild
-        foundGuild.channelId = mention.id;
-        foundGuild.markModified("channelId");
+        foundGuild.channelIds = mentions.map((mention) => mention.id);
+        foundGuild.markModified("channelIds");
         foundGuild.save();
-        return message.reply(`Set Channel Id To <#${mention.id}>`);
+        return message.reply(
+          `Set Channel Id To ${mentions
+            .map((mention) => `<#${mention.id}>`)
+            .join(", ")}`
+        );
       }
     }
   },
