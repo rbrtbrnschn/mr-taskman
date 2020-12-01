@@ -11,7 +11,11 @@ function getSelectedTask(
   message: Discord.Message,
   dbGuild: GuildInterface
 ): Task {
-  // dbGuild.populate("selectedTasks").execPopulate();
+  dbGuild
+    .populate("selectedTasks")
+    .execPopulate()
+    .then((val) => console.log)
+    .catch((err) => console.error);
   const userId = message.author.id;
   const ObjectId = dbGuild.selectedTasks[userId];
 

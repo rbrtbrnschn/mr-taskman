@@ -31,6 +31,6 @@ mongoose.connection.on("error", (err) => {
 });
 mongoose.connection.on("disconnected", () => {
   console.log(
-    `${chalk.magenta.bold("[MONGOOSE]:]")}${chalk.reset()} Lost connection.`
+    `${chalk.magenta.bold("[MONGOOSE]:")}${chalk.reset()} Lost connection.`
   );
 });

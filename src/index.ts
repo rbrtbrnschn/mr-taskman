@@ -5,6 +5,7 @@ import {
   onMessage,
   onGuildCreate,
   onGuildDelete,
+  onReaction,
 } from "./events/index";
 import propagate from "./common/propagate";
 import DiscordManager from "./interfaces/Manager";
@@ -18,6 +19,7 @@ client.on("ready", onReady);
 client.on("message", onMessage);
 client.on("guildCreate", onGuildCreate);
 client.on("guildDelete", onGuildDelete);
+client.on("messageReactionAdd", onReaction);
 
 client.login();
 export { manager };

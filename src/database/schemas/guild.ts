@@ -17,6 +17,7 @@ const guildSchema = new Schema({
   tasks: [
     {
       type: Schema.Types.ObjectId,
+      ref: "tasks",
     },
   ],
   selectedTasks: { type: Object, default: {} },
