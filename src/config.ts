@@ -1,5 +1,4 @@
-// import Config from "./interfaces/Config";
-
+import { MessageEmbed } from "discord.js";
 import messagesData from "./data/messages";
 import Config from "./interfaces/Config";
 import { ErrorKey } from "./interfaces/ErrorCodes";
@@ -10,13 +9,21 @@ const isProd = NODE_ENV === "production";
 const createMessageGenerator = (
   key: ErrorKey,
   config: Config
-): (() => string) => {
+): (() => MessageEmbed) => {
   const messageArray: string[] = messagesData[key];
-  return () => {
+  const embed = new MessageEmbed();
+  return (): MessageEmbed => {
     const randomIndex: number = Math.floor(Math.random() * messageArray.length);
-    return `${messageArray[randomIndex]}\n \`${
-      config.getErrorCode(key).code
-    }\``;
+    const errorCode = config.getErrorCode(key).code;
+    embed.setColor(config.colors.primary);
+    embed.setTitle(messageArray[randomIndex]);
+    embed.setAuthor(errorCode);
+    embed.setFooter(
+      `Do \`${config.prefix}error ${errorCode}\` for more information.`
+    );
+    return embed;
+    // return `${messageArray[randomIndex]}\n \`${config.getErrorCode(key).code
+    //   }\``;
   };
 };
 
@@ -94,7 +101,7 @@ config.messages = Object.fromEntries(
     key,
     createMessageGenerator(key, config),
   ])
-) as Record<ErrorKey, () => string>;
+) as Record<ErrorKey, () => MessageEmbed>;
 
 export default config;
 

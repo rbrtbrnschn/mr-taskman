@@ -1,3 +1,4 @@
+import { MessageEmbed } from "discord.js";
 import { ErrorKey, ErrorCode, ErrorCodes } from "./ErrorCodes";
 
 interface Bot {
@@ -19,7 +20,7 @@ interface Reactions {
   bad: string;
   great: string;
 }
-type MessageGenerator = () => string;
+type MessageGenerator = () => MessageEmbed;
 
 interface Config {
   prefix: string;

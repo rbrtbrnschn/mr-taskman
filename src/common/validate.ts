@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 import Command from "../interfaces/command";
 import { manager } from "../index";
-import { messages } from "../config";
+import config, { messages } from "../config";
 
 function validate(
   message: Discord.Message,
@@ -26,11 +26,9 @@ function validate(
 
       if (now < expirationTime) {
         const timeLeft = (expirationTime - now) / 1000;
-        message.reply(
-          `${messages.cooldown()}\nI need ${timeLeft.toFixed(
-            2
-          )} more second(s) to prepare.`
-        );
+        const embed = messages.cooldown();
+        embed.addField("> Cooldown:", timeLeft.toFixed(2));
+        message.reply(embed);
         return;
       }
     }
@@ -38,9 +36,8 @@ function validate(
   }
 
   // Validate Given Args, Channel Type & Permission
-  let replyMessage = "";
-  if (args && !argsArray.length)
-    replyMessage = `Missing Arguments\n${command.usage && command.usage}`;
+  let replyMessage: Discord.MessageEmbed = new Discord.MessageEmbed();
+  if (args && !argsArray.length) replyMessage = config.messages.args();
   else if (guildOnly && message.channel.type === "dm")
     replyMessage = messages.channel();
   else if (permissions) {
@@ -50,13 +47,11 @@ function validate(
       (r) => r.name === permissions
     );
     if (usersHighest.position < neededRole.position)
-      replyMessage = `${messages.permission()}\nYou are not a <@&${
-        neededRole.id
-      }>.`;
+      replyMessage = messages.permission();
   }
 
-  if (replyMessage.length) {
-    message.reply(replyMessage);
+  if (replyMessage.fields.length) {
+    message.channel.send(replyMessage);
     return false;
   }
   return true;
