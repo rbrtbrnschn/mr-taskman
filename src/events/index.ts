@@ -10,6 +10,5 @@ const all = {
   onMessage: onMessage,
   onReady: onReady,
   onChannelDelete: onChannelDelete,
-  abc: "lol",
 };
 export = all;

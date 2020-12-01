@@ -5,6 +5,7 @@ import {
   onMessage,
   onGuildCreate,
   onGuildDelete,
+  onReaction,
   onChannelDelete,
 } from "./events/index";
 import propagate from "./common/propagate";
@@ -19,6 +20,7 @@ client.on("ready", onReady);
 client.on("message", onMessage);
 client.on("guildCreate", onGuildCreate);
 client.on("guildDelete", onGuildDelete);
+client.on("messageReactionAdd", onReaction);
 client.on("channelDelete", onChannelDelete);
 
 client.login();

@@ -1,6 +1,8 @@
 import Discord from "discord.js";
+import Mongoose from "mongoose";
 
 class Task {
+  _id: Mongoose.Schema.Types.ObjectId;
   title: string;
   createdTimestamp: number;
   description: string;

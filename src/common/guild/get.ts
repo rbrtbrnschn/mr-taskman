@@ -8,5 +8,4 @@ async function getGuild(message: Discord.Message): Promise<GuildInterface> {
   if (!foundGuild) return;
   else return foundGuild;
 }
-
 export { getGuild };
