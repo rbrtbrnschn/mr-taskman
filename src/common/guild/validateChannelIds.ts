@@ -6,7 +6,7 @@ function validateChannelIds(
 ): boolean {
   const channels = channelIds.map((id) => message.guild.channels.cache.get(id));
   const hasAllChannels = channels.every(
-    (c) => c instanceof Discord.GuildChannel
+    (c) => c instanceof Discord.TextChannel
   );
   return hasAllChannels;
 }
