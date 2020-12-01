@@ -26,11 +26,9 @@ function validate(
 
       if (now < expirationTime) {
         const timeLeft = (expirationTime - now) / 1000;
-        message.reply(
-          `${messages.cooldown()}\nI need ${timeLeft.toFixed(
-            2
-          )} more second(s) to prepare.`
-        );
+        const embed = messages.cooldown();
+        embed.addField("> Cooldown:", timeLeft.toFixed(2));
+        message.reply(embed);
         return;
       }
     }
