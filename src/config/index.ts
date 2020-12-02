@@ -1,6 +1,7 @@
 import { MessageEmbed } from "discord.js";
+import reactionsData from "../data/reactions";
 import messagesData from "../data/messages";
-import Config from "../interfaces/Config";
+import Config, { ReactionKey } from "../interfaces/Config";
 import { ErrorKey } from "../interfaces/ErrorCodes";
 
 const { NODE_ENV } = process.env;
@@ -25,6 +26,19 @@ const createMessageGenerator = (
   };
 };
 
+const createReactionGenerator = (
+  key: ReactionKey,
+  config: Config
+): (() => string) => {
+  const reactionArray: string[] = reactionsData[key];
+  return (): string => {
+    const randomIndex: number = Math.floor(
+      Math.random() * reactionArray.length
+    );
+    return reactionArray[randomIndex];
+  };
+};
+
 const config: Config = {
   prefix: isProd ? "/" : "!",
   mongo: {
@@ -45,16 +59,12 @@ const config: Config = {
     primary: 0xfbdb48,
     secondary: 0x296d98,
   },
-  reactions: {
-    good: "👌",
-    bad: "😭",
-    great: "💯",
-  },
   taskColors: {
     created: "#ff0000",
     wip: "ffff00",
     completed: "00ff00",
   },
+  reactions: null,
   messages: null,
   errorCodes: {
     cooldown: {
@@ -117,5 +127,12 @@ config.messages = Object.fromEntries(
     createMessageGenerator(key, config),
   ])
 ) as Record<ErrorKey, () => MessageEmbed>;
+
+config.reactions = Object.fromEntries(
+  Object.values(ReactionKey).map((key) => [
+    key,
+    createReactionGenerator(key, config),
+  ])
+) as Record<ReactionKey, () => string>;
 
 export default config;

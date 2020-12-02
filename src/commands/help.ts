@@ -51,7 +51,7 @@ export default {
       // TODO CHECK FOR SUBCOMMANDS
       const cmd = manager.commands.get(args[0]);
       if (!cmd) {
-        message.react(reactions.bad);
+        message.react(reactions.error());
         return;
       }
 
