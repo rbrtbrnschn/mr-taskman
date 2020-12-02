@@ -1,8 +1,7 @@
-import Discord from "discord.js";
-import Mongoose from "mongoose";
+import mongoose from "mongoose";
 
-class Task {
-  _id: Mongoose.Schema.Types.ObjectId;
+export default class Task {
+  _id: mongoose.Schema.Types.ObjectId;
   title: string;
   createdTimestamp: number;
   description: string;
@@ -11,15 +10,13 @@ class Task {
   messageId: string;
   taskId: string;
 
-  constructor(message: Discord.Message, title: string) {
+  constructor(title: string, authorID: string) {
     this.title = title;
     this.description = "\u200b";
     this.createdTimestamp = Date.now();
-    this.participants = [message.author.id];
+    this.participants = [authorID];
     // this.deadline = new Date();
     this.messageId = "";
     this.taskId = ""; // Discord Like Tag (ie. #0303, simply without the "#")
   }
 }
-
-export = Task;

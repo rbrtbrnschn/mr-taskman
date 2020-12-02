@@ -1,5 +1,5 @@
 import Discord from "discord.js";
-import { messages } from "../../config";
+import config from "../../config";
 export = {
   name: "complete",
   description: "complete task",
@@ -8,6 +8,6 @@ export = {
   guildOnly: true,
   category: "task",
   execute: function (message: Discord.Message, args: Array<string>): void {
-    message.reply(messages.todo());
+    message.reply(config.messages.todo());
   },
 };

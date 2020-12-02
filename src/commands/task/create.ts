@@ -1,10 +1,10 @@
 import Discord from "discord.js";
-import Task from "../../interfaces/Task";
-import TaskModel from "../../database/schemas/task";
-import { getGuild } from "../../common/guild/get";
-import generateId from "../../common/task/generateId";
-import { messages } from "../../config";
-import { formatTaskEmbed } from "../../common/task/formatTaskEmbed";
+import config from "../../config";
+import TaskModel from "../../models/task";
+import GuildService from "../../services/guild";
+import TaskService from "../../services/task";
+
+const { messages } = config;
 
 export = {
   name: "create",
@@ -18,13 +18,13 @@ export = {
     args: Array<string>
   ): Promise<Discord.Message> {
     try {
-      const foundGuild = await getGuild(message);
+      const foundGuild = await GuildService.fetch(message);
 
       if (foundGuild.channelIds.length < 1) {
         return message.reply("channels not set");
       }
-      const task = new Task(message, args.join(" "));
-      task.taskId = generateId();
+      const task = TaskService.create(args.join(" "), message.author.id);
+      task.taskId = TaskService.generateID();
 
       // Create, Select And Save Task
       const dbTask = await new TaskModel({ ...task });
@@ -36,7 +36,7 @@ export = {
       // Using a type guard to narrow down the correct type
       if (!areTextChannels(channels)) return;
 
-      const embed = formatTaskEmbed(message, dbTask);
+      const embed = TaskService.formatTaskEmbed(message, dbTask);
       channels.forEach((channel) => {
         channel.send(embed).then((sent) => {
           // Add MessageId To Task

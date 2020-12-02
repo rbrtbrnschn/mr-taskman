@@ -1,8 +1,10 @@
 import Discord from "discord.js";
 import { manager } from "../index";
-import { colors, prefix, bot } from "../config";
+import config from "../config";
 
-export = {
+const { prefix, bot, colors } = config;
+
+export default {
   name: "ping",
   description: "get networks stats",
   usage: "",

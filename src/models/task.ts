@@ -13,6 +13,7 @@ export interface TaskInterface extends mongoose.Document {
   completedTimestamp: number;
   wip: boolean;
 }
+
 const taskSchema = new Schema({
   title: String,
   description: { type: String, default: "\u200b" },

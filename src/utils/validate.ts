@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 import Command from "../interfaces/command";
 import { manager } from "../index";
-import config, { messages } from "../config";
+import config from "../config";
 
 function validate(
   message: Discord.Message,
@@ -26,7 +26,7 @@ function validate(
 
       if (now < expirationTime) {
         const timeLeft = (expirationTime - now) / 1000;
-        const embed = messages.cooldown();
+        const embed = config.messages.cooldown();
         embed.addField("> Cooldown:", timeLeft.toFixed(2));
         message.reply(embed);
         return;
@@ -39,7 +39,7 @@ function validate(
   let replyMessage: Discord.MessageEmbed = new Discord.MessageEmbed();
   if (args && !argsArray.length) replyMessage = config.messages.args();
   else if (guildOnly && message.channel.type === "dm")
-    replyMessage = messages.channel();
+    replyMessage = config.messages.channel();
   else if (permissions) {
     const usersHighest = message.guild.members.cache.get(message.author.id)
       .roles.highest;
@@ -47,7 +47,7 @@ function validate(
       (r) => r.name === permissions
     );
     if (usersHighest.position < neededRole.position)
-      replyMessage = messages.permission();
+      replyMessage = config.messages.permission();
   }
 
   if (replyMessage.fields.length) {

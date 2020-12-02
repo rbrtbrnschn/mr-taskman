@@ -1,7 +1,7 @@
 import Discord from "discord.js";
-import { messages } from "../config";
+import config from "../config";
 
-export = {
+export default {
   name: "clear",
   description: "cleans channel from messages",
   usage: "<amount of messages>",
@@ -11,7 +11,7 @@ export = {
     const amount = parseInt(args[0]);
     if (args.length) {
       if (isNaN(amount)) {
-        message.reply(messages.args());
+        message.reply(config.messages.args());
         return;
       }
     }
