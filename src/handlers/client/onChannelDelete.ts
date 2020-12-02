@@ -1,7 +1,7 @@
 import { Channel } from "discord.js";
 import GuildModel from "../../models/guild";
 
-export default async function (channel: Channel) {
+export default async function (channel: Channel): void {
   const foundGuild = await GuildModel.findOne({
     channelIds: { $elemMatch: { $eq: channel.id } },
   });

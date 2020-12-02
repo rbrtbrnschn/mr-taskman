@@ -12,7 +12,7 @@ interface Mongo {
   user: string;
   pass: string;
   host: string;
-  db: 'main' | 'dev';
+  db: "main" | "dev";
 }
 
 type Color = number;

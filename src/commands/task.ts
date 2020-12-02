@@ -3,9 +3,9 @@ import Command from "../interfaces/command";
 import { manager } from "../index";
 import config from "../config";
 import validate from "../utils/validate";
-import GuildService from '../services/guild';
+import GuildService from "../services/guild";
 
-const {messages, prefix} = config;
+const { messages, prefix } = config;
 
 export = {
   name: "task",

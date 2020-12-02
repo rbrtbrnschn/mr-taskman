@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 import config from "../../config";
 
-import GuildService from '../../services/guild';
+import GuildService from "../../services/guild";
 
 const { messages, prefix } = config;
 export = {
@@ -28,7 +28,10 @@ export = {
       else {
         let replyMessage = "";
         const hasRoles = GuildService.validateRoles(message, foundGuild.roles);
-        const hasChannelId = GuildService.validateChannelIds(message, foundGuild.channelIds);
+        const hasChannelId = GuildService.validateChannelIds(
+          message,
+          foundGuild.channelIds
+        );
 
         if (!hasRoles)
           replyMessage += `Setup roles via \`${prefix}guild role\`.\n`;

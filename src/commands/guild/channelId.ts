@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 import config from "../../config";
-import GuildService from '../../services/guild'
-const {messages} = config;
+import GuildService from "../../services/guild";
+const { messages } = config;
 
 export = {
   name: "channel",

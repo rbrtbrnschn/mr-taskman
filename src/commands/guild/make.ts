@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 
-import GuildService from '../../services/guild';
+import GuildService from "../../services/guild";
 
 export = {
   name: "make",
@@ -26,10 +26,10 @@ export = {
       );
     }
 
-    try{
+    try {
       await GuildService.create(message);
       message.reply("Created a guild in db.");
-    } catch(err){
+    } catch (err) {
       message.reply("Something went wrong creating a guild in db.");
     }
   },

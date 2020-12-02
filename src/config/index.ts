@@ -28,10 +28,10 @@ const createMessageGenerator = (
 const config: Config = {
   prefix: isProd ? "/" : "!",
   mongo: {
-    user: process.env.MONGODB_USER ?? 'dev',
-    pass: process.env.MONGODB_PASS ?? 'C0p5FqNEA5nV8UG7',
-    host: process.env.MONGODB_HOST ?? 'cluster0.eit8m.mongodb.net',
-    db: isProd ? 'main' : 'dev',
+    user: process.env.MONGODB_USER ?? "dev",
+    pass: process.env.MONGODB_PASS ?? "C0p5FqNEA5nV8UG7",
+    host: process.env.MONGODB_HOST ?? "cluster0.eit8m.mongodb.net",
+    db: isProd ? "main" : "dev",
   },
   bot: {
     name: "Mr.Taskman",
@@ -75,7 +75,7 @@ const config: Config = {
     },
     command: {
       code: "E00500",
-      msg: "Command not found."
+      msg: "Command not found.",
     },
     error: {
       code: "E00600",
@@ -83,7 +83,7 @@ const config: Config = {
     },
     todo: {
       code: "E00700",
-      msg: "This command is still a WIP."
+      msg: "This command is still a WIP.",
     },
     missingGuild: {
       code: "E00800",

@@ -7,7 +7,6 @@ interface GuildBaseInterface extends mongoose.Document {
   ownerId: string;
   roles: Record<string, string>; // name : id of a Discord.Role
   selectedTasks: Record<string, Types.ObjectId>;
-  tasks: any;
 }
 
 export interface GuildInterface extends GuildBaseInterface {

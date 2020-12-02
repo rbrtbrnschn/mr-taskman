@@ -2,7 +2,7 @@ import Discord from "discord.js";
 import { manager } from "../index";
 import config from "../config";
 
-const {bot, colors, prefix, reactions} = config;
+const { bot, colors, prefix, reactions } = config;
 
 export = {
   name: "help",

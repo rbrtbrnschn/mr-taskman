@@ -1,5 +1,5 @@
 import fs from "fs";
-import {Collection} from 'discord.js';
+import { Collection } from "discord.js";
 import Command from "../interfaces/command";
 import config from "../config";
 

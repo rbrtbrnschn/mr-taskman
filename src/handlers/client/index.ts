@@ -4,10 +4,10 @@ import onGuildCreate from "./onGuildCreate";
 import onGuildDelete from "./onGuildDelete";
 import onChannelDelete from "./onChannelDelete";
 
-export default ({
+export default {
   ready: onReady,
   message: onMessage,
   guildCreate: onGuildCreate,
   guildDelete: onGuildDelete,
   channelDelete: onChannelDelete,
-});
+};

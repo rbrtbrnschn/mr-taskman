@@ -1,30 +1,21 @@
 import Discord from "discord.js";
 
-import config from '../config';
+import config from "../config";
 import Task from "../interfaces/task";
 import { TaskInterface } from "../models/task";
 import { GuildInterface } from "../models/guild";
 
-
 class TaskService {
-
-  constructor(){
+  create(title: string, authorID: string): Task {
+    return new Task(title, authorID);
   }
-
-  create(title: string, authorID: string): Task{
-     return new Task(title, authorID);
-  }
-
 
   getTaskById(message: Discord.Message, id: string): Task {
     //TODO
-    return new Task("FAKETASK", 'fakeauthor');
+    return new Task("FAKETASK", "fakeauthor");
   }
 
-  getSelectedTask(
-    message: Discord.Message,
-    dbGuild: GuildInterface
-  ): Task {
+  getSelectedTask(message: Discord.Message, dbGuild: GuildInterface): Task {
     dbGuild
       .populate("selectedTasks")
       .execPopulate()
@@ -73,12 +64,9 @@ class TaskService {
     return embed;
   }
 
-  generateID(): string{
-    return '0000';//TODO
+  generateID(): string {
+    return "0000"; //TODO
   }
-
-
-
 }
 
 export default new TaskService();

@@ -1,9 +1,8 @@
 import Discord from "discord.js";
 import config from "../../config";
-import Task from "../../interfaces/task";
 import TaskModel from "../../models/task";
-import GuildService from '../../services/guild';
-import TaskService from '../../services/task';
+import GuildService from "../../services/guild";
+import TaskService from "../../services/task";
 
 const { messages } = config;
 
@@ -24,7 +23,7 @@ export = {
       if (foundGuild.channelIds.length < 1) {
         return message.reply("channels not set");
       }
-      const task = TaskService.create(args.join(' '), message.author.id);
+      const task = TaskService.create(args.join(" "), message.author.id);
       task.taskId = TaskService.generateID();
 
       // Create, Select And Save Task

@@ -8,7 +8,7 @@ const manager = new DiscordManager();
 
 const startBot = async () => {
   await loaders(manager);
-}
+};
 
 startBot();
 
@@ -16,4 +16,4 @@ process.on("unhandledRejection", (error) => {
   console.error("Unhandled promise rejection:", error);
 });
 
-export {manager};
+export { manager };
