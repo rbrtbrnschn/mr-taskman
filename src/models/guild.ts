@@ -9,13 +9,13 @@ interface GuildBaseInterface extends mongoose.Document {
 }
 
 export interface GuildInterface extends GuildBaseInterface {
-  tasks: Types.Array<Types.ObjectId>;
-  selectedTasks: Record<string, Types.ObjectId>;
+  tasks: Types.Array<Schema.Types.ObjectId>;
+  selectedTasks: Types.Map<Types.ObjectId>;
 }
 
 export interface GuildPopulatedInterface extends GuildBaseInterface {
   tasks: Types.Array<typeof TaskInterface>;
-  selectedTasks: Record<string, typeof TaskInterface>;
+  selectedTasks: Types.Map<typeof TaskInterface>;
 }
 
 const guildSchema = new Schema({
@@ -35,6 +35,7 @@ const guildSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "tasks",
     },
+    from: String,
   },
 });
 

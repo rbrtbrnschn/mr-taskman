@@ -11,7 +11,7 @@ class GuildService {
     } else if (param instanceof Discord.Guild) {
       guild = param;
     }
-    const guildModel = await new GuildModel({
+    const guildModel = new GuildModel({
       guildId: guild.id,
       ownerId: guild.ownerID,
       roles: {

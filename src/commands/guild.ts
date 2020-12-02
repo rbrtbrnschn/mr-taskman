@@ -14,7 +14,6 @@ export default {
   aliases: ["g"],
   execute: function (message: Discord.Message): void {
     // Get Arguments
-    console.log(message.content);
     if (!this.args) {
       console.log("Inner");
       message.reply(config.messages.args());
