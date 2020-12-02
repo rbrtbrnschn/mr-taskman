@@ -95,6 +95,11 @@ const config: Config = {
       msg:
         "Your guild is not setup properly. You may want to talk to an adminstrator about this.\nIf you are the administrator, take look at the `guild status` or `help guild` command.",
     },
+    taskSelected: {
+      code: "E01000",
+      msg:
+        "No task selected. Take a look at our `task select` function.\nKeep in mind, we automatically deselect a task if you complete it.",
+    },
   },
   getErrorCode(key) {
     return this.errorCodes[key];

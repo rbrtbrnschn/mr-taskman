@@ -2,27 +2,31 @@ import Discord from "discord.js";
 // import TaskService from "../../services/task";
 // import GuildService from "../../services/guild";
 import config from "../../config";
+
 export = {
-  name: "complete",
-  description: "complete task",
-  usage: "",
-  args: false,
+  name: "title",
+  description: "sets description",
+  usage: "<title>",
+  args: true,
   guildOnly: true,
   category: "task",
-  execute: function (message: Discord.Message, args: Array<string>): void {
-    message.reply(config.messages.todo());
-    const isOnlyBoilerPlate = true;
-    if (isOnlyBoilerPlate) return;
+  execute: async function (
+    message: Discord.Message,
+    args: Array<string>
+  ): Promise<void> {
     // const foundGuild = await GuildService.fetch(message);
     // const selectedTask = TaskService.getSelectedTask(message, foundGuild);
+    if (!args.length) {
+      message.reply(config.messages.args());
+      return;
+    }
     let selectedTask; // For keeping validation from erroring during boilerplate setup. Please remove this line once finished.
     if (!selectedTask) {
       message.reply(config.messages.taskSelected());
       return;
     }
-
-    // selectedTask.description = args.join(" ");
-    // selectedTask.markModified("description");
+    // selectedTask.title = args.join(" ");
+    // selectedTask.markModified("title");
     // TaskService.save(selectedTask);
 
     // TODO Possibly react to message upon completion, example below
