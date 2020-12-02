@@ -16,17 +16,20 @@ class TaskService {
   }
 
   getSelectedTask(message: Discord.Message, dbGuild: GuildInterface): Task {
-    dbGuild
-      .populate("selectedTasks")
-      .execPopulate()
-      .then((val) => console.log)
-      .catch((err) => console.error);
     const userId = message.author.id;
     const ObjectId = dbGuild.selectedTasks[userId];
 
     if (!ObjectId) return;
+    // return dbGuild
+    //   .populate("selectedTasks")
+    //   .execPopulate()
+    //   .then((val) => {
+    //     return val.selectedTasks[userId];
+    //   })
+    //   .catch((err) => console.error);
 
     //TODO
+
     return new Task("FAKETASK", userId);
   }
 

@@ -14,6 +14,12 @@ export default {
   aliases: ["g"],
   execute: function (message: Discord.Message): void {
     // Get Arguments
+    console.log(message.content);
+    if (!this.args) {
+      console.log("Inner");
+      message.reply(config.messages.args());
+      return;
+    }
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const first = args.shift().toLowerCase();
     message.content = `${config.prefix}${args.join(" ")}`;
