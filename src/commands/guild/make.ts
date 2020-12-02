@@ -1,7 +1,6 @@
 import Discord from "discord.js";
 
-import { createGuild } from "../../common/guild/create";
-import { getGuild } from "../../common/guild/get";
+import GuildService from '../../services/guild';
 
 export = {
   name: "make",
@@ -20,13 +19,18 @@ export = {
         "Ha ha ha ha ha ha ha ha ha ha. You have no power here"
       );
     }
-    const hasGuildAlready = await getGuild(message);
+    const hasGuildAlready = await GuildService.fetch(message);
     if (hasGuildAlready) {
       return message.reply(
         "I seem to be experiencing deja vu, because i remember performing this action already"
       );
     }
 
-    await createGuild(message);
+    try{
+      await GuildService.create(message);
+      message.reply("Created a guild in db.");
+    } catch(err){
+      message.reply("Something went wrong creating a guild in db.");
+    }
   },
 };

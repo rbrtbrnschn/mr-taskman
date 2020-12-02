@@ -7,5 +7,4 @@ export = function (): void {
       "[DISCORD]:"
     )}${chalk.reset()} Connection established.`
   );
-  // console.log(`Logged in as ${manager.client.user.tag}!`);
 };

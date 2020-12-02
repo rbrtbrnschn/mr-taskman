@@ -4,11 +4,10 @@ import onGuildCreate from "./onGuildCreate";
 import onGuildDelete from "./onGuildDelete";
 import onChannelDelete from "./onChannelDelete";
 
-const all = {
-  onGuildCreate: onGuildCreate,
-  onGuildDelete: onGuildDelete,
-  onMessage: onMessage,
-  onReady: onReady,
-  onChannelDelete: onChannelDelete,
-};
-export = all;
+export default ({
+  ready: onReady,
+  message: onMessage,
+  guildCreate: onGuildCreate,
+  guildDelete: onGuildDelete,
+  channelDelete: onChannelDelete,
+});

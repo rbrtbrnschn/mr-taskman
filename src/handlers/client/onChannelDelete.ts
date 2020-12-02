@@ -1,5 +1,5 @@
 import { Channel } from "discord.js";
-import { GuildModel } from "../database/schemas";
+import GuildModel from "../../models/guild";
 
 export default async function (channel: Channel) {
   const foundGuild = await GuildModel.findOne({

@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { Guild } from "discord.js";
-// import { GuildModel } from "../database/schemas";
+// import { GuildModel } from "../models";
 
 export = async function (guild: Guild): Promise<void> {
   console.log(

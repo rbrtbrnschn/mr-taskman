@@ -1,29 +1,19 @@
 import dotenv from "dotenv";
 dotenv.config();
-import {
-  onReady,
-  onMessage,
-  onGuildCreate,
-  onGuildDelete,
-  onChannelDelete,
-} from "./events/index";
-import propagate from "./common/propagate";
+
 import DiscordManager from "./interfaces/Manager";
-import "./database/index";
+import loaders from "./loaders";
 
 const manager = new DiscordManager();
-propagate();
 
-const { client } = manager;
-client.on("ready", onReady);
-client.on("message", onMessage);
-client.on("guildCreate", onGuildCreate);
-client.on("guildDelete", onGuildDelete);
-client.on("channelDelete", onChannelDelete);
+const startBot = async () => {
+  await loaders(manager);
+}
 
-client.login();
-export { manager };
+startBot();
 
 process.on("unhandledRejection", (error) => {
   console.error("Unhandled promise rejection:", error);
 });
+
+export {manager};

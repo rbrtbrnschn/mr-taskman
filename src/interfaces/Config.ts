@@ -8,6 +8,13 @@ interface Bot {
   path2Commands: string;
 }
 
+interface Mongo {
+  user: string;
+  pass: string;
+  host: string;
+  db: 'main' | 'dev';
+}
+
 type Color = number;
 
 interface Colors {
@@ -25,6 +32,7 @@ type MessageGenerator = () => MessageEmbed;
 interface Config {
   prefix: string;
   bot: Bot;
+  mongo: Mongo;
   colors: Colors;
   reactions: Reactions;
   messages: Record<ErrorKey, MessageGenerator>;

@@ -1,8 +1,9 @@
 import Discord from "discord.js";
-import { getGuild } from "../../common/guild/get";
-import { validateChannelIds } from "../../common/guild/validateChannelIds";
-import { validateRoles } from "../../common/guild/validateRoles";
-import { messages, prefix } from "../../config";
+import config from "../../config";
+
+import GuildService from '../../services/guild';
+
+const { messages, prefix } = config;
 export = {
   name: "status",
   description: "list's further requirements to setup server properly",
@@ -18,7 +19,7 @@ export = {
 
     if (!isOwner) return message.reply(messages.permission());
     else {
-      const foundGuild = await getGuild(message);
+      const foundGuild = await GuildService.fetch(message);
 
       if (!foundGuild)
         return message.reply(
@@ -26,8 +27,8 @@ export = {
         );
       else {
         let replyMessage = "";
-        const hasRoles = validateRoles(message, foundGuild.roles);
-        const hasChannelId = validateChannelIds(message, foundGuild.channelIds);
+        const hasRoles = GuildService.validateRoles(message, foundGuild.roles);
+        const hasChannelId = GuildService.validateChannelIds(message, foundGuild.channelIds);
 
         if (!hasRoles)
           replyMessage += `Setup roles via \`${prefix}guild role\`.\n`;

@@ -1,17 +1,17 @@
 /* eslint-disable indent */
 import { Message } from "discord.js";
-import { manager } from "../index";
-import { prefix, messages } from "../config";
-import validate from "../common/validate";
-import setPresence from "../common/setPresence";
-import Command from "../interfaces/command";
+import { manager } from "../../index";
+import config from "../../config";
+import validate from "../../utils/validate";
+import setPresence from "../../utils/setPresence";
+import Command from "../../interfaces/command";
 
 export = function (message: Message): void {
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (!message.content.startsWith(config.prefix) || message.author.bot) return;
   setPresence(message);
 
   // Get Arguments
-  const args = message.content.slice(prefix.length).trim().split(/ +/);
+  const args = message.content.slice(config.prefix.length).trim().split(/ +/);
   const first = args.shift().toLowerCase();
 
   // Get Command
@@ -20,7 +20,7 @@ export = function (message: Message): void {
     commands.get(first) ||
     commands.find((cmd: Command) => cmd.aliases?.includes(first));
   if (!command) {
-    message.reply(messages.command());
+    message.reply(config.messages.command());
     return;
   }
 
@@ -41,6 +41,6 @@ export = function (message: Message): void {
     if (isAllowed) command.execute(message, args);
   } catch (err) {
     console.log(err);
-    message.reply(messages.error());
+    message.reply(config.messages.error());
   }
 };

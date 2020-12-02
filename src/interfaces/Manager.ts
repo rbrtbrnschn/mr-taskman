@@ -13,4 +13,4 @@ class DiscordManager {
     this.cooldowns = new Discord.Collection();
   }
 }
-export = DiscordManager;
+export default DiscordManager;

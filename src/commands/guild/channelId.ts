@@ -1,6 +1,7 @@
 import Discord from "discord.js";
-import { messages } from "../../config";
-import { getGuild } from "../../common/guild/get";
+import config from "../../config";
+import GuildService from '../../services/guild'
+const {messages} = config;
 
 export = {
   name: "channel",
@@ -21,7 +22,7 @@ export = {
     if (!isOwner) return message.reply(messages.permission());
     if (mentions.length < 1) return message.reply(messages.args());
     else {
-      const foundGuild = await getGuild(message);
+      const foundGuild = await GuildService.fetch(message);
 
       if (!foundGuild)
         return message.reply(

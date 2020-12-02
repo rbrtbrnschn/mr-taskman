@@ -1,9 +1,12 @@
 import Discord from "discord.js";
 import { manager } from "../index";
-import { prefix, bot, reactions, colors } from "../config";
+import config from "../config";
+
+const {bot, colors, prefix, reactions} = config;
+
 export = {
   name: "help",
-  description: "List's Commands & Helpfull Information",
+  description: "List's Commands & Helpful Information",
   usage: "<command name>",
   guildOnly: false,
   cooldown: 5,
