@@ -1,6 +1,5 @@
 import Discord from "discord.js";
 import config from "../../config";
-import TaskModel from "../../models/task";
 import GuildService from "../../services/guild";
 import TaskService from "../../services/task";
 
@@ -23,11 +22,8 @@ export = {
       if (foundGuild.channelIds.length < 1) {
         return message.reply("channels not set");
       }
-      const task = TaskService.create(args.join(" "), message.author.id);
-      task.taskId = TaskService.generateID();
+      const task = await TaskService.create(args.join(" "), message.author.id);
 
-      // Create, Select And Save Task
-      const dbTask = await new TaskModel({ ...task });
       const userId = message.author.id;
 
       const channels = foundGuild.channelIds.map((id) =>
@@ -36,19 +32,19 @@ export = {
       // Using a type guard to narrow down the correct type
       if (!areTextChannels(channels)) return;
 
-      const embed = TaskService.formatTaskEmbed(message, dbTask);
+      const embed = TaskService.formatTaskEmbed(message, task);
       channels.forEach((channel) => {
         channel.send(embed).then((sent) => {
           // Add MessageId To Task
-          dbTask.messageId = `${sent.id.toString()}`;
-          dbTask.markModified("messageId");
-          dbTask.save().then((saved) => {
+          task.messageId = `${sent.id.toString()}`;
+          task.markModified("messageId");
+          task.save().then((saved) => {
             // Reference Task In Guild
             foundGuild.tasks.push(saved._id);
             foundGuild.markModified("tasks");
-            if (!foundGuild.selectedTasks) foundGuild.selectedTasks = {};
+            // if (!foundGuild.selectedTasks.size) foundGuild.selectedTasks = new Map();
             // Select Task
-            foundGuild.selectedTasks[userId] = saved._id;
+            foundGuild.selectedTasks.set(userId, saved._id); // ALL THIS SHOULD BE MOVED TO THE SERVICE. COMMANDS SHOULDNT TOUCH MODELS
             foundGuild.markModified("selectedTasks");
             foundGuild.save();
           });

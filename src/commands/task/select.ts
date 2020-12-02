@@ -1,7 +1,5 @@
 import Discord from "discord.js";
-// import GuildService from "../../services/guild";
-// import TaskService from "../../services/task";
-import config from "../../config";
+import TaskService from "../../services/task";
 
 export = {
   name: "select",
@@ -14,14 +12,16 @@ export = {
     message: Discord.Message,
     args: Array<string>
   ): Promise<void> {
-    if (!this.args) {
+    let selectedTask = undefined;
+    if (!args.length) {
       // Show Selected
+      selectedTask = await TaskService.fetchSelected(message);
     } else {
       // Select
+      selectedTask = await TaskService.select(message, args[0]);
     }
-    message.reply(config.messages.todo());
-    // const foundGuild = await GuildService.fetch(message);
-    // const selectedTask = TaskService.getSelectedTask(message, foundGuild);
-    // console.log(selectedTask);
+    console.log(selectedTask);
+    message.reply(TaskService.formatTaskEmbed(message, selectedTask));
+    // message.reply(config.messages.todo());
   },
 };

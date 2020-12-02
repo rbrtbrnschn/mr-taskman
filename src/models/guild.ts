@@ -6,17 +6,17 @@ interface GuildBaseInterface extends mongoose.Document {
   channelIds: Array<string>;
   ownerId: string;
   roles: Record<string, string>; // name : id of a Discord.Role
-  selectedTasks: Record<string, Types.ObjectId>;
+  // selectedTasks: Record<string, Types.ObjectId>;
 }
 
 export interface GuildInterface extends GuildBaseInterface {
   tasks: Types.Array<Schema.Types.ObjectId>;
-  // selectedTasks: Record<string, Types.ObjectId>;
+  selectedTasks: Types.Map<Types.ObjectId>;
 }
 
 export interface GuildPopulatedInterface extends GuildBaseInterface {
   tasks: Types.Array<typeof TaskInterface>;
-  // selectedTasks: Record<string, typeof TaskInterface>;
+  selectedTasks: Types.Map<typeof TaskInterface>;
 }
 
 const guildSchema = new Schema({
@@ -30,7 +30,14 @@ const guildSchema = new Schema({
       ref: "tasks",
     },
   ],
-  selectedTasks: { type: Object, default: {}, ref: "tasks" },
+  selectedTasks: {
+    type: Map,
+    of: {
+      type: Schema.Types.ObjectId,
+      ref: "tasks",
+    },
+    from: String,
+  },
 });
 
 const GuildModel = mongoose.model<GuildInterface>("guilds", guildSchema);
