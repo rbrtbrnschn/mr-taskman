@@ -4,7 +4,7 @@ import GuildService from "../../services/guild";
 
 const { messages } = config;
 
-export = {
+export default {
   name: "role",
   description: "set role for permissions",
   usage: "<admin || moderator> <@role mention>",

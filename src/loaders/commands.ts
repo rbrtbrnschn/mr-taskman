@@ -12,7 +12,9 @@ export default async (commands: Collection<string, Command>): Promise<void> => {
 
   // Propegate Root Files
   files.forEach(async function (f): Promise<void> {
-    const cmd: Command = await import(`${path}/${f}`);
+    const cmd: Command = await import(`${path}/${f}`).then(
+      (mod) => mod.default
+    );
     commands.set(cmd.name, cmd);
   });
 
@@ -20,7 +22,9 @@ export default async (commands: Collection<string, Command>): Promise<void> => {
   dirs.forEach(function (d): void {
     const files = fs.readdirSync(`${path}/${d}`);
     files.forEach(async function (f): Promise<void> {
-      const cmd: Command = await import(`${path}/${d}/${f}`);
+      const cmd: Command = await import(`${path}/${d}/${f}`).then(
+        (mod) => mod.default
+      );
       commands.set(cmd.name, cmd);
     });
   });

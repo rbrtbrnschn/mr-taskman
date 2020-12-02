@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 
-export = {
+export default {
   name: "select",
   description: "selects a task",
   usage: "<taskId>",

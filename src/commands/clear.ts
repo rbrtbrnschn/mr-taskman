@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 import config from "../config";
 
-export default {
+export = {
   name: "clear",
   description: "cleans channel from messages",
   usage: "<amount of messages>",

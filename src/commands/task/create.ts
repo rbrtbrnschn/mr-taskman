@@ -6,7 +6,7 @@ import TaskService from "../../services/task";
 
 const { messages } = config;
 
-export = {
+export default {
   name: "create",
   description: "creates task",
   usage: "<title>",

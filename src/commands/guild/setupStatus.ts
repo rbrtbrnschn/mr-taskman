@@ -4,7 +4,7 @@ import config from "../../config";
 import GuildService from "../../services/guild";
 
 const { messages, prefix } = config;
-export = {
+export default {
   name: "status",
   description: "list's further requirements to setup server properly",
   usage: "",

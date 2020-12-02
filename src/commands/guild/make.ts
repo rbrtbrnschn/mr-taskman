@@ -2,7 +2,7 @@ import Discord from "discord.js";
 
 import GuildService from "../../services/guild";
 
-export = {
+export default {
   name: "make",
   description: "creates a guild in the database",
   usage: "",

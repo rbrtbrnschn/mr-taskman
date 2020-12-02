@@ -28,9 +28,9 @@ const createMessageGenerator = (
 const config: Config = {
   prefix: isProd ? "/" : "!",
   mongo: {
-    user: process.env.MONGODB_USER ?? "dev",
-    pass: process.env.MONGODB_PASS ?? "C0p5FqNEA5nV8UG7",
-    host: process.env.MONGODB_HOST ?? "cluster0.eit8m.mongodb.net",
+    user: process.env.MONGODB_USER || "dev",
+    pass: process.env.MONGODB_PASS || "C0p5FqNEA5nV8UG7",
+    host: process.env.MONGODB_HOST || "cluster0.eit8m.mongodb.net",
     db: isProd ? "main" : "dev",
   },
   bot: {

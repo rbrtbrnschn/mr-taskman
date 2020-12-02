@@ -3,7 +3,7 @@ import config from "../../config";
 import GuildService from "../../services/guild";
 const { messages } = config;
 
-export = {
+export default {
   name: "channel",
   description: "set channelId",
   usage: "<#channel mention>",

@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 import config from "../../config";
-export = {
+export default {
   name: "complete",
   description: "complete task",
   usage: "",
