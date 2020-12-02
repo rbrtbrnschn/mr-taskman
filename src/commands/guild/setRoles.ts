@@ -1,6 +1,8 @@
 import Discord from "discord.js";
-import { getGuild } from "../../common/guild/get";
-import { messages } from "../../config";
+import config from "../../config";
+import GuildService from "../../services/guild";
+
+const { messages } = config;
 
 export = {
   name: "role",
@@ -23,7 +25,7 @@ export = {
       return message.reply("Allowed Roles: `admin` and `moderator`");
     if (!mention) return message.reply(messages.args());
     else {
-      const foundGuild = await getGuild(message);
+      const foundGuild = await GuildService.fetch(message);
 
       if (!foundGuild)
         return message.reply(

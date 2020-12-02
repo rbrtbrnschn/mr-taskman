@@ -1,12 +1,13 @@
 import Discord from "discord.js";
 import Command from "../interfaces/command";
 import { manager } from "../index";
-import { messages, prefix } from "../config";
-import validate from "../common/validate";
-import { getGuild } from "../common/guild/get";
-import { isGuildSetup } from "../common/guild/validateSetup";
+import config from "../config";
+import validate from "../utils/validate";
+import GuildService from "../services/guild";
 
-export = {
+const { messages, prefix } = config;
+
+export default {
   name: "task",
   description: "Command Handler For Tasks On A Server",
   usage: "<commands name>",
@@ -16,10 +17,10 @@ export = {
   cooldown: 3,
   execute: async function (message: Discord.Message): Promise<Discord.Message> {
     // Validate Guild Is Setup Properly
-    const foundGuild = await getGuild(message);
+    const foundGuild = await GuildService.fetch(message.guild);
     if (!foundGuild) return message.reply(messages.missingGuild());
 
-    const isGuildSetupProperly = isGuildSetup(message, foundGuild);
+    const isGuildSetupProperly = GuildService.isGuildSetup(message, foundGuild);
     if (!isGuildSetupProperly) return message.reply(messages.guildNotSetup());
 
     // Get Arguments

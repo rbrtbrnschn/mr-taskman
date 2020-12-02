@@ -1,6 +1,6 @@
 import Discord from "discord.js";
-import config, { getErrorMessage, messages } from "../config";
-export = {
+import config from "../config";
+export default {
   name: "error",
   description: "shows error message for given error code",
   usage: "<error code>",
@@ -9,11 +9,11 @@ export = {
   execute: function (message: Discord.Message, args: Array<string>): void {
     // Get Error
     const code = args[0].toLowerCase();
-    const errorCode = getErrorMessage(code);
+    const errorCode = config.getErrorMessage(code);
 
     // Validate No Error
     if (!errorCode) {
-      message.reply(messages.args());
+      message.reply(config.messages.args());
       return;
     }
 

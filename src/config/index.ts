@@ -1,7 +1,7 @@
 import { MessageEmbed } from "discord.js";
-import messagesData from "./data/messages";
-import Config from "./interfaces/Config";
-import { ErrorKey } from "./interfaces/ErrorCodes";
+import messagesData from "../data/messages";
+import Config from "../interfaces/Config";
+import { ErrorKey } from "../interfaces/ErrorCodes";
 
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV === "production";
@@ -22,13 +22,17 @@ const createMessageGenerator = (
       `Do \`${config.prefix}error ${errorCode}\` for more information.`
     );
     return embed;
-    // return `${messageArray[randomIndex]}\n \`${config.getErrorCode(key).code
-    //   }\``;
   };
 };
 
 const config: Config = {
   prefix: isProd ? "/" : "!",
+  mongo: {
+    user: process.env.MONGODB_USER ?? "dev",
+    pass: process.env.MONGODB_PASS ?? "C0p5FqNEA5nV8UG7",
+    host: process.env.MONGODB_HOST ?? "cluster0.eit8m.mongodb.net",
+    db: isProd ? "main" : "dev",
+  },
   bot: {
     name: "Mr.Taskman",
     version: "2.0.0",
@@ -69,12 +73,18 @@ const config: Config = {
       code: "E00400",
       msg: "Missing arguments. Command requires arguments.",
     },
-    command: { code: "E00500", msg: "Command not found." },
+    command: {
+      code: "E00500",
+      msg: "Command not found.",
+    },
     error: {
       code: "E00600",
       msg: "The bot errored. The developer team has been notified.",
     },
-    todo: { code: "E00700", msg: "This command is still a WIP." },
+    todo: {
+      code: "E00700",
+      msg: "This command is still a WIP.",
+    },
     missingGuild: {
       code: "E00800",
       msg:
@@ -104,15 +114,3 @@ config.messages = Object.fromEntries(
 ) as Record<ErrorKey, () => MessageEmbed>;
 
 export default config;
-
-export const {
-  prefix,
-  bot,
-  colors,
-  reactions,
-  messages,
-  errorCodes,
-  getErrorCode,
-  getErrorMessage,
-  taskColors,
-} = config;

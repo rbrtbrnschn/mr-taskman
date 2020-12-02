@@ -1,5 +1,5 @@
 import Discord from "discord.js";
-// import { bot } from "../config";
+// import config from "../config";
 
 function setPresence(message: Discord.Message): void {
   const timeoutTimer = 5000; // bot.activityTimeout || 10000
