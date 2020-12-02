@@ -98,6 +98,14 @@ const messages: { [index in ErrorKey]: string[] } = {
     "Maybe you cann call an adminstrator and tell him he forgot to set something up.",
     "It's unfortunate, but untill I am setup properly, I cannot help you.",
   ],
+  taskSelected: [
+    "Well I cant work with you, if you don't tell me on what you like to perform this action.",
+    "Come on. I can't read minds okay. A little extra information would be splended.",
+    "Sometimes, even one extra command can go a long way.",
+    "Ohh mi amigo, where is a me taskeh. I do apologize for my horrible itallian accent.",
+    "If you select a task first, that'd be great. I know, I know, I am a little groggy today.",
+    "Whew. Almost had me there. Got to hand it to you, that was brilliant. Ahh stop it, you know what you did.",
+  ],
 };
 
 export = messages;

@@ -8,6 +8,7 @@ enum ErrorKey {
   todo = "todo",
   missingGuild = "missingGuild",
   guildNotSetup = "guildNotSetup",
+  taskSelected = "taskSelected",
 }
 interface ErrorCode {
   code: string;

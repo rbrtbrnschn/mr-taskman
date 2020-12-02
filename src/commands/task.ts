@@ -42,6 +42,7 @@ export default {
     } catch (err) {
       console.log(err);
       message.reply(messages.error());
+      message.react(config.reactions.error());
     }
   },
 };
