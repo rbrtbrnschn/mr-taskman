@@ -9,14 +9,15 @@ export default {
   description: "Command Handler For Servers",
   usage: "<commands name>",
   subcommand: "guild",
-  guildOnly: false,
+  guildOnly: true,
+  args: true,
   aliases: ["g"],
   execute: function (message: Discord.Message): void {
     // Get Arguments
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const first = args.shift().toLowerCase();
     message.content = `${config.prefix}${args.join(" ")}`;
-
+    // TODO throw right errors
     // Get Command
     const { commands } = manager;
     const command =

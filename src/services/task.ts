@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 
 import config from "../config";
-import Task from "../interfaces/task";
+import Task from "../interfaces/Task";
 import { TaskInterface } from "../models/task";
 import { GuildInterface } from "../models/guild";
 
