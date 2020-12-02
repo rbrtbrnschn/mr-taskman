@@ -22,20 +22,28 @@ interface Colors {
   secondary: Color;
 }
 
-interface Reactions {
-  good: string;
-  bad: string;
-  great: string;
+// interface Reactions {
+//   good: string;
+//   bad: string;
+//   great: string;
+// }
+
+export enum ReactionKey {
+  good = "good",
+  error = "error",
 }
+
 type MessageGenerator = () => MessageEmbed;
+
+type ReactionGenerator = () => string;
 
 interface Config {
   prefix: string;
   bot: Bot;
   mongo: Mongo;
   colors: Colors;
-  reactions: Reactions;
   messages: Record<ErrorKey, MessageGenerator>;
+  reactions: Record<ReactionKey, ReactionGenerator>;
   errorCodes: ErrorCodes;
   getErrorCode(key: ErrorKey): ErrorCode;
   getErrorMessage(key: string): ErrorCode;

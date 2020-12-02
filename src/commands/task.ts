@@ -42,10 +42,7 @@ export default {
     } catch (err) {
       console.log(err);
       message.reply(messages.error());
-      // TODO Possibly react to message upon completion, example below
-      // TODO will setup ReactionGenerator from MessageGenerator in config
-      // TODO following example will take a random selection of the list of reactions.good and react to the message with it
-      // message.react(config.reactions.error())
+      message.react(config.reactions.error());
     }
   },
 };
