@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.5] - 2020-12-02
+
+### Changed
+
+- restructured entire project - **soa**
+- restructured guild model 
+- no crazy new functionality
+- error code messages are now in form of embed, showing how to get meaning of error 
+
 ## [0.0.4] - 2020-11-29
 
 ### Added
