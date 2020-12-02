@@ -60,6 +60,7 @@ Please make sure to update tests as appropriate.
 | PATH2COMMANDS_PROD | <absolute path to thisProject/src/commands>
 | MONGODB_USER | <database user, defaults to read-only access if none is provided>
 | MONGODB_PASS | <database user, defaults to read-only access if none is provided>
+| MONGODB_HOST | <database host, defaults to dev host > 
 |===
 
 === Scripts
