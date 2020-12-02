@@ -7,7 +7,7 @@ import GuildService from "../services/guild";
 
 const { messages, prefix } = config;
 
-export = {
+export default {
   name: "task",
   description: "Command Handler For Tasks On A Server",
   usage: "<commands name>",

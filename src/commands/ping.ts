@@ -4,7 +4,7 @@ import config from "../config";
 
 const { prefix, bot, colors } = config;
 
-export = {
+export default {
   name: "ping",
   description: "get networks stats",
   usage: "",

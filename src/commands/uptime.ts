@@ -1,6 +1,7 @@
 import Discord from "discord.js";
 import { manager } from "../index";
-export = {
+
+export default {
   name: "uptime",
   description: "shows uptime",
   usage: "",

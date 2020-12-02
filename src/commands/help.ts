@@ -4,7 +4,7 @@ import config from "../config";
 
 const { bot, colors, prefix, reactions } = config;
 
-export = {
+export default {
   name: "help",
   description: "List's Commands & Helpful Information",
   usage: "<command name>",

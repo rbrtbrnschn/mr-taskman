@@ -4,7 +4,7 @@ import { manager } from "../index";
 import config from "../config";
 import validate from "../utils/validate";
 
-export = {
+export default {
   name: "guild",
   description: "Command Handler For Servers",
   usage: "<commands name>",

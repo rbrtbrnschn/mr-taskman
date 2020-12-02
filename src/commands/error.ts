@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 import config from "../config";
-export = {
+export default {
   name: "error",
   description: "shows error message for given error code",
   usage: "<error code>",
