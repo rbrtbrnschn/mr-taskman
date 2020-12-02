@@ -1,13 +1,13 @@
 import onReady from "./onReady";
 import onMessage from "./onMessage";
-import onGuildCreate from "./onGuildCreate";
 import onGuildDelete from "./onGuildDelete";
-import onChannelDelete from "./onChannelDelete";
+
+import GuildService from "../../services/guild";
 
 export default {
   ready: onReady,
   message: onMessage,
-  guildCreate: onGuildCreate,
+  guildCreate: GuildService.create,
   guildDelete: onGuildDelete,
-  channelDelete: onChannelDelete,
+  channelDelete: GuildService.removeChannel,
 };

@@ -6,7 +6,7 @@ import validate from "../../utils/validate";
 import setPresence from "../../utils/setPresence";
 import Command from "../../interfaces/command";
 
-export = function (message: Message): void {
+export default function (message: Message): void {
   if (!message.content.startsWith(config.prefix) || message.author.bot) return;
   setPresence(message);
 
@@ -43,4 +43,4 @@ export = function (message: Message): void {
     console.log(err);
     message.reply(config.messages.error());
   }
-};
+}

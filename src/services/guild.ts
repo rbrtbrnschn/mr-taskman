@@ -42,6 +42,23 @@ class GuildService {
     else return foundGuild;
   }
 
+  // Channel management
+
+  async removeChannel(channel: Discord.Channel): Promise<void> {
+    const foundGuild = await GuildModel.findOne({
+      channelIds: { $elemMatch: { $eq: channel.id } },
+    });
+    if (foundGuild) {
+      foundGuild.channelIds = foundGuild.channelIds.filter(
+        (id) => id !== channel.id
+      );
+      foundGuild.markModified("channelIds");
+      await foundGuild.save();
+    }
+  }
+
+  // Validation
+
   validateChannelIds(message: Discord.Message, channelIds: string[]): boolean {
     const channels = channelIds.map((id) =>
       message.guild.channels.cache.get(id)
