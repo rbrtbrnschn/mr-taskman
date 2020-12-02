@@ -1,43 +1,65 @@
 import Discord from "discord.js";
 
 import config from "../config";
-import Task from "../interfaces/Task";
-import { TaskInterface } from "../models/task";
-import { GuildInterface } from "../models/guild";
+import TaskModel, { TaskInterface } from "../models/task";
+import { GuildPopulatedInterface } from "../models/guild";
+import GuildService from "./guild";
 
 class TaskService {
-  create(title: string, authorID: string): Task {
-    return new Task(title, authorID);
+  #maxID = 0;
+
+  async create(title: string, authorID: string): Promise<TaskInterface> {
+    const taskModel = new TaskModel({
+      title,
+      participants: [authorID],
+      taskId: this.generateID(),
+    });
+    return taskModel.save();
   }
 
-  getTaskById(message: Discord.Message, id: string): Task {
-    //TODO
-    return new Task("FAKETASK", "fakeauthor");
+  // Extensible with other typesigs
+  async fetch(id: string): Promise<TaskInterface>;
+  async fetch(param: unknown): Promise<TaskInterface> {
+    let taskId;
+    if (typeof param === "string") {
+      taskId = param;
+    }
+    const foundTask = await TaskModel.findOne({ taskId });
+
+    if (!foundTask) return;
+    // This is invalid
+    else return foundTask;
   }
 
-  getSelectedTask(message: Discord.Message, dbGuild: GuildInterface): Task {
+  async fetchSelected(message: Discord.Message): Promise<TaskInterface> {
     const userId = message.author.id;
-    const ObjectId = dbGuild.selectedTasks[userId];
-
-    if (!ObjectId) return;
-    // return dbGuild
-    //   .populate("selectedTasks")
-    //   .execPopulate()
-    //   .then((val) => {
-    //     return val.selectedTasks[userId];
-    //   })
-    //   .catch((err) => console.error);
-
-    //TODO
-
-    return new Task("FAKETASK", userId);
+    const guild = await GuildService.fetch(message);
+    const populatedGuild = (await guild
+      .populate("selectedTasks")
+      .execPopulate()) as unknown; // Maybe population should be moved. Probably, even.
+    return (<GuildPopulatedInterface>populatedGuild)
+      .get("selectedTasks")
+      .get(userId);
   }
 
-  deleteTask(message: Discord.Message, editedTask: Task): void {
+  async select(
+    message: Discord.Message,
+    taskID: string
+  ): Promise<TaskInterface> {
+    const userId = message.author.id;
+    const guild = await GuildService.fetch(message);
+    const task = await this.fetch(taskID);
+    guild.selectedTasks.set(userId, task._id);
+    await guild.save();
+    console.log(task, guild);
+    return task;
+  }
+
+  deleteTask(message: Discord.Message): void {
     // TODO
   }
 
-  editTask(message: Discord.Message, editedTask: Task): Task {
+  editTask(message: Discord.Message, editedTask: TaskInterface): TaskInterface {
     // TODO
     return editedTask;
   }
@@ -68,7 +90,8 @@ class TaskService {
   }
 
   generateID(): string {
-    return "0000"; //TODO
+    this.#maxID += 1;
+    return ("" + this.#maxID).padStart(4, "0"); //TODO
   }
 }
 
