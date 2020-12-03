@@ -1,9 +1,10 @@
 import Discord from "discord.js";
 import TaskService from "../../services/task";
 import config from "../../config";
+
 export = {
-  name: "complete",
-  description: "complete task",
+  name: "wip",
+  description: "sets task status to in progress",
   usage: "",
   args: false,
   guildOnly: true,
@@ -18,9 +19,7 @@ export = {
       message.reply(config.messages.taskSelected());
       return;
     }
-
-    TaskService.complete(message, selectedTask);
-    TaskService.deselect(message);
+    TaskService.wip(message, selectedTask);
 
     try {
       await message.channel.fetch();
@@ -45,7 +44,7 @@ export = {
       }
 
       const embed = taskMessage.embeds[0];
-      embed.setColor(config.taskColors.completed);
+      embed.setColor(config.taskColors.wip);
       taskMessage.edit(embed);
     } catch (err) {
       console.log("wrong channel");
