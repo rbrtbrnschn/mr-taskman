@@ -1,4 +1,5 @@
 import Discord from "discord.js";
+import config from "../../config";
 import TaskService from "../../services/task";
 
 export = {
@@ -16,6 +17,10 @@ export = {
     if (!args.length) {
       // Show Selected
       selectedTask = await TaskService.fetchSelected(message);
+      if (!selectedTask) {
+        message.reply(config.messages.taskSelected());
+        return;
+      }
     } else {
       // Select
       selectedTask = await TaskService.select(message, args[0]);
