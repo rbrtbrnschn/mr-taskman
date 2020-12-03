@@ -8,6 +8,7 @@ export interface TaskInterface extends mongoose.Document {
   taskId: string;
   messageId: string;
   guildId: string;
+  columnId: string;
   completed: boolean;
   createdTimestamp: number;
   completedTimestamp: number;
@@ -22,6 +23,7 @@ const taskSchema = new Schema({
   taskId: String,
   messageId: String,
   guildId: String, // technically not necessary
+  columnId: String,
   completed: { type: Boolean, default: false },
   createdTimestamp: { type: Number, default: Date.now() },
   completedTimestamp: { type: Number, default: 0 },
