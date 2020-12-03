@@ -54,7 +54,12 @@ class TaskService {
     console.log(task, guild);
     return task;
   }
-
+  async deselect(message: Discord.Message): Promise<void> {
+    const userId = message.author.id;
+    const guild = await GuildService.fetch(message);
+    guild.selectedTasks.set(userId, null);
+    guild.save();
+  }
   deleteTask(message: Discord.Message): void {
     // TODO
   }

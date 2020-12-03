@@ -22,6 +22,7 @@ export = {
     }
 
     TaskService.complete(message, selectedTask);
+    TaskService.deselect(message);
 
     try {
       await message.channel.fetch();
