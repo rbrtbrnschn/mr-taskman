@@ -68,9 +68,29 @@ class TaskService {
     // TODO
     return editedTask;
   }
+  editTitle(
+    message: Discord.Message,
+    task: TaskInterface,
+    title: string
+  ): void {
+    task.title = title;
+    task.markModified("title");
+    task.save();
+  }
+  editDescription(
+    message: Discord.Message,
+    task: TaskInterface,
+    desc: string
+  ): void {
+    task.description = desc;
+    task.markModified("description");
+    task.save();
+  }
   complete(message: Discord.Message, task: TaskInterface): void {
     task.completed = true;
     task.markModified("completed");
+    task.wip = false;
+    task.markModified("wip");
     task.completedTimestamp = Date.now();
     task.markModified("completedTimestamp");
     task.save();
