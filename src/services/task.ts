@@ -71,6 +71,15 @@ class TaskService {
   complete(message: Discord.Message, task: TaskInterface): void {
     task.completed = true;
     task.markModified("completed");
+    task.completedTimestamp = Date.now();
+    task.markModified("completedTimestamp");
+    task.save();
+  }
+  wip(message: Discord.Message, task: TaskInterface): void {
+    task.wip = true;
+    task.markModified("wip");
+    task.completed = false;
+    task.markModified("completed");
     task.save();
   }
 
