@@ -1,6 +1,5 @@
 import Discord from "discord.js";
-// import TaskService from "../../services/task";
-// import GuildService from "../../services/guild";
+import TaskService from "../../services/task";
 import config from "../../config";
 export = {
   name: "complete",
@@ -9,25 +8,50 @@ export = {
   args: false,
   guildOnly: true,
   category: "task",
-  execute: function (message: Discord.Message, args: Array<string>): void {
-    message.reply(config.messages.todo());
-    const isOnlyBoilerPlate = true;
-    if (isOnlyBoilerPlate) return;
+  execute: async function (
+    message: Discord.Message,
+    args: Array<string>
+  ): Promise<void> {
+    // message.reply(config.messages.todo());
+    let selectedTask = undefined;
     // const foundGuild = await GuildService.fetch(message);
-    // const selectedTask = TaskService.getSelectedTask(message, foundGuild);
-    let selectedTask; // For keeping validation from erroring during boilerplate setup. Please remove this line once finished.
+    selectedTask = await TaskService.fetchSelected(message);
     if (!selectedTask) {
       message.reply(config.messages.taskSelected());
       return;
     }
 
-    // selectedTask.description = args.join(" ");
-    // selectedTask.markModified("description");
-    // TaskService.save(selectedTask);
+    TaskService.complete(message, selectedTask);
 
-    // TODO Possibly react to message upon completion, example below
-    // TODO will setup ReactionGenerator from MessageGenerator in config
-    // TODO following example will take a random selection of the list of reactions.good and react to the message with it
-    // message.react(config.reactions.good())
+    try {
+      await message.channel.fetch();
+      // TODO *1
+      // DO NOT LOOK IN CURRENT, GET CHANNEL ID, TASK WAS SAVED
+      // IN AND LOOK IN THERE
+      const taskMessage = message.channel.messages.cache.get(
+        selectedTask.messageId
+      );
+
+      // Wrong Channel
+      // TODO FIX *1
+      if (!taskMessage) {
+        message.reply(config.messages.taskSelected());
+        return;
+      }
+      // Unknown Error
+      // Happens
+      if (!taskMessage.embeds.length) {
+        message.reply(config.messages.error());
+        return;
+      }
+
+      const embed = taskMessage.embeds[0];
+      embed.setColor(config.taskColors.completed);
+      taskMessage.edit(embed);
+    } catch (err) {
+      console.log("wrong channel");
+      console.log(err);
+      message.react(config.reactions.error());
+    }
   },
 };
