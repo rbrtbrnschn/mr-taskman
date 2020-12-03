@@ -71,12 +71,20 @@ class TaskService {
     const participants = task.participants.map((p) => {
       return message.guild.members.cache.get(p);
     });
+    const color =
+      !task.completed && !task.wip
+        ? config.taskColors.created
+        : !task.completed && task.wip
+        ? config.taskColors.wip
+        : task.completed
+        ? config.taskColors.completed
+        : "";
     const embed = new Discord.MessageEmbed()
       .setAuthor(
         message.guild.members.cache.get(message.author.id).nickname ||
           message.author.username
       )
-      .setColor(config.taskColors.created)
+      .setColor(color)
       .setTimestamp()
       .setTitle(task.title)
       .addField("> Description:", task.description || "\u200b")
