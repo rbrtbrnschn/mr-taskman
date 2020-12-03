@@ -21,9 +21,7 @@ export = {
       return;
     }
 
-    selectedTask.completed = true;
-    selectedTask.markModified("completed");
-    selectedTask.save();
+    TaskService.complete(message, selectedTask);
 
     try {
       await message.channel.fetch();

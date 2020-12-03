@@ -63,6 +63,11 @@ class TaskService {
     // TODO
     return editedTask;
   }
+  complete(message: Discord.Message, task: TaskInterface): void {
+    task.completed = true;
+    task.markModified("completed");
+    task.save();
+  }
 
   formatTaskEmbed(
     message: Discord.Message,
