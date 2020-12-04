@@ -10,6 +10,7 @@ export = {
   args: true,
   guildOnly: true,
   category: "task",
+  aliases: ["description"],
   execute: async function (
     message: Discord.Message,
     args: Array<string>
