@@ -5,6 +5,7 @@ interface GuildBaseInterface extends mongoose.Document {
   guildId: string;
   channelIds: Array<string>;
   ownerId: string;
+  nextTaskId: number;
   roles: Record<string, string>; // name : id of a Discord.Role
 }
 
@@ -22,6 +23,10 @@ const guildSchema = new Schema({
   guildId: String,
   channelIds: { type: [String], default: [] },
   ownerId: String,
+  nextTaskId: {
+    type: Number,
+    default: 0,
+  },
   roles: Object,
   tasks: [
     {

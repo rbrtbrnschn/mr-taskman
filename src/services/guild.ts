@@ -42,6 +42,17 @@ class GuildService {
     else return foundGuild;
   }
 
+  // Task management
+
+  async getNextTaskId(guild: Discord.Guild): Promise<string> {
+    const foundGuild = await this.fetch(guild);
+    const newId = ("" + (foundGuild.nextTaskId || 0)).padStart(4, "0");
+    foundGuild.nextTaskId = foundGuild.nextTaskId % 10000; // Breaks at 10000 tasks if there is overlap
+    foundGuild.markModified('nextTaskId');
+    foundGuild.save();
+    return newId;
+  }
+
   // Channel management
 
   async removeChannel(channel: Discord.Channel): Promise<void> {
@@ -90,6 +101,8 @@ class GuildService {
     if (isAllowed.some((v) => !v)) return false;
     return true;
   }
+
+
 }
 
 export default new GuildService();

@@ -8,12 +8,13 @@ import GuildService from "./guild";
 class TaskService {
   #maxID = 0;
 
-  async create(title: string, authorID: string): Promise<TaskInterface> {
+  async create(title: string, message: Discord.Message): Promise<TaskInterface> {
     const taskModel = new TaskModel({
       title,
-      participants: [authorID],
-      taskId: this.generateID(),
+      participants: [message.author.id],
+      taskId: GuildService.getNextTaskId(message.guild),
     });
+    console.log(taskModel)
     return taskModel.save();
   }
 
@@ -49,7 +50,7 @@ class TaskService {
     const userId = message.author.id;
     const guild = await GuildService.fetch(message);
     const task = await this.fetch(taskID);
-    guild.selectedTasks.set(userId, task._id);
+    guild.selectedTasks.set(userId, task._id); // Maybe this shoiuld be in guild
     await guild.save();
     console.log(task, guild);
     return task;
@@ -150,10 +151,7 @@ class TaskService {
     return embed;
   }
 
-  generateID(): string {
-    this.#maxID += 1;
-    return ("" + this.#maxID).padStart(4, "0"); //TODO
-  }
+
 }
 
 export default new TaskService();
