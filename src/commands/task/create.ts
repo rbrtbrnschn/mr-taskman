@@ -49,20 +49,20 @@ export = {
             foundGuild.save();
           });
           // Add Reaction Listener
-          await sent.react("☝️");
-          setupListener();
-          function setupListener() {
-            console.log("started ");
-            const filter = (
-              reaction: Discord.MessageReaction,
-              user: Discord.User
-            ) => reaction.emoji.name === "👌";
-            const collector = message.createReactionCollector(filter, {
-              time: 15000,
-            });
-            collector.on("collect", onCollect);
-            collector.on("end", setupListener);
-          }
+          // await sent.react("☝️");
+          // setupListener();
+          // function setupListener() {
+          //   console.log("started ");
+          //   const filter = (
+          //     reaction: Discord.MessageReaction,
+          //     user: Discord.User
+          //   ) => reaction.emoji.name === "👌";
+          //   const collector = message.createReactionCollector(filter, {
+          //     time: 15000,
+          //   });
+          //   collector.on("collect", onCollect);
+          //   collector.on("end", setupListener);
+          // }
         });
       });
 
@@ -89,6 +89,6 @@ function areTextChannels(
   return channels.every((channel) => channel instanceof Discord.TextChannel);
 }
 
-function onCollect(emoji: Discord.MessageReaction, user: Discord.User) {
-  console.log(user.username);
-}
+// function onCollect(emoji: Discord.MessageReaction, user: Discord.User) {
+//   console.log(user.username);
+// }
