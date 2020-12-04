@@ -5,7 +5,7 @@ import config from "../../config";
 
 export = {
   name: "title",
-  description: "sets description",
+  description: "sets title",
   usage: "<title>",
   args: true,
   guildOnly: true,
