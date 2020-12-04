@@ -31,6 +31,15 @@ class TaskService {
     else return foundTask;
   }
 
+  // Extensible with other typesigs
+  async fetchByMessageId(messageId: string): Promise<TaskInterface> {
+    const foundTask = await TaskModel.findOne({ messageId });
+
+    if (!foundTask) return;
+    // This is invalid
+    else return foundTask;
+  }
+
   async fetchSelected(message: Discord.Message): Promise<TaskInterface> {
     const userId = message.author.id;
     const guild = await GuildService.fetch(message);
