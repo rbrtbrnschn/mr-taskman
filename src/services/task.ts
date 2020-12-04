@@ -109,9 +109,10 @@ class TaskService {
   }
   removeParticipant(task: TaskInterface, id: string): void {
     const index = task.participants.findIndex((_id) => _id === id);
-    if (index > 0) return;
+    if (index < 0) return;
 
     delete task.participants[index];
+    task.participants = task.participants.filter((id) => id !== null);
     task.markModified("participants");
     task.save();
   }

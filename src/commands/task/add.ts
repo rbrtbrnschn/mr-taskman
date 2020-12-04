@@ -58,8 +58,10 @@ export = {
       const fieldIndex = embed.fields.findIndex(
         (v, i) => v.name === "> Participants:"
       );
-      embed.fields[fieldIndex].value =
-        embed.fields[fieldIndex].value + `, <@!${mention.id}>`;
+      const participantString = selectedTask.participants
+        .map((id) => `<@${id}>`)
+        .join(", ");
+      embed.fields[fieldIndex].value = participantString;
       taskMessage.edit(embed);
     } catch (err) {
       console.log("wrong channel");

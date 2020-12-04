@@ -61,6 +61,7 @@ export = {
       );
       const participantString = selectedTask.participants
         .filter((id) => id !== mention.id)
+        .map((id) => `<@${id}>`)
         .join(",");
       embed.fields[fieldIndex].value = participantString || "\u200b";
       taskMessage.edit(embed);
