@@ -34,7 +34,7 @@ export = {
 
       const embed = TaskService.formatTaskEmbed(message, task);
       channels.forEach((channel) => {
-        channel.send(embed).then((sent) => {
+        channel.send(embed).then(async (sent) => {
           // Add MessageId To Task
           task.messageId = `${sent.id.toString()}`;
           task.markModified("messageId");
@@ -48,6 +48,21 @@ export = {
             foundGuild.markModified("selectedTasks");
             foundGuild.save();
           });
+          // Add Reaction Listener
+          // await sent.react("☝️");
+          // setupListener();
+          // function setupListener() {
+          //   console.log("started ");
+          //   const filter = (
+          //     reaction: Discord.MessageReaction,
+          //     user: Discord.User
+          //   ) => reaction.emoji.name === "👌";
+          //   const collector = message.createReactionCollector(filter, {
+          //     time: 15000,
+          //   });
+          //   collector.on("collect", onCollect);
+          //   collector.on("end", setupListener);
+          // }
         });
       });
 
@@ -73,3 +88,7 @@ function areTextChannels(
 ): channels is Discord.TextChannel[] {
   return channels.every((channel) => channel instanceof Discord.TextChannel);
 }
+
+// function onCollect(emoji: Discord.MessageReaction, user: Discord.User) {
+//   console.log(user.username);
+// }

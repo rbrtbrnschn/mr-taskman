@@ -1,7 +1,6 @@
 import onReady from "./onReady";
 import onMessage from "./onMessage";
 import onGuildDelete from "./onGuildDelete";
-
 import GuildService from "../../services/guild";
 
 export default {
