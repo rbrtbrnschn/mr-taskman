@@ -102,6 +102,20 @@ class TaskService {
     task.markModified("completed");
     task.save();
   }
+  addParticipant(task: TaskInterface, id: string): void {
+    task.participants.push(id);
+    task.markModified("participants");
+    task.save();
+  }
+  removeParticipant(task: TaskInterface, id: string): void {
+    const index = task.participants.findIndex((_id) => _id === id);
+    if (index < 0) return;
+
+    delete task.participants[index];
+    task.participants = task.participants.filter((id) => id !== null);
+    task.markModified("participants");
+    task.save();
+  }
 
   formatTaskEmbed(
     message: Discord.Message,
