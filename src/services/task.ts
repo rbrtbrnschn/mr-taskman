@@ -8,13 +8,16 @@ import GuildService from "./guild";
 class TaskService {
   #maxID = 0;
 
-  async create(title: string, message: Discord.Message): Promise<TaskInterface> {
+  async create(
+    title: string,
+    message: Discord.Message
+  ): Promise<TaskInterface> {
     const taskModel = new TaskModel({
       title,
       participants: [message.author.id],
-      taskId: GuildService.getNextTaskId(message.guild),
+      taskId: await GuildService.getNextTaskId(message.guild),
     });
-    console.log(taskModel)
+    console.log(taskModel);
     return taskModel.save();
   }
 
@@ -150,8 +153,6 @@ class TaskService {
       .setFooter(`Id: #${task.taskId}`);
     return embed;
   }
-
-
 }
 
 export default new TaskService();

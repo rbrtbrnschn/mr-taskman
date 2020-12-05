@@ -36,6 +36,7 @@ const guildSchema = new Schema({
   ],
   selectedTasks: {
     type: Map,
+    default: {},
     of: {
       type: Schema.Types.ObjectId,
       ref: "tasks",
