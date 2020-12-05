@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import Discord from "discord.js";
 import GuildModel, { GuildInterface } from "../models/guild";
 
@@ -20,7 +21,13 @@ class GuildService {
       },
       tasks: [],
       channelIds: [],
+      selectedTasks: {},
     });
+    console.log(
+      `${chalk.magenta.bold("[DISCORD]:")} ${chalk.reset()}\`${
+        guild.name
+      }\` joined.`
+    );
     await guildModel.save();
   }
 
@@ -42,6 +49,17 @@ class GuildService {
     else return foundGuild;
   }
 
+  // Task management
+
+  async getNextTaskId(guild: Discord.Guild): Promise<string> {
+    const foundGuild = await this.fetch(guild);
+    const newId = ("" + (foundGuild.nextTaskId || 0)).padStart(4, "0");
+    foundGuild.nextTaskId = foundGuild.nextTaskId % 10000; // Breaks at 10000 tasks if there is overlap
+    foundGuild.markModified("nextTaskId");
+    foundGuild.save();
+    return newId;
+  }
+
   // Channel management
 
   async removeChannel(channel: Discord.Channel): Promise<void> {
@@ -60,6 +78,7 @@ class GuildService {
   // Validation
 
   validateChannelIds(message: Discord.Message, channelIds: string[]): boolean {
+    if (!channelIds.length) return false;
     const channels = channelIds.map((id) =>
       message.guild.channels.cache.get(id)
     );

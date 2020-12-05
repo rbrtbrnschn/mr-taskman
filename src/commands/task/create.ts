@@ -22,7 +22,7 @@ export = {
       if (foundGuild.channelIds.length < 1) {
         return message.reply("channels not set");
       }
-      const task = await TaskService.create(args.join(" "), message.author.id);
+      const task = await TaskService.create(args.join(" "), message);
 
       const userId = message.author.id;
 
@@ -44,6 +44,9 @@ export = {
             foundGuild.markModified("tasks");
             // if (!foundGuild.selectedTasks.size) foundGuild.selectedTasks = new Map();
             // Select Task
+            // if (!foundGuild.selectedTasks) foundGuild.selectedTasks = new Map();
+            foundGuild.nextTaskId++;
+            foundGuild.markModified("nextTaskId");
             foundGuild.selectedTasks.set(userId, saved._id); // ALL THIS SHOULD BE MOVED TO THE SERVICE. COMMANDS SHOULDNT TOUCH MODELS
             foundGuild.markModified("selectedTasks");
             foundGuild.save();
@@ -78,6 +81,8 @@ export = {
           "Were you dropped on your head as a child? That title has already been used"
         );
       }
+      // TODO REMOVE LINE BELOW
+      console.log(error);
       return message.reply(messages.error());
     }
   },
