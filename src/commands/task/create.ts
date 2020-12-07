@@ -35,15 +35,11 @@ export = {
 
       const embed = TaskService.formatTaskEmbed(message, task);
 
-      channels.forEach((channel, index, arr) => {
-        channel.send(embed).then((sent) => {
-          task.messageIds.set(channel.id, sent.id);
-          if (index === arr.length - 1) {
-            task.markModified("messageIds");
-            task.save();
-          }
-        });
-      });
+      for (const channel of channels) {
+        const message = await channel.send(embed);
+        task.messageIds.set(channel.id, message.id);
+      }
+      task.save();
 
       // Add Reaction Listener
       // await sent.react("☝️");
