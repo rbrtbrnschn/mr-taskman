@@ -98,7 +98,7 @@ export = {
       selectedTask.participants.forEach((participant) => {
         const otherParticipant = message.guild.member(participant);
         otherParticipant.send(
-          `<@${mention.id}> was removed to a task you're on`
+          `<@${mention.id}> was removed from a task you're on`
         );
         otherParticipant.send(
           TaskService.formatTaskEmbed(message, selectedTask)
