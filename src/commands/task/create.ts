@@ -2,6 +2,7 @@ import Discord from "discord.js";
 import config from "../../config";
 import GuildService from "../../services/guild";
 import TaskService from "../../services/task";
+import areTextChannels from "../../utils/areTextChannels";
 
 const { messages } = config;
 
@@ -33,41 +34,40 @@ export = {
       if (!areTextChannels(channels)) return;
 
       const embed = TaskService.formatTaskEmbed(message, task);
-      channels.forEach((channel) => {
-        channel.send(embed).then(async (sent) => {
-          // Add MessageId To Task
-          task.messageId = `${sent.id.toString()}`;
-          task.markModified("messageId");
-          task.save().then((saved) => {
-            // Reference Task In Guild
-            foundGuild.tasks.push(saved._id);
-            foundGuild.markModified("tasks");
-            // if (!foundGuild.selectedTasks.size) foundGuild.selectedTasks = new Map();
-            // Select Task
-            // if (!foundGuild.selectedTasks) foundGuild.selectedTasks = new Map();
-            foundGuild.nextTaskId++;
-            foundGuild.markModified("nextTaskId");
-            foundGuild.selectedTasks.set(userId, saved._id); // ALL THIS SHOULD BE MOVED TO THE SERVICE. COMMANDS SHOULDNT TOUCH MODELS
-            foundGuild.markModified("selectedTasks");
-            foundGuild.save();
-          });
-          // Add Reaction Listener
-          // await sent.react("☝️");
-          // setupListener();
-          // function setupListener() {
-          //   console.log("started ");
-          //   const filter = (
-          //     reaction: Discord.MessageReaction,
-          //     user: Discord.User
-          //   ) => reaction.emoji.name === "👌";
-          //   const collector = message.createReactionCollector(filter, {
-          //     time: 15000,
-          //   });
-          //   collector.on("collect", onCollect);
-          //   collector.on("end", setupListener);
-          // }
-        });
-      });
+
+      for (const channel of channels) {
+        const message = await channel.send(embed);
+        task.messageIds.set(channel.id, message.id);
+      }
+      task.save();
+
+      // Add Reaction Listener
+      // await sent.react("☝️");
+      // setupListener();
+      // function setupListener() {
+      //   console.log("started ");
+      //   const filter = (
+      //     reaction: Discord.MessageReaction,
+      //     user: Discord.User
+      //   ) => reaction.emoji.name === "👌";
+      //   const collector = message.createReactionCollector(filter, {
+      //     time: 15000,
+      //   });
+      //   collector.on("collect", onCollect);
+      //   collector.on("end", setupListener);
+      // }
+
+      // Reference Task In Guild
+      foundGuild.tasks.push(task._id);
+      foundGuild.markModified("tasks");
+      // if (!foundGuild.selectedTasks.size) foundGuild.selectedTasks = new Map();
+      // Select Task
+      // if (!foundGuild.selectedTasks) foundGuild.selectedTasks = new Map();
+      foundGuild.nextTaskId++;
+      foundGuild.markModified("nextTaskId");
+      foundGuild.selectedTasks.set(userId, task._id); // ALL THIS SHOULD BE MOVED TO THE SERVICE. COMMANDS SHOULDNT TOUCH MODELS
+      foundGuild.markModified("selectedTasks");
+      foundGuild.save();
 
       return message.reply(
         `Task created in ${channels
@@ -87,12 +87,6 @@ export = {
     }
   },
 };
-
-function areTextChannels(
-  channels: Discord.GuildChannel[]
-): channels is Discord.TextChannel[] {
-  return channels.every((channel) => channel instanceof Discord.TextChannel);
-}
 
 // function onCollect(emoji: Discord.MessageReaction, user: Discord.User) {
 //   console.log(user.username);
