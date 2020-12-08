@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 export interface TaskInterface extends mongoose.Document {
   title: string;
@@ -6,7 +6,7 @@ export interface TaskInterface extends mongoose.Document {
   participants: Array<string>;
   deadline: Date;
   taskId: string;
-  messageId: string;
+  messageIds: Types.Map<string>;
   guildId: string;
   columnId: string;
   completed: boolean;
@@ -21,7 +21,7 @@ const taskSchema = new Schema({
   participants: [],
   deadline: Date,
   taskId: String,
-  messageId: String,
+  messageIds: { type: Map, of: String, default: {} },
   guildId: String, // technically not necessary
   columnId: String,
   completed: { type: Boolean, default: false },
