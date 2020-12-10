@@ -20,9 +20,9 @@ export = {
     try {
       const foundGuild = await GuildService.fetch(message);
 
-      if (foundGuild.channelIds.length < 1) {
-        return message.reply("channels not set");
-      }
+      // if (foundGuild.channelIds.length < 1) {
+      //   return message.reply("channels not set");
+      // }
       const task = await TaskService.create(args.join(" "), message);
 
       const userId = message.author.id;
