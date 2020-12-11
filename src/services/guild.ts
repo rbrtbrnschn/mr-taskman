@@ -98,6 +98,7 @@ class GuildService {
       return role ? true : false;
     });
     const hasRoles = mappedArray.every((expression) => expression);
+    if (!mappedArray.length) return false;
     if (!hasRoles) return false;
     return true;
   }
