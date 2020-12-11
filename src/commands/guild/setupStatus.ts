@@ -21,29 +21,38 @@ export = {
     else {
       const foundGuild = await GuildService.fetch(message);
 
-      if (!foundGuild)
-        return message.reply(
-          "For whatever reason, you're admin fucked up big time."
-        );
+      if (!foundGuild) return message.reply(config.messages.missingGuild());
       else {
-        let replyMessage = "";
+        const embed = new Discord.MessageEmbed();
+        embed.setAuthor(config.errorCodes.guildNotSetup.code);
+
         const hasRoles = GuildService.validateRoles(message, foundGuild.roles);
         const hasChannelId = GuildService.validateChannelIds(
           message,
           foundGuild.channelIds
         );
 
-        if (!hasRoles)
-          replyMessage += `Setup roles via \`${prefix}guild role\`.\n`;
-        else if (!hasChannelId)
-          replyMessage += `Setup channel id for task messages to show in via \`${prefix}guild channel <#channel mention>\`.\n`;
-        else
-          return message.reply(
+        if (!hasRoles) {
+          embed.setTitle(`Setup roles via \`${prefix}guild role\`.\n`);
+        } else if (!hasChannelId) {
+          embed.setTitle(
+            `Setup channel id for task messages to show in via \`${prefix}guild channel <#channel mention>\`.\n`
+          );
+        } else {
+          embed.setTitle(
             `All set. For more information on tasks, please refer to \`${prefix}help task\``
           );
-        replyMessage += `For more help on this subject, please refert to \`${prefix}help guild\``;
+          return message.reply(embed);
+        }
+        embed.addField(
+          `For more help on this subject, please refer to \`${prefix}help guild\``,
+          "\u200b"
+        );
+        embed.setFooter(
+          `Do ${config.prefix}error ${config.errorCodes.guildNotSetup.code} for more information.`
+        );
 
-        return message.reply(replyMessage);
+        return message.reply(embed);
       }
     }
   },
