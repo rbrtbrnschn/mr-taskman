@@ -1,5 +1,7 @@
 == Mr. Taskman
 
+image::resources/images/logo.png
+
 Mr-Taskman aims at rendering other *third-party* project management tools like **Trello** obsolete.
 You have a **#board** channel, where all tasks are displayed.
 It will includes most basic functionallity like: *creating*, *editing*, *adding people*, *removing people*, *adding a deadline* and the like.
