@@ -99,6 +99,11 @@ class TaskService {
     task.markModified("description");
     task.save();
   }
+  setDeadline(task: TaskInterface, deadline: Date): void {
+    task.deadline = deadline;
+    task.markModified("deadline");
+    task.save();
+  }
   complete(message: Discord.Message, task: TaskInterface): void {
     task.completed = true;
     task.markModified("completed");
