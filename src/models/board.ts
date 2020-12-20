@@ -4,6 +4,8 @@ import ColumnInterface from "./column";
 interface BoardBaseInterface extends mongoose.Document {
   label: string;
   boardId: string;
+  ownerId: string;
+  permissions: string;
 }
 
 export interface BoardInterface extends BoardBaseInterface {
@@ -14,10 +16,11 @@ export interface BoardPopulatedInterface extends BoardBaseInterface {
   columns: Types.Array<typeof ColumnInterface>;
 }
 
-const boardSchema = new Schema({
-  label: String,
-  boardId: String,
-});
+const boardSchema = new Schema<BoardBaseInterface>();
+// {label: String,
+// boardId: String,
+// ownerId: String,
+// permissions: String,}
 
 const BoardModel = mongoose.model<BoardInterface>("boards", boardSchema);
 
