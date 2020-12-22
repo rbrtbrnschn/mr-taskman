@@ -3,9 +3,13 @@ import reactionsData from "../data/reactions";
 import messagesData from "../data/messages";
 import Config, { ReactionKey } from "../interfaces/Config";
 import { ErrorKey } from "../interfaces/ErrorCodes";
+import discordService from "../services/thirdparty/discord";
+import genericThirdpartyService from "../services/thirdparty/other";
 
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV === "production";
+const isDiscord = true;
+const ThirdpartyService = isDiscord ? discordService : genericThirdpartyService;
 
 const createMessageGenerator = (
   key: ErrorKey,
@@ -119,6 +123,7 @@ const config: Config = {
       (e) => e.code.toLowerCase() === code.toLowerCase()
     );
   },
+  thirdpartyService: new ThirdpartyService(),
 };
 
 config.messages = Object.fromEntries(
