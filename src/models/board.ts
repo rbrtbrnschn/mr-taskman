@@ -1,12 +1,15 @@
 import mongoose, { Schema, Types } from "mongoose";
 import ColumnInterface from "./column";
 
-interface BoardBaseInterface extends mongoose.Document {
-  label: string;
+export interface BoardBase {
+  guildId: string;
   boardId: string;
   ownerId: string;
-  permissions: string;
+  label?: string;
+  permissions?: string;
 }
+
+interface BoardBaseInterface extends BoardBase, mongoose.Document {}
 
 export interface BoardInterface extends BoardBaseInterface {
   columns: Types.Array<Schema.Types.ObjectId>;
@@ -16,11 +19,13 @@ export interface BoardPopulatedInterface extends BoardBaseInterface {
   columns: Types.Array<typeof ColumnInterface>;
 }
 
-const boardSchema = new Schema<BoardBaseInterface>();
-// {label: String,
-// boardId: String,
-// ownerId: String,
-// permissions: String,}
+const boardSchema = new Schema<BoardBaseInterface>({
+  label: { type: String, default: "" },
+  boardId: String,
+  ownerId: String,
+  permissions: { type: String, default: "" },
+  guildId: String,
+});
 
 const BoardModel = mongoose.model<BoardInterface>("boards", boardSchema);
 
