@@ -1,5 +1,6 @@
 import { MessageEmbed } from "discord.js";
 import { ErrorKey, ErrorCode, ErrorCodes } from "./ErrorCodes";
+import ThirdpartyServiceInterface from "./thirdpartyService";
 
 interface Bot {
   name: string;
@@ -48,6 +49,7 @@ interface Config {
   getErrorCode(key: ErrorKey): ErrorCode;
   getErrorMessage(key: string): ErrorCode;
   taskColors: Record<string, string>;
+  thirdpartyService: ThirdpartyServiceInterface;
 }
 
 export default Config;
