@@ -1,6 +1,10 @@
 import chalk from "chalk";
 import Discord from "discord.js";
-import GuildModel, { GuildInterface } from "../models/guild";
+import GuildModel, {
+  GuildInterface,
+  GuildPopulatedInterface,
+  GuildBase,
+} from "../models/guild";
 
 class GuildService {
   async create(message: Discord.Message): Promise<void>;
@@ -34,7 +38,10 @@ class GuildService {
   async fetch(message: Discord.Message): Promise<GuildInterface>;
   async fetch(guild: Discord.Guild): Promise<GuildInterface>;
   async fetch(id: string): Promise<GuildInterface>;
-  async fetch(param: unknown): Promise<GuildInterface> {
+  async fetch<T extends { populate: keyof GuildBase }>(
+    param: unknown,
+    { populate = "" } = {} as T
+  ): Promise<GuildPopulatedInterface | GuildInterface> {
     let guildId;
     if (param instanceof Discord.Message) {
       guildId = param.guild.id;
@@ -43,10 +50,16 @@ class GuildService {
     } else if (typeof param === "string") {
       guildId = param;
     }
+    // Get Guild
     const foundGuild = await GuildModel.findOne({ guildId });
-
     if (!foundGuild) return;
-    else return foundGuild;
+    if (!populate.length) return foundGuild;
+
+    // Populate
+    const populatedGuild = (await foundGuild
+      .populate(populate)
+      .execPopulate()) as unknown;
+    return <GuildPopulatedInterface>populatedGuild;
   }
 
   // Task management
