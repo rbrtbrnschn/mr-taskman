@@ -8,6 +8,7 @@ export interface ColumnBase {
   ownerId: string;
   label?: string;
   permissions?: string;
+  tasks?: unknown;
 }
 interface ColumnBaseInterface extends ColumnBase, mongoose.Document {}
 
@@ -24,6 +25,8 @@ const columnSchema = new Schema<ColumnBaseInterface>({
   label: String,
   permissions: String,
   guildId: String,
+  ownerId: String,
+  boardId: String,
 });
 
 const ColumnModel = mongoose.model<ColumnInterface>("columns", columnSchema);
