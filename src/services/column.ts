@@ -14,7 +14,7 @@ class ColumnService {
    * Instantiate new board instance.
    * @param {ColumnBase} params - necessary fields of board model to create a new instance
    */
-  async create<T extends ColumnBase>(params: T): Promise<void> {
+  async create<T extends ColumnBase>(params: T): Promise<ColumnInterface> {
     try {
       // Validate guildId
       const validGuildId = await config.thirdpartyService.isGuildId(
@@ -33,7 +33,7 @@ class ColumnService {
       // Helpers
       const linkColumnToBoard = async (
         docs: ColumnInterface
-      ): Promise<void> => {
+      ): Promise<ColumnInterface> => {
         try {
           // Get board
           const board = (await BoardService.fetch(
@@ -45,17 +45,17 @@ class ColumnService {
           board.columns.push(docs.id);
           board.markModified("columns");
           board.save();
+          return docs;
         } catch (err) {
           console.log(err);
         }
       };
 
       // Link new column to board
-      new ColumnModel(params).save().then(linkColumnToBoard);
+      log("[COLUMN]: created", "BBLUE");
+      return new ColumnModel(params).save().then(linkColumnToBoard);
     } catch (err) {
       console.log(err);
-    } finally {
-      log("[COLUMN]: created", "BBLUE");
     }
     return;
   }

@@ -7,7 +7,7 @@ export interface BoardBase {
   ownerId: string;
   label?: string;
   permissions?: string;
-  columns?: unknown;
+  columns: unknown;
 }
 
 interface BoardBaseInterface extends BoardBase, mongoose.Document {}
@@ -25,6 +25,7 @@ const boardSchema = new Schema<BoardBaseInterface>({
   boardId: String,
   ownerId: String,
   permissions: { type: String, default: "" },
+  columns: [{ type: Schema.Types.ObjectId, ref: "columns" }],
   guildId: String,
 });
 

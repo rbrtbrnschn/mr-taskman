@@ -10,7 +10,7 @@ export interface ColumnBase {
   permissions?: string;
   tasks?: unknown;
 }
-interface ColumnBaseInterface extends ColumnBase, mongoose.Document {}
+export interface ColumnBaseInterface extends ColumnBase, mongoose.Document {}
 
 export interface ColumnInterface extends ColumnBaseInterface {
   tasks?: Types.Array<Schema.Types.ObjectId>;

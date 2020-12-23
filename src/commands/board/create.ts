@@ -14,6 +14,7 @@ export default {
       const label = args[0];
       const boardId = args[1];
       BoardService.create({
+        columns: [],
         label,
         boardId,
         guildId: message.guild.id,
