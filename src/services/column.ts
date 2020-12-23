@@ -82,8 +82,8 @@ class ColumnService {
    */
   async edit(
     _old: ColumnInterface,
-    key: keyof ColumnInterface | keyof ColumnPopulatedInterface,
-    value: string
+    key: keyof ColumnBase,
+    value: any
   ): Promise<void> {
     try {
       if (!_old) throw new Error("[COLUMN]: _old is undefined or null");
@@ -92,7 +92,8 @@ class ColumnService {
       // Occurance: current[key] = value;
       // Error: Type 'string' is not assignable to type 'never'.
       const { columnId } = _old;
-      const current = (await this.fetch(columnId)) as any; // *1
+      const current = (await this.fetch(columnId)) as ColumnInterface; // *1
+      if (!current) throw new Error("[COLUMN]: malformed column id");
       current[key] = value;
 
       current.markModified(key);

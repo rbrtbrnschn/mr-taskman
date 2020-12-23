@@ -68,7 +68,7 @@ class BoardService {
   async edit(
     _old: BoardInterface,
     key: keyof BoardBase,
-    value: string
+    value: any
   ): Promise<void> {
     try {
       if (!_old) throw new Error("[BOARD]: _old is undefined or null");
