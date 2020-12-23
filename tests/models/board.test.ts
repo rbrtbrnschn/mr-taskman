@@ -7,9 +7,8 @@ import BoardModel, { BoardBase } from "../../src/models/board";
 beforeAll(initTestingDatabase);
 afterAll(cleanupTestingDatabase);
 
-const base: BoardBase = { boardId: "01", guildId: "02", ownerId: "03" };
-
 describe("board-model", () => {
+  const base: BoardBase = { boardId: "01", guildId: "02", ownerId: "03" };
   it("instantiate board", async () => {
     const board = await new BoardModel(base).save();
 
