@@ -1,4 +1,5 @@
 import mongoose, { Schema, Types } from "mongoose";
+import ColumnModel from "./column";
 
 export interface TaskBase {
   title: string;
@@ -8,13 +9,23 @@ export interface TaskBase {
   taskId: string;
   messageIds?: Types.Map<string>;
   guildId: string;
-  columnId: string;
+  columnId: string; // deprecated soon
+  columns: unknown;
   completed?: boolean;
   createdTimestamp?: number;
   completedTimestamp?: number;
   wip?: boolean;
 }
-export interface TaskInterface extends TaskBase, mongoose.Document {}
+
+export interface TaskBaseInterface extends TaskBase, mongoose.Document {}
+
+export interface TaskInterface extends TaskBaseInterface {
+  columns: Types.Array<Schema.Types.ObjectId>;
+}
+
+export interface TaskPopulatedInterface extends TaskBaseInterface {
+  columns: Types.Array<typeof ColumnModel>;
+}
 
 const taskSchema = new Schema({
   title: String,
@@ -23,8 +34,9 @@ const taskSchema = new Schema({
   deadline: Date,
   taskId: String,
   messageIds: { type: Map, of: String, default: {} },
-  guildId: String, // technically not necessary
-  columnId: String,
+  guildId: String,
+  columnId: String, // depecrated soon
+  columns: [{ type: Schema.Types.ObjectId, ref: "columns" }],
   completed: { type: Boolean, default: false },
   createdTimestamp: { type: Number, default: Date.now() },
   completedTimestamp: { type: Number, default: 0 },

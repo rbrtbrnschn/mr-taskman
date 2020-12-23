@@ -1,5 +1,5 @@
 import mongoose, { Schema, Types } from "mongoose";
-import ColumnInterface from "./column";
+import ColumnModel from "./column";
 
 export interface BoardBase {
   guildId: string;
@@ -17,7 +17,7 @@ export interface BoardInterface extends BoardBaseInterface {
 }
 
 export interface BoardPopulatedInterface extends BoardBaseInterface {
-  columns: Types.Array<typeof ColumnInterface>;
+  columns: Types.Array<typeof ColumnModel>;
 }
 
 const boardSchema = new Schema<BoardBaseInterface>({

@@ -16,6 +16,7 @@ describe("task-model", () => {
       taskId: "01",
       guildId: "01",
       columnId: "02",
+      columns: [],
     };
     const task = await new TaskModel(base).save();
 
@@ -28,6 +29,7 @@ describe("task-model", () => {
       messageIds,
       guildId,
       columnId,
+      columns,
       completed,
       createdTimestamp,
       wip,
@@ -44,5 +46,6 @@ describe("task-model", () => {
     expect(completed).toBeDefined();
     expect(createdTimestamp).toBeDefined();
     expect(wip).toBeDefined();
+    expect(columns).toBeDefined();
   });
 });

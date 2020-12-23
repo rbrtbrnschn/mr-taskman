@@ -12,10 +12,18 @@ export async function initTestingDatabase(): Promise<void> {
   });
 }
 
-export async function cleanupTestingDatabase(): Promise<void> {
+async function deleteCollectionEntries(): Promise<void> {
   const collections = Object.keys(mongoose.connection.collections);
   for (const collectionName of collections) {
     const collection = mongoose.connection.collections[collectionName];
     await collection.deleteMany({});
   }
+}
+async function closeConnection(): Promise<void> {
+  await mongoose.connection.close();
+}
+
+export async function cleanupTestingDatabase(): Promise<void> {
+  await deleteCollectionEntries();
+  await closeConnection();
 }
