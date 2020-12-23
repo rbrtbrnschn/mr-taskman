@@ -63,7 +63,7 @@ class BoardService {
    * Edits a board instance.
    * @param {BoardInterface} _old - current instance board
    * @param {keyof BoardInterface} key - key to be manipulated
-   * @param {string} value - corresponding value to key
+   * @param {any} value - corresponding value to key
    */
   async edit(
     _old: BoardInterface,

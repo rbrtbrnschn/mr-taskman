@@ -78,7 +78,7 @@ class ColumnService {
    * Edits column instance.
    * @param {ColumnInterface} _old - current column instance
    * @param {keyof ColumnInterface} key - key to be manipulated
-   * @param {string} value - corresponding value to key
+   * @param {any} value - corresponding value to key
    */
   async edit(
     _old: ColumnInterface,
