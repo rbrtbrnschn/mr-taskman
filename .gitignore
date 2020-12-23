@@ -5,3 +5,9 @@ build/
 .env
 
 .eslintcache
+
+coverage/
+
+# Not sure of the nameing convention
+.vscode/
+.vs-code/

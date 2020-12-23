@@ -4,15 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test:": "jest",
+    "test:coverage": "jest --coverage",
+    "test:coverage:detectOpenHandles":"jest --coverage --detectOpenHandles",
     "start:dev": "nodemon",
     "start": "node ./build/index.js",
     "clean": "rimraf ./build",
     "build": "npm run clean && tsc",
     "lint": "eslint ./src --ext .ts,.js",
     "lint:fix": "npm run lint -- --fix",
-    "verify": "npm run lint:fix && npm test",
-    "test:": "jest",
-    "test:coverage": "jest --coverage"
+    "verify": "npm run lint:fix && npm test"
   },
   "husky": {
     "hooks": {
