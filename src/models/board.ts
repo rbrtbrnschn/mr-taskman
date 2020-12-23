@@ -7,6 +7,7 @@ export interface BoardBase {
   ownerId: string;
   label?: string;
   permissions?: string;
+  columns?: unknown;
 }
 
 interface BoardBaseInterface extends BoardBase, mongoose.Document {}
