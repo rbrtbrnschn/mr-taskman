@@ -1,19 +1,20 @@
 import mongoose, { Schema, Types } from "mongoose";
 
-export interface TaskInterface extends mongoose.Document {
+export interface TaskBase {
   title: string;
-  description: string;
+  description?: string;
   participants: Array<string>;
-  deadline: Date;
+  deadline?: Date;
   taskId: string;
-  messageIds: Types.Map<string>;
+  messageIds?: Types.Map<string>;
   guildId: string;
   columnId: string;
-  completed: boolean;
-  createdTimestamp: number;
-  completedTimestamp: number;
-  wip: boolean;
+  completed?: boolean;
+  createdTimestamp?: number;
+  completedTimestamp?: number;
+  wip?: boolean;
 }
+export interface TaskInterface extends TaskBase, mongoose.Document {}
 
 const taskSchema = new Schema({
   title: String,
