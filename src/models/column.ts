@@ -1,15 +1,18 @@
 import mongoose, { Schema, Types } from "mongoose";
 import TaskInterface from "./task";
 
-export interface ColumnBase {
+export interface PopulatableColumnInterface {
+  tasks?: unknown;
+}
+export interface ColumnBase extends PopulatableColumnInterface {
   guildId: string;
   boardId: string;
   columnId: string;
   ownerId: string;
   label?: string;
   permissions?: string;
-  tasks?: unknown;
 }
+
 export interface ColumnBaseInterface extends ColumnBase, mongoose.Document {}
 
 export interface ColumnInterface extends ColumnBaseInterface {

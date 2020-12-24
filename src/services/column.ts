@@ -4,7 +4,7 @@ import {
   ColumnInterface,
   ColumnPopulatedInterface,
 } from "../models/column";
-import ColumnModel from "../models/column";
+import ColumnModel, { PopulatableColumnInterface } from "../models/column";
 import config from "../config";
 import BoardService from "./board";
 import { BoardInterface } from "../models/board";
@@ -129,6 +129,46 @@ class ColumnService {
     } catch (err) {
       console.log(err);
       return null;
+    }
+  }
+  /**
+   * @namespace
+   * @param {object} params
+   * @property {string} params.key - query key
+   * @property {any} params.value - query value
+   * @property {string?} populate - **optional** key of column model to be populated
+   */
+  async fetch2<
+    T extends {
+      query: { key: keyof ColumnInterface; value: any };
+      populate?: keyof PopulatableColumnInterface;
+    }
+  >(params: T): Promise<ColumnInterface> {
+    const { query, populate } = params;
+    const { key, value } = query;
+
+    // Fetch
+    try {
+      const column = await ColumnModel.findOne({ [key]: value });
+      if (!column) throw new Error("[COLUMN FETCH]: query was insufficient");
+      if (!populate) return column;
+
+      // Populate
+      try {
+        const populatedColumn = (await column
+          .populate(populate)
+          .execPopulate()) as unknown;
+        if (!populatedColumn)
+          throw new Error(
+            "[COLUMN FETCH POPULATE]: {populate} was insufficient"
+          );
+
+        return column;
+      } catch (err) {
+        console.log(err);
+      }
+    } catch (er) {
+      console.log(er);
     }
   }
 
