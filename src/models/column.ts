@@ -1,13 +1,18 @@
 import mongoose, { Schema, Types } from "mongoose";
 import TaskInterface from "./task";
 import Permissions from "./permissions";
+/* 
+  Not sure Typescript Enums Are Supported As value for mongoose schema porperty: "enum"
+  Hence, converting enums to an array at the moment.
+  https://github.com/Automattic/mongoose/issues/9535
+*/
 
 export interface PopulatableColumnInterface {
   tasks?: unknown;
 }
 export interface ColumnBase extends PopulatableColumnInterface {
-  guildId: string;
-  boardId: string;
+  guildId: mongoose.Types.ObjectId;
+  boardId: mongoose.Types.ObjectId;
   ownerId: string;
   columnId?: string;
   label?: string;
@@ -25,8 +30,8 @@ export interface ColumnPopulatedInterface extends ColumnBaseInterface {
 }
 
 const columnSchema = new Schema<ColumnBaseInterface>({
-  guildId: { type: String, required: true },
-  boardId: { type: mongoose.Types.ObjectId, required: true },
+  guildId: { type: mongoose.Types.ObjectId, required: true, ref: "guild" },
+  boardId: { type: mongoose.Types.ObjectId, required: true, ref: "board" },
   ownerId: { type: String, required: true },
   columnId: { type: String, default: "" },
   label: { type: String, required: true },
