@@ -140,7 +140,7 @@ class ColumnService {
    */
   async fetch2<
     T extends {
-      query: { key: keyof ColumnInterface; value: any };
+      query: { key: keyof ColumnBase; value: any };
       populate?: keyof PopulatableColumnInterface;
     }
   >(params: T): Promise<ColumnInterface> {
