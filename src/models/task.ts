@@ -1,16 +1,18 @@
 import mongoose, { Schema, Types } from "mongoose";
 import ColumnModel from "./column";
 
-export interface TaskBase {
+export interface PopulatableTaskInterface {
+  columns?: unknown;
+}
+export interface TaskBase extends PopulatableTaskInterface {
   title: string;
   description?: string;
-  participants: Array<string>;
+  participants?: Array<string>;
   deadline?: Date;
   taskId: string;
   messageIds?: Types.Map<string>;
   guildId: string;
   columnId: string; // deprecated soon
-  columns: unknown;
   completed?: boolean;
   createdTimestamp?: number;
   completedTimestamp?: number;
@@ -28,19 +30,19 @@ export interface TaskPopulatedInterface extends TaskBaseInterface {
 }
 
 const taskSchema = new Schema({
-  title: String,
+  title: { type: String, required: true },
   description: { type: String, default: "\u200b" },
-  participants: [],
+  participants: [{ type: String, default: [] }],
   deadline: Date,
-  taskId: String,
+  taskId: { type: String, required: true },
   messageIds: { type: Map, of: String, default: {} },
-  guildId: String,
-  columnId: String, // depecrated soon
-  columns: [{ type: Schema.Types.ObjectId, ref: "columns" }],
+  guildId: { type: String, required: true },
+  // columnId: String, // depecrated soon
   completed: { type: Boolean, default: false },
   createdTimestamp: { type: Number, default: Date.now() },
   completedTimestamp: { type: Number, default: 0 },
   wip: { type: Boolean, default: false },
+  columns: [{ type: Schema.Types.ObjectId, ref: "columns", default: [] }],
 });
 
 const TaskModel = mongoose.model<TaskInterface>("tasks", taskSchema);

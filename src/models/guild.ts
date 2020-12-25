@@ -1,42 +1,52 @@
 import TaskInterface from "./task";
 import BoardInterface from "./board";
 import mongoose, { Schema, Types } from "mongoose";
+/* 
+  Not sure Typescript Enums Are Supported As value for mongoose schema porperty: "enum"
+  Hence, converting enums to an array at the moment.
+  https://github.com/Automattic/mongoose/issues/9535
+*/
 
-export interface GuildBase {
+export interface PopuplatableGuildInterface {
+  tasks?: unknown;
+  boards?: unknown;
+  selectedTasks?: unknown;
+}
+
+export interface GuildBase extends PopuplatableGuildInterface {
   guildId: string;
-  channelIds: Array<string>;
   ownerId: string;
   nextTaskId: number;
-  roles: Record<string, string>; // name : id of a Discord.Role
-  boards: unknown;
+  roles: Record<string, string>;
+  channelIds: Array<string>; //@deprecated soon
 }
 interface GuildBaseInterface extends GuildBase, mongoose.Document {}
 
 export interface GuildInterface extends GuildBaseInterface {
-  tasks: Types.Array<Schema.Types.ObjectId>;
+  tasks: Types.Array<Schema.Types.ObjectId>; //@deprecated soon
   selectedTasks: Types.Map<Types.ObjectId>;
   boards: Types.Array<Types.ObjectId>;
 }
 
 export interface GuildPopulatedInterface extends GuildBaseInterface {
-  tasks: Types.Array<typeof TaskInterface>;
+  tasks: Types.Array<typeof TaskInterface>; //@deprecated soon
   selectedTasks: Types.Map<typeof TaskInterface>;
   boards: Types.Array<typeof BoardInterface>;
 }
 
 const guildSchema = new Schema({
-  guildId: String,
-  channelIds: { type: [String], default: [] },
-  ownerId: String,
+  guildId: { type: String, required: true },
+  ownerId: { type: String, required: true },
   nextTaskId: {
     type: Number,
     default: 0,
   },
-  roles: Object,
+  roles: { type: Object, default: {} },
   tasks: [
     {
       type: Schema.Types.ObjectId,
       ref: "tasks",
+      default: [],
     },
   ],
   selectedTasks: {
@@ -53,8 +63,10 @@ const guildSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "boards",
+      default: [],
     },
   ],
+  channelIds: { type: [String], default: [] }, //@deprecated soon
 });
 
 const GuildModel = mongoose.model<GuildInterface>("guilds", guildSchema);

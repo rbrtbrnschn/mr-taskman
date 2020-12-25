@@ -1,13 +1,15 @@
 import mongoose, { Schema, Types } from "mongoose";
 import ColumnModel from "./column";
+import Permissions from "./permissions";
 
-export interface BoardBase {
+export interface PopulatableBoardInterface {
+  columns?: unknown;
+}
+export interface BoardBase extends PopulatableBoardInterface {
   guildId: string;
-  boardId: string;
   ownerId: string;
   label?: string;
   permissions?: string;
-  columns: unknown;
 }
 
 interface BoardBaseInterface extends BoardBase, mongoose.Document {}
@@ -21,12 +23,15 @@ export interface BoardPopulatedInterface extends BoardBaseInterface {
 }
 
 const boardSchema = new Schema<BoardBaseInterface>({
-  label: { type: String, default: "" },
-  boardId: String,
-  ownerId: String,
-  permissions: { type: String, default: "" },
-  columns: [{ type: Schema.Types.ObjectId, ref: "columns" }],
-  guildId: String,
+  guildId: { type: String, required: true },
+  ownerId: { type: String, required: true },
+  label: { type: String, required: true },
+  permissions: {
+    type: String,
+    default: Permissions.everyone,
+    enum: Object.values(Permissions),
+  },
+  columns: [{ type: Schema.Types.ObjectId, ref: "columns", default: [] }],
 });
 
 const BoardModel = mongoose.model<BoardInterface>("boards", boardSchema);
