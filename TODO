@@ -5,6 +5,10 @@
 Todo:
   📌 Services
   ☐ Fix up Task Service (@critical @rbrtbrnschn)
+    ✅ create
+    ☐ edit
+    ☐ delete
+    ☐ fetch
   ☐ Fix up Column Service
   ☐ Fix up Board Service
   ☐ Fix up Guild Service
