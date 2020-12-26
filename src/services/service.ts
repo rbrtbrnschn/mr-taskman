@@ -8,16 +8,16 @@ export class GenericService {
     this.label = label;
     return;
   }
-  async create(): Promise<void> {
+  async create(...params: unknown[]): Promise<unknown> {
     return;
   }
-  async edit(): Promise<void> {
+  async edit(): Promise<unknown> {
     return;
   }
-  async delete(): Promise<void> {
+  async delete(): Promise<unknown> {
     return;
   }
-  async fetch(): Promise<void> {
+  async fetch(): Promise<unknown> {
     return;
   }
 }
