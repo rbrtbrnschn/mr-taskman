@@ -14,7 +14,7 @@ export interface ColumnBase extends PopulatableColumnInterface {
   guildId: mongoose.Types.ObjectId;
   boardId: mongoose.Types.ObjectId;
   ownerId: string;
-  columnId?: string;
+  columnIdentifier?: string;
   label?: string;
   permissions?: string;
 }
@@ -33,7 +33,7 @@ const columnSchema = new Schema<ColumnBaseInterface>({
   guildId: { type: mongoose.Types.ObjectId, required: true, ref: "guild" },
   boardId: { type: mongoose.Types.ObjectId, required: true, ref: "board" },
   ownerId: { type: String, required: true },
-  columnId: { type: String, default: "" },
+  columnIdentifier: { type: String, default: "" },
   label: { type: String, required: true },
   permissions: {
     type: String,
