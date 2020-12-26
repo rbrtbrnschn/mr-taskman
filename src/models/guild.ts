@@ -14,8 +14,8 @@ export interface PopuplatableGuildInterface {
 }
 
 export interface GuildBase extends PopuplatableGuildInterface {
-  ownerId: string;
-  nextTaskId: number;
+  ownerIdentifier: string;
+  nextTaskIdentifier: number;
   roles: Record<string, string>;
   channelIds: Array<string>; //@deprecated soon
   guildIdentifier: string;
@@ -35,7 +35,7 @@ export interface GuildPopulatedInterface extends GuildBaseInterface {
 }
 
 const guildSchema = new Schema({
-  ownerId: { type: String, required: true },
+  ownerIdentifier: { type: String, required: true },
   nextTaskId: {
     type: Number,
     default: 0,

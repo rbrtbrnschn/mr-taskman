@@ -9,7 +9,7 @@ export interface TaskBase extends PopulatableTaskInterface {
   description?: string;
   participants?: Array<string>;
   deadline?: Date;
-  taskId: string;
+  taskIdentifier?: number;
   messageIds?: Types.Map<string>;
   guildId: mongoose.Types.ObjectId;
   completed?: boolean;
@@ -33,7 +33,7 @@ const taskSchema = new Schema({
   description: { type: String, default: "\u200b" },
   participants: [{ type: String, default: [] }],
   deadline: { type: Date },
-  taskId: { type: String, required: true },
+  taskIdentifier: { type: Number, required: false },
   messageIds: { type: Map, of: String, default: {} },
   guildId: { type: mongoose.Types.ObjectId, required: true, ref: "guild" },
   completed: { type: Boolean, default: false },

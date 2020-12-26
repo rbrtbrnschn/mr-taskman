@@ -12,7 +12,7 @@ export interface PopulatableBoardInterface {
 }
 export interface BoardBase extends PopulatableBoardInterface {
   guildId: mongoose.Types.ObjectId;
-  ownerId: string;
+  ownerIdentifier: string;
   label?: string;
   permissions?: string;
 }
@@ -29,7 +29,7 @@ export interface BoardPopulatedInterface extends BoardBaseInterface {
 
 const boardSchema = new Schema<BoardBaseInterface>({
   guildId: { type: mongoose.Types.ObjectId, required: true, ref: "guild" },
-  ownerId: { type: String, required: true },
+  ownerIdentifier: { type: String, required: true },
   label: { type: String, required: true },
   permissions: {
     type: String,
