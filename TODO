@@ -1,4 +1,44 @@
+  /*
+    Todo+ by Fabio Spampinato 
+    fabiospampinato.vscode-todo-plus
+  */
 Todo:
-  ☐ Structure Models According To Issue #112
-  ☐ Standardize Service Class - *implements GenericService*
-  ☐ Create Enum For Permissions 
+  📌 Services
+  ☐ Fix up Task Service (@critical @rbrtbrnschn)
+  ☐ Fix up Column Service
+  ☐ Fix up Board Service
+  ☐ Fix up Guild Service
+  ------------------------------------
+  📌 Tests - Service
+  ☐ Write Generic Service Test
+  ☐ Write Task Service Test
+  ☐ Write Column Service Test
+  ☐ Write Board Service Test
+  ☐ Write Guild Service Test
+  ------------------------------------
+  ...
+  📌 Commands
+    📍 Guild
+      ☐ create  
+      ☐ manage
+      ☐ delete
+      ☐ add boards      
+    📍 Board
+      ☐ create
+      ☐ manage
+      ☐ delete      
+      ☐ add columns 
+    📍 Column
+      ☐ create
+      ☐ manage
+      ☐ delete     
+      ☐ add tasks      
+    📍 Task
+      ☐ create     
+      ☐ delete
+      ☐ manage      
+        ☐ add participants
+        ☐ add deadline 
+        ☐ notifiy participants     
+          ☐ on nearing deadline 
+          ☐ on kicked, added to task
