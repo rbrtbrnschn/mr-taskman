@@ -18,7 +18,7 @@ export interface GuildBase extends PopuplatableGuildInterface {
   nextTaskId: number;
   roles: Record<string, string>;
   channelIds: Array<string>; //@deprecated soon
-  guildId: string;
+  guildIdentifier: string;
 }
 interface GuildBaseInterface extends GuildBase, mongoose.Document {}
 
@@ -41,7 +41,7 @@ const guildSchema = new Schema({
     default: 0,
   },
   roles: { type: Object, default: {} },
-  guildId: { type: String, required: true },
+  guildIdentifier: { type: String, required: true },
   tasks: [
     {
       type: Schema.Types.ObjectId,
