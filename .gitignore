@@ -8,6 +8,4 @@ build/
 
 coverage/
 
-# Not sure of the nameing convention
 .vscode/
-.vs-code/
