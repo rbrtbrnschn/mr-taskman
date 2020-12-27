@@ -4,14 +4,30 @@
   */
 Todo:
   📌 Services
-  ☐ Fix up Task Service (@critical @rbrtbrnschn)
+  ✅  Fix up Task Service (@critical @rbrtbrnschn )
     ✅ create
+    ✅ edit
+    ✅ delete
+    ✅ fetch
+    ✅ add jsdoc 
+  ☐ Fix up Column Service (@critical @rbrtbrnschn )
+    ☐ create
     ☐ edit
     ☐ delete
     ☐ fetch
-  ☐ Fix up Column Service
+    ☐ add jsdoc 
   ☐ Fix up Board Service
+    ☐ create
+    ☐ edit
+    ☐ delete
+    ☐ fetch
+    ☐ add jsdoc 
   ☐ Fix up Guild Service
+    ☐ create
+    ☐ edit
+    ☐ delete
+    ☐ fetch
+    ☐ add jsdoc 
   ------------------------------------
   📌 Tests - Service
   ☐ Write Generic Service Test
@@ -46,3 +62,6 @@ Todo:
         ☐ notifiy participants     
           ☐ on nearing deadline 
           ☐ on kicked, added to task
+
+Secondary:
+  - fix Queue Type to allow TaskService.edit

@@ -11,13 +11,13 @@ export class GenericService {
   async create(...params: unknown[]): Promise<unknown> {
     return;
   }
-  async edit(): Promise<unknown> {
+  async edit(...params: unknown[]): Promise<unknown> {
     return;
   }
-  async delete(): Promise<unknown> {
+  async delete(...params: unknown[]): Promise<unknown> {
     return;
   }
-  async fetch(): Promise<unknown> {
+  async fetch(...params: unknown[]): Promise<unknown> {
     return;
   }
 }

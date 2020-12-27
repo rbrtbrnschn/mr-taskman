@@ -1,3 +1,6 @@
+/**
+ * @enum {number}
+ */
 export enum Errors {
   // Guild
   malformedGuildId,
@@ -13,6 +16,7 @@ export enum Errors {
   exisitingTaskId,
   // Properties
   missingProperty,
+  insufficientQuery,
 }
 
 export default Errors;

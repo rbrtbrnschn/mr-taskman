@@ -6,16 +6,22 @@ import ColumnService from "./newColumn";
 import throwError from "../utils/errors";
 import Errors from "../models/errors";
 import { ColumnInterface } from "../models/column";
+import Query from "../models/query";
 
 /**
  * Service serving as interface between all things task and the backend.
  */
 export class TaskService extends GenericService {
+  /**
+   * @param {string} name - Name of the service.
+   */
   constructor(name: string) {
     super(name);
   }
+
   /**
    * Instantiates a new `Task`.
+   * @param {TaskBase} taskbase - Necessary fields to instatiate new `task` instance.
    */
   async create(taskbase: TaskBase): Promise<TaskInterface> {
     const { guildId, columns } = taskbase;
@@ -68,7 +74,97 @@ export class TaskService extends GenericService {
       console.log(err);
     }
   }
+
+  /**
+   * Edit's a `task` instance.
+   * @param {{key: keyof TaskBase, value: unknown}} query - Query object.
+   */
+  async edit<K extends keyof TaskInterface>(
+    query: Query<TaskInterface, K>,
+    replace: Query<TaskInterface, K>
+  ): Promise<TaskInterface> {
+    const { key, value } = query;
+    /*
+      1. Get task
+      2. Edit
+      3. Mark modified
+      4. Save
+    */
+    try {
+      const task = (await TaskModel.findOne({ [key]: value })) as TaskInterface;
+      if (!task) {
+        throwError(
+          `Insufficient query: ${query}`,
+          Errors.insufficientQuery,
+          __dirname,
+          __filename
+        );
+      }
+      task[replace.value] = replace.value;
+
+      task.markModified(replace.key);
+      task.save();
+      return task;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  /**
+   * Deletes instance of `task`.
+   * @param {{key: keyof TaskBase, value: unknown}} query - Query object.
+   */
+  async delete<K extends keyof TaskBase>(
+    query: Query<TaskBase, K>
+  ): Promise<TaskInterface> {
+    const { key, value } = query;
+    /*Flow
+      1. get task
+      1. delete task
+      1. save
+    */
+    try {
+      const task = await TaskModel.findOne({ [key]: value });
+      if (!task.$isDeleted) console.log("TODO: not sure this works");
+
+      return task.deleteOne((err, deletedTask) => deletedTask);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  /**
+   * Fetches `task` instance.
+   * @param {Query} query - Query object.
+   */
+  // Potential Overloading.
+  async fetch<K extends keyof TaskBase>(
+    query: Query<TaskBase, K>
+  ): Promise<TaskInterface> {
+    /*Flow
+      1. get task
+      2. validate
+      3. return 
+    */
+    try {
+      const { key, value } = query;
+      const task = await TaskModel.findOne({ [key]: value });
+      if (!task)
+        throwError(
+          `Insufficient query: ${query}`,
+          Errors.insufficientQuery,
+          __dirname,
+          __filename
+        );
+      return task;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
+
+const taskService = new TaskService("task-service");
+export default taskService;
 
 //* Helpers
 async function addTaskRefToColumn(
