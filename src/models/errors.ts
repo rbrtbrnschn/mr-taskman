@@ -17,6 +17,7 @@ export enum Errors {
   // Properties
   missingProperty,
   insufficientQuery,
+  malformedLabel,
 }
 
 export default Errors;
