@@ -1,8 +1,8 @@
 import mongoose, { Schema, Types } from "mongoose";
-import ColumnModel from "./column";
+import { ColumnInterface } from "./column";
 
 export interface PopulatableTaskInterface {
-  columns?: unknown;
+  columns?: Array<unknown>;
 }
 /**
  * @param {string} title - Title.
@@ -39,7 +39,7 @@ export interface TaskInterface extends TaskBaseInterface {
 }
 
 export interface TaskPopulatedInterface extends TaskBaseInterface {
-  columns: Types.Array<typeof ColumnModel>;
+  columns: Types.Array<ColumnInterface>;
 }
 
 const taskSchema = new Schema({

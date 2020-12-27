@@ -1,5 +1,5 @@
 import mongoose, { Schema, Types } from "mongoose";
-import ColumnModel from "./column";
+import { ColumnInterface } from "./column";
 import Permissions from "./permissions";
 /* 
   Not sure Typescript Enums Are Supported As value for mongoose schema porperty: "enum"
@@ -8,7 +8,7 @@ import Permissions from "./permissions";
 */
 
 export interface PopulatableBoardInterface {
-  columns?: unknown;
+  columns?: Array<unknown>;
 }
 export interface BoardBase extends PopulatableBoardInterface {
   guildId: mongoose.Types.ObjectId;
@@ -24,7 +24,7 @@ export interface BoardInterface extends BoardBaseInterface {
 }
 
 export interface BoardPopulatedInterface extends BoardBaseInterface {
-  columns: Types.Array<typeof ColumnModel>;
+  columns: Types.Array<ColumnInterface>;
 }
 
 const boardSchema = new Schema<BoardBaseInterface>({

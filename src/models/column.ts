@@ -1,5 +1,5 @@
 import mongoose, { Schema, Types } from "mongoose";
-import TaskInterface from "./task";
+import { TaskInterface } from "./task";
 import Permissions from "./permissions";
 /* 
   Not sure Typescript Enums Are Supported As value for mongoose schema porperty: "enum"
@@ -8,7 +8,7 @@ import Permissions from "./permissions";
 */
 
 export interface PopulatableColumnInterface {
-  tasks?: unknown;
+  tasks?: Array<unknown>;
 }
 export interface ColumnBase extends PopulatableColumnInterface {
   guildId: mongoose.Types.ObjectId;
@@ -22,11 +22,11 @@ export interface ColumnBase extends PopulatableColumnInterface {
 export interface ColumnBaseInterface extends ColumnBase, mongoose.Document {}
 
 export interface ColumnInterface extends ColumnBaseInterface {
-  tasks?: Types.Array<Schema.Types.ObjectId>;
+  tasks: Types.Array<Schema.Types.ObjectId>;
 }
 
 export interface ColumnPopulatedInterface extends ColumnBaseInterface {
-  tasks?: Types.Array<typeof TaskInterface>;
+  tasks: Types.Array<TaskInterface>;
 }
 
 const columnSchema = new Schema<ColumnBaseInterface>({

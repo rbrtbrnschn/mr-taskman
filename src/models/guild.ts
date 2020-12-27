@@ -1,5 +1,5 @@
-import TaskInterface from "./task";
-import BoardInterface from "./board";
+import { TaskInterface } from "./task";
+import { BoardInterface } from "./board";
 import mongoose, { Schema, Types } from "mongoose";
 /* 
   Not sure Typescript Enums Are Supported As value for mongoose schema porperty: "enum"
@@ -8,8 +8,8 @@ import mongoose, { Schema, Types } from "mongoose";
 */
 
 export interface PopuplatableGuildInterface {
-  tasks?: unknown;
-  boards?: unknown;
+  tasks?: Array<unknown>;
+  boards?: Array<unknown>;
   selectedTasks?: unknown;
 }
 
@@ -29,9 +29,9 @@ export interface GuildInterface extends GuildBaseInterface {
 }
 
 export interface GuildPopulatedInterface extends GuildBaseInterface {
-  tasks: Types.Array<typeof TaskInterface>; //@deprecated soon
-  selectedTasks: Types.Map<typeof TaskInterface>;
-  boards: Types.Array<typeof BoardInterface>;
+  tasks: Types.Array<TaskInterface>; //@deprecated soon
+  selectedTasks: Types.Map<TaskInterface>;
+  boards: Types.Array<BoardInterface>;
 }
 
 const guildSchema = new Schema({
