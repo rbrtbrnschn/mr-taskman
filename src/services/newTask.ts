@@ -13,10 +13,10 @@ import Query from "../models/query";
  */
 export class TaskService extends GenericService {
   /**
-   * @param {string} name - Name of the service.
+   *
    */
-  constructor(name: string) {
-    super(name);
+  constructor() {
+    super();
   }
 
   /**
