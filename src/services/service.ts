@@ -3,9 +3,7 @@
  * Outlines formatting of other service classes.
  */
 export class GenericService {
-  label: string;
-  constructor(label: string) {
-    this.label = label;
+  constructor() {
     return;
   }
   async create(...params: unknown[]): Promise<unknown> {
