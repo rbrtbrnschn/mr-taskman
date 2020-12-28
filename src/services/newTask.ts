@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import TaskModel, { TaskBase, TaskInterface } from "../models/task";
 import GenericService from "./service";
-import GuildService from "./newGuild";
-import ColumnService from "./newColumn";
+import { GuildService, ColumnService } from ".";
 import throwError from "../utils/errors";
 import Errors from "../models/errors";
 import { ColumnInterface } from "../models/column";
@@ -31,7 +30,7 @@ export class TaskService extends GenericService {
     */
     /* Flow
       1. validate guildId => unique and existing within global scope
-      2. validate columns[] was provided
+      2. validate columns[]
       3. create new task
       4. reference task[4] in corresponding column if available.
     */
@@ -163,7 +162,7 @@ export class TaskService extends GenericService {
   }
 }
 
-const taskService = new TaskService("task-service");
+const taskService = new TaskService();
 export default taskService;
 
 //* Helpers
