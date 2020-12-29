@@ -1,4 +1,8 @@
-import ColumnModel, { ColumnBase, ColumnInterface } from "../models/column";
+import ColumnModel, {
+  ColumnBase,
+  ColumnInterface,
+  ColumnPopulatedInterface,
+} from "../models/column";
 import { BoardInterface, BoardPopulatedInterface } from "../models/board";
 import GenericService from "./service";
 import throwError from "../utils/errors";
@@ -11,6 +15,7 @@ class ColumnService extends GenericService {
     super();
   }
   /**
+   * Instantiates new `column` instance.
    * @param {ColumnBase} columnBase - base properties to instantiate `column` instance.
    */
   async create(columnBase: ColumnBase): Promise<ColumnService> {
@@ -64,7 +69,11 @@ class ColumnService extends GenericService {
     }
     return;
   }
-
+  /**
+   * Edits `column` instance.
+   * @param {Query} query - Query object.
+   * @param {Query} replace - Query object.
+   */
   async edit<K extends keyof ColumnInterface>(
     query: Query<ColumnInterface, K>,
     replace: Query<ColumnInterface, K>
@@ -75,6 +84,7 @@ class ColumnService extends GenericService {
       3. save
     */
     try {
+      // [1]
       const column = await ColumnModel.findOne(
         new QueryClass<ColumnInterface, keyof ColumnInterface>(
           query
@@ -87,10 +97,91 @@ class ColumnService extends GenericService {
           __dirname,
           __filename
         );
+      // [2]
       column[replace.key] = replace.value;
       column.markModified(replace.key);
+      // [3]
       column.save();
       return column;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  /**
+   * Deletes `column` instance.
+   * @param {Query} query - Query object.
+   */
+  async delete<K extends keyof ColumnBase>(
+    query: Query<ColumnBase, K>
+  ): Promise<ColumnInterface> {
+    /*
+      1. fetch
+      2. validate column
+      3. delete
+    */
+    try {
+      // [1]
+      const column = await ColumnModel.findOne(
+        new QueryClass(query).transform()
+      );
+      // [2]
+      if (column && column.$isDeleted())
+        throwError(
+          "already deleted task",
+          Errors.unknown,
+          __dirname,
+          __filename
+        );
+      // [3]
+      return await column.deleteOne((_, deletedColumn) => deletedColumn);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  /**
+   * Fetches `column` instance by given query.
+   * @param {Query} query - Query object.
+   */
+  async fetch<K extends keyof ColumnInterface>(
+    query: Query<ColumnInterface, K>
+  ): Promise<ColumnInterface> {
+    /*
+      1. get column
+      2. validate
+      3. return
+    */
+    try {
+      const column = await ColumnModel.findOne(
+        new QueryClass(query).transform()
+      );
+      if (!column)
+        throwError(
+          `Insufficient query: ${query}`,
+          Errors.insufficientQuery,
+          __dirname,
+          __filename
+        );
+
+      return column;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  /**
+   * Populates `column` instance.
+   * @param {Query} column - Query object.
+   */
+  async populate(column: ColumnInterface): Promise<ColumnPopulatedInterface> {
+    /*
+      1. populate
+    */
+    try {
+      const populatedColumn = (await column
+        .populate("tasks")
+        .execPopulate()) as unknown;
+      if (!populateBoard)
+        throwError("Population failed", Errors.unknown, __dirname, __filename);
+      return <ColumnPopulatedInterface>populatedColumn;
     } catch (err) {
       console.log(err);
     }
