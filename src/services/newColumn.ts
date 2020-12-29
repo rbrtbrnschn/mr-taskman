@@ -45,9 +45,10 @@ class ColumnService extends GenericService {
           __filename
         );
       // [2]
-      const populatedBoard = (await BoardService.fetch(boardId).then(
-        populateBoard
-      )) as BoardPopulatedInterface;
+      const populatedBoard = (await BoardService.fetch({
+        key: "_id",
+        value: boardId,
+      }).then(populateBoard)) as BoardPopulatedInterface;
       const existingLabel = populatedBoard.columns.find(
         (e) => e.label === label
       );
