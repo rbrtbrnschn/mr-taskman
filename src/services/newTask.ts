@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
-import TaskModel, { TaskBase, TaskInterface } from "../models/task";
+import TaskModel, {
+  TaskBase,
+  TaskInterface,
+  TaskPopulatedInterface,
+} from "../models/task";
 import GenericService from "./service";
 import { GuildService, ColumnService } from ".";
 import throwError from "../utils/errors";
@@ -124,9 +128,10 @@ export class TaskService extends GenericService {
     */
     try {
       const task = await TaskModel.findOne({ [key]: value });
-      if (!task.$isDeleted) console.log("TODO: not sure this works");
+      if (task && task.$isDeleted())
+        throwError("non existant task", Errors.unknown, __dirname, __filename);
 
-      return task.deleteOne((err, deletedTask) => deletedTask);
+      return await task.deleteOne((_, deletedTask) => deletedTask);
     } catch (err) {
       console.log(err);
     }
@@ -160,6 +165,20 @@ export class TaskService extends GenericService {
       console.log(err);
     }
   }
+
+  async populate(task: TaskInterface): Promise<TaskPopulatedInterface> {
+    try {
+      const populatedTask = (await task
+        .populate("columns")
+        .execPopulate()) as unknown;
+      if (!populatedTask)
+        throwError("Population failed", Errors.unknown, __dirname, __filename);
+
+      return <TaskPopulatedInterface>populatedTask;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 const taskService = new TaskService();
@@ -171,7 +190,8 @@ async function addTaskRefToColumn(
   taskId: mongoose.Schema.Types.ObjectId
 ) {
   const column = (await ColumnService.fetch({
-    query: { key: "columnId", value: columnId },
+    key: "_id",
+    value: columnId,
   })) as ColumnInterface;
   column.tasks.push(taskId);
   column.markModified("tasks");
