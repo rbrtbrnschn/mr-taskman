@@ -18,6 +18,9 @@ export class GenericService {
   async fetch(...params: unknown[]): Promise<unknown> {
     return;
   }
+  async populate(...params: unknown[]): Promise<unknown> {
+    return;
+  }
 }
 
 export default GenericService;
