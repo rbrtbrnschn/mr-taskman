@@ -6,7 +6,7 @@
   "scripts": {
     "test:": "jest",
     "test:coverage": "jest --coverage",
-    "test:coverage:detectOpenHandles":"jest --coverage --detectOpenHandles",
+    "test:coverage:detectOpenHandles": "jest --coverage --detectOpenHandles",
     "start:dev": "nodemon",
     "start": "node ./build/index.js",
     "clean": "rimraf ./build",
