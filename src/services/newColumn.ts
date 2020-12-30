@@ -86,21 +86,13 @@ class ColumnService extends GenericService {
     */
     try {
       // [1]
-      const column = await ColumnModel.findOne(
-        new QueryClass<ColumnInterface, keyof ColumnInterface>(
-          query
-        ).transform()
-      );
-      if (!column)
-        throwError(
-          `Insufficient query: ${query}`,
-          Errors.insufficientQuery,
-          __dirname,
-          __filename
-        );
+      const column = await this.fetch(query);
+      if (!column) return;
+
       // [2]
       column[replace.key] = replace.value;
       column.markModified(replace.key);
+
       // [3]
       column.save();
       return column;
@@ -112,8 +104,8 @@ class ColumnService extends GenericService {
    * Deletes `column` instance.
    * @param {Query} query - Query object.
    */
-  async delete<K extends keyof ColumnBase>(
-    query: Query<ColumnBase, K>
+  async delete<K extends keyof ColumnInterface>(
+    query: Query<ColumnInterface, K>
   ): Promise<ColumnInterface> {
     /*
       1. fetch
@@ -122,10 +114,9 @@ class ColumnService extends GenericService {
     */
     try {
       // [1]
-      const column = await ColumnModel.findOne(
-        new QueryClass(query).transform()
-      );
+      const column = await this.fetch(query);
       // [2]
+      if (!column) return;
       if (column && column.$isDeleted())
         throwError(
           "already deleted task",
