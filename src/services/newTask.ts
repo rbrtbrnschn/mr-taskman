@@ -9,7 +9,7 @@ import { GuildService, ColumnService } from ".";
 import throwError from "../utils/errors";
 import Errors from "../models/errors";
 import { ColumnInterface } from "../models/column";
-import Query from "../models/query";
+import Query, { QueryClass } from "../models/query";
 
 /**
  * Service serving as interface between all things task and the backend.
@@ -80,31 +80,25 @@ export class TaskService extends GenericService {
 
   /**
    * Edit's a `task` instance.
-   * @param {{key: keyof TaskBase, value: unknown}} query - Query object.
+   * @param {Query} query - Query object.
    */
   async edit<K extends keyof TaskInterface>(
     query: Query<TaskInterface, K>,
     replace: Query<TaskInterface, K>
   ): Promise<TaskInterface> {
-    const { key, value } = query;
     /*
       1. Get task
       2. Edit
-      3. Mark modified
-      4. Save
+      3. Save
     */
     try {
-      const task = (await TaskModel.findOne({ [key]: value })) as TaskInterface;
-      if (!task) {
-        throwError(
-          `Insufficient query: ${query}`,
-          Errors.insufficientQuery,
-          __dirname,
-          __filename
-        );
-      }
-      task[replace.value] = replace.value;
+      // [1]
+      const task = await this.fetch(query);
+      if (!task) return;
 
+      // [2]
+      task[replace.value] = replace.value;
+      // [3]
       task.markModified(replace.key);
       task.save();
       return task;
@@ -115,19 +109,19 @@ export class TaskService extends GenericService {
 
   /**
    * Deletes instance of `task`.
-   * @param {{key: keyof TaskBase, value: unknown}} query - Query object.
+   * @param {Query} query - Query object.
    */
-  async delete<K extends keyof TaskBase>(
-    query: Query<TaskBase, K>
+  async delete<K extends keyof TaskInterface>(
+    query: Query<TaskInterface, K>
   ): Promise<TaskInterface> {
-    const { key, value } = query;
     /*Flow
       1. get task
       1. delete task
       1. save
     */
     try {
-      const task = await TaskModel.findOne({ [key]: value });
+      const task = await this.fetch(query);
+      if (!task) return;
       if (task && task.$isDeleted())
         throwError("non existant task", Errors.unknown, __dirname, __filename);
 
@@ -142,8 +136,8 @@ export class TaskService extends GenericService {
    * @param {Query} query - Query object.
    */
   // Potential Overloading.
-  async fetch<K extends keyof TaskBase>(
-    query: Query<TaskBase, K>
+  async fetch<K extends keyof TaskInterface>(
+    query: Query<TaskInterface, K>
   ): Promise<TaskInterface> {
     /*Flow
       1. get task
@@ -151,8 +145,7 @@ export class TaskService extends GenericService {
       3. return 
     */
     try {
-      const { key, value } = query;
-      const task = await TaskModel.findOne({ [key]: value });
+      const task = await TaskModel.findOne(new QueryClass(query).transform());
       if (!task)
         throwError(
           `Insufficient query: ${query}`,
