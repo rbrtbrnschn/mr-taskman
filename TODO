@@ -22,12 +22,12 @@ Todo:
     ✅ delete
     ✅ fetch
     ✅ add jsdoc 
-  ☐ Fix up Guild Service (@critical @rbrtbrnschn )
-    ☐ create
-    ☐ edit
-    ☐ delete
-    ☐ fetch
-    ☐ add jsdoc 
+  ✅ Fix up Guild Service (@critical @rbrtbrnschn )
+    ✅ create
+    ✅ edit
+    ✅ delete
+    ✅ fetch
+    ✅ add jsdoc 
   ------------------------------------
   📌 Tests - Service
   ☐ Write Generic Service Test
