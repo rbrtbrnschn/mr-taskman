@@ -10,19 +10,19 @@ Todo:
     ✅ delete
     ✅ fetch
     ✅ add jsdoc 
-  ☐ Fix up Column Service (@critical @rbrtbrnschn )
-    ☐ create
-    ☐ edit
-    ☐ delete
-    ☐ fetch
-    ☐ add jsdoc 
-  ☐ Fix up Board Service
-    ☐ create
-    ☐ edit
-    ☐ delete
-    ☐ fetch
-    ☐ add jsdoc 
-  ☐ Fix up Guild Service
+  ✅  Fix up Column Service (@critical @rbrtbrnschn )
+    ✅ create
+    ✅ edit
+    ✅ delete
+    ✅ fetch
+    ✅ add jsdoc 
+  ✅ Fix up Board Service (@critical @rbrtbrnschn )
+    ✅ create
+    ✅ edit
+    ✅ delete
+    ✅ fetch
+    ✅ add jsdoc 
+  ☐ Fix up Guild Service (@critical @rbrtbrnschn )
     ☐ create
     ☐ edit
     ☐ delete
