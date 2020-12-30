@@ -1,6 +1,7 @@
 import { TaskInterface } from "./task";
 import { BoardInterface } from "./board";
 import mongoose, { Schema, Types } from "mongoose";
+import Roles from "./roles";
 /* 
   Not sure Typescript Enums Are Supported As value for mongoose schema porperty: "enum"
   Hence, converting enums to an array at the moment.
@@ -14,11 +15,11 @@ export interface PopuplatableGuildInterface {
 }
 
 export interface GuildBase extends PopuplatableGuildInterface {
-  ownerIdentifier: string;
-  nextTaskIdentifier: number;
-  roles: Record<string, string>;
-  channelIds: Array<string>; //@deprecated soon
   guildIdentifier: string;
+  ownerIdentifier: string;
+  roles?: Roles;
+  channelIds?: Array<string>; //@deprecated soon
+  nextTaskIdentifier?: number;
 }
 interface GuildBaseInterface extends GuildBase, mongoose.Document {}
 
@@ -35,18 +36,24 @@ export interface GuildPopulatedInterface extends GuildBaseInterface {
 }
 
 const guildSchema = new Schema({
+  guildIdentifier: { type: String, required: true },
   ownerIdentifier: { type: String, required: true },
-  nextTaskId: {
+  nextTaskIdentifier: {
     type: Number,
     default: 0,
+    required: false,
   },
-  roles: { type: Object, default: {} },
-  guildIdentifier: { type: String, required: true },
+  roles: {
+    type: Object,
+    default: { admin: "", moderator: "", everyone: "" } as Roles,
+    required: false,
+  },
   tasks: [
     {
       type: Schema.Types.ObjectId,
       ref: "tasks",
       default: [],
+      required: false,
     },
   ],
   selectedTasks: {
@@ -57,6 +64,7 @@ const guildSchema = new Schema({
       ref: "tasks",
     },
     from: String,
+    required: false,
   },
 
   boards: [
@@ -64,9 +72,10 @@ const guildSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "boards",
       default: [],
+      required: false,
     },
   ],
-  channelIds: { type: [String], default: [] }, //@deprecated soon
+  channelIds: { type: [String], default: [], required: false }, //@deprecated soon
 });
 
 const GuildModel = mongoose.model<GuildInterface>("guilds", guildSchema);
