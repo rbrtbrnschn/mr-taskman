@@ -7,6 +7,7 @@ import GuildModel, {
 import throwError from "../utils/errors";
 import GenericService from "./service";
 import Query, { QueryClass } from "../models/query";
+import mongoose from "mongoose";
 
 /**
  * Service serving as interface between all things `board` and the backend.
@@ -147,6 +148,49 @@ class GuildService extends GenericService {
         .execPopulate()) as unknown;
 
       return <GuildPopulatedInterface>populatedGuild;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  //? Custom methods
+
+  async getNextTaskId(guildId: mongoose.Types.ObjectId): Promise<string>;
+  async getNextTaskId<K extends keyof GuildInterface>(
+    query: Query<GuildInterface, K>
+  ): Promise<string>;
+  async getNextTaskId<K extends keyof GuildInterface>(
+    param: unknown
+  ): Promise<string> {
+    try {
+      let guild;
+      if (Object.entries(param).length === 2) {
+        // param: Query<GuildInterface, K>
+        guild = (await this.fetch(
+          param as Query<GuildInterface, K>
+        )) as GuildInterface;
+      } else {
+        // param: mongoose.Schema.Types.ObjectId
+        guild = (await this.fetch({
+          key: "_id",
+          value: param,
+        })) as GuildInterface;
+      }
+      const newId = ("" + (guild.nextTaskIdentifier || 0)).padStart(4, "0");
+      guild.nextTaskIdentifier = guild.nextTaskIdentifier % 10000; // Breaks at 10000 tasks if there is overlap
+      guild.markModified("nextTaskIdentifier");
+      guild.save();
+      return newId;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async isExisitingGuildId(guildId: mongoose.Types.ObjectId): Promise<boolean> {
+    try {
+      const guild = await this.fetch({ key: "_id", value: guildId });
+      if (!guild) return false;
+      return true;
     } catch (err) {
       console.log(err);
     }
