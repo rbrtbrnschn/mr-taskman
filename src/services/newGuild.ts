@@ -164,7 +164,7 @@ class GuildService extends GenericService {
   ): Promise<string> {
     try {
       let guild;
-      if (Object.entries(param).length === 2) {
+      if (Object.keys(param) === ["keys", "value"]) {
         // param: Query<GuildInterface, K>
         guild = (await this.fetch(
           param as Query<GuildInterface, K>
